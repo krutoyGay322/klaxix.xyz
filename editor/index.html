@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>РЕДАКТОР ИВЕНТОВ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Rubik:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="editor.css">
+</head>
+<body>
+
+<div class="page">
+  <div class="fog" aria-hidden="true">
+    <div class="fog__layer fog__layer--top"></div>
+    <div class="fog__layer fog__layer--bottom"></div>
+  </div>
+
+  <div class="shell shell--wide">
+
+    <header class="header">
+      <div class="logo">РЕДАКТОР<span class="logo__dot">.</span></div>
+      <nav class="header__links">
+        <a class="chip chip--green" href="../index.html">← К КАЛЕНДАРЮ</a>
+      </nav>
+    </header>
+
+    <div class="notice notice--info" id="status"></div>
+
+    <div class="editor">
+
+      <section class="card">
+        <h2 class="card__title" id="form-title">Новый ивент</h2>
+        <form id="event-form" autocomplete="off">
+          <div class="field-row">
+            <label class="field">
+              <span class="field__label">Дата</span>
+              <input class="input" type="date" id="f-date" required>
+            </label>
+            <label class="field">
+              <span class="field__label">Время</span>
+              <input class="input" type="time" id="f-time" value="14:00" required>
+            </label>
+          </div>
+
+          <label class="field">
+            <span class="field__label">Тип</span>
+            <select class="input" id="f-type"></select>
+          </label>
+
+          <label class="field">
+            <span class="field__label">Название</span>
+            <input class="input" type="text" id="f-title" placeholder="Близнецовская Олимпиада" required maxlength="60">
+          </label>
+
+          <label class="field">
+            <span class="field__label">Описание</span>
+            <textarea class="input" id="f-desc" rows="3" placeholder="Спонсор — Nique. Детали в дискорде."></textarea>
+          </label>
+
+          <label class="field">
+            <span class="field__label">VOD — запись прошедшего ивента</span>
+            <input class="input" type="url" id="f-vod" placeholder="https://youtu.be/… (необязательно)">
+          </label>
+
+          <div class="field__error" id="form-error" hidden></div>
+
+          <div class="form-actions">
+            <button class="btn btn--green" type="submit" id="submit-btn">Добавить</button>
+            <button class="btn btn--ghost" type="button" id="cancel-btn" hidden>Отмена</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="card__head">
+          <h2 class="card__title">Ивенты <span class="counter" id="count">0</span></h2>
+          <button class="linkbtn" type="button" id="import-btn">Загрузить свой JSON</button>
+          <input type="file" id="import-file" accept=".json,application/json" hidden>
+        </div>
+        <div class="list" id="list"></div>
+        <div class="empty" id="empty" hidden>Пока пусто. Добавь первый ивент слева.</div>
+      </section>
+
+    </div>
+
+    <section class="export">
+      <div>
+        <div class="export__title">Готово? Обнови сайт</div>
+        <div class="export__text">
+          Скачай <code>events.json</code> и залей его в свой GitHub-репозиторий вместо старого —
+          календарь обновится сам.
+        </div>
+      </div>
+      <div class="export__actions">
+        <button class="btn btn--ghost" type="button" id="copy-btn">Скопировать</button>
+        <button class="btn btn--green" type="button" id="download-btn">Скачать events.json</button>
+      </div>
+    </section>
+
+    <details class="preview">
+      <summary class="preview__summary">Показать JSON</summary>
+      <pre class="preview__code" id="json-preview"></pre>
+    </details>
+
+  </div>
+</div>
+
+<script src="../assets/event-types.js"></script>
+<script src="editor.js"></script>
+</body>
+</html>

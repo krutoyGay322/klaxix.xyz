@@ -1,0 +1,15 @@
+# Хранить текстовые файлы в репозитории с LF-переводами строк.
+# Без этого Windows-переводы строк (CRLF) попадают в git и любая правка
+# выглядит как «изменён весь файл».
+* text=auto eol=lf
+
+# Бинарные файлы не трогать (иначе можно испортить картинки и звук).
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.mp3  binary
+*.ogg  binary
+*.wav  binary

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 — СТРАНИЦА НЕ НАЙДЕНА</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;900&family=IBM+Plex+Mono:wght@700&display=swap" rel="stylesheet">
+<!-- Styles are inlined on purpose: this page is served for ANY bad URL, at any
+     depth, so a relative <link> to assets/ would not resolve. -->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0b0f0b; }
+  @keyframes fogDrift {
+    0%   { transform: translateX(-10%); }
+    50%  { transform: translateX(10%); }
+    100% { transform: translateX(-10%); }
+  }
+  .page { min-height: 100vh; position: relative; overflow: hidden; }
+  .fog { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .fog__layer { position: absolute; }
+  .fog__layer--top {
+    top: -30%; left: -10%; width: 120%; height: 70%;
+    background: radial-gradient(ellipse at 60% 50%, rgba(127,201,90,.07), transparent 60%);
+    animation: fogDrift 16s ease-in-out infinite;
+  }
+  .fog__layer--bottom {
+    bottom: -30%; right: -15%; width: 120%; height: 60%;
+    background: radial-gradient(ellipse at 40% 50%, rgba(127,201,90,.04), transparent 60%);
+    animation: fogDrift 22s ease-in-out infinite reverse;
+  }
+  .notfound {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+    padding: 24px;
+  }
+  .notfound__code {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: 92px;
+    line-height: 1;
+    color: #e8f0e2;
+    text-shadow: 0 0 50px rgba(127, 201, 90, .25);
+  }
+  .notfound__text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: #7a8a72;
+    letter-spacing: 2px;
+  }
+  .notfound__home {
+    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(127, 201, 90, .12);
+    border: 1px solid #7fc95a;
+    color: #7fc95a;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 12px 22px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: box-shadow .2s ease;
+  }
+  .notfound__home:hover { box-shadow: 0 0 20px rgba(127, 201, 90, .3); }
+  @media (max-width: 640px) { .notfound__code { font-size: 64px; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="fog" aria-hidden="true">
+    <div class="fog__layer fog__layer--top"></div>
+    <div class="fog__layer fog__layer--bottom"></div>
+  </div>
+  <div class="notfound">
+    <div class="notfound__code">404</div>
+    <div class="notfound__text">// ТАКОЙ СТРАНИЦЫ НЕТ</div>
+    <a class="notfound__home" href="/">← НА ГЛАВНУЮ</a>
+  </div>
+</div>
+</body>
+</html>

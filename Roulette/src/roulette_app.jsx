@@ -123,6 +123,9 @@ function App() {
 
   useEffect(() => {
     saveSetting(PANEL_KEY, panelHidden ? '1' : '0');
+    // On phones app.css carves out space for the panel; when it's hidden,
+    // this class gives the whole screen back to the cabinet.
+    document.body.classList.toggle('ro-panel-hidden', panelHidden);
   }, [panelHidden]);
 
   const toggleMute = useCallback(() => {

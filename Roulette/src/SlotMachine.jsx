@@ -60,6 +60,7 @@ export function SlotMachine({ visible, mode = 'perks', perks, library, isJackpot
   const needsReseedRef = useRef(true);
   const [phase, setPhase] = useState('idle'); // idle | spinning | landed
   const [scale, setScale] = useState(1);
+  const overlayRef = useRef(null);
 
   // Character mode visual effects (driven by completion, not props directly)
   const [showFailFlash, setShowFailFlash] = useState(false);
@@ -276,17 +277,34 @@ export function SlotMachine({ visible, mode = 'perks', perks, library, isJackpot
     };
   }, []);
 
-  // Auto-scale to fit viewport using React state
+  // Auto-scale to fit the overlay box using React state
   useEffect(() => {
     function fit() {
-      // Cabinet total: ~860px wide (with lever), ~560px tall
-      // Scale to fit available space, then reduce by 15% to make it slightly smaller
-      let s = Math.min((window.innerWidth - 40) / 900, (window.innerHeight - 40) / 560);
-      setScale(s * 0.85);
+      // Cabinet total: ~860px wide (with lever), ~560px tall.
+      // Measured against the overlay, not the window: on phones app.css
+      // shrinks the overlay with media queries so the panel gets its own
+      // space instead of covering the cabinet.
+      const box = overlayRef.current;
+      const w = box ? box.clientWidth : window.innerWidth;
+      const h = box ? box.clientHeight : window.innerHeight;
+      // Phones use nearly all the space; desktop keeps the roomier margin
+      // and the slightly-smaller-than-fit look.
+      const small = w < 700 || h < 520;
+      const margin = small ? 12 : 40;
+      const s = Math.min((w - margin) / 900, (h - margin) / 560);
+      setScale(small ? s : s * 0.85);
     }
     fit();
     window.addEventListener('resize', fit);
-    return () => window.removeEventListener('resize', fit);
+    let ro = null;
+    if (typeof ResizeObserver !== 'undefined' && overlayRef.current) {
+      ro = new ResizeObserver(fit);
+      ro.observe(overlayRef.current);
+    }
+    return () => {
+      window.removeEventListener('resize', fit);
+      if (ro) ro.disconnect();
+    };
   }, []);
 
   // Cleanup on unmount
@@ -560,7 +578,7 @@ export function SlotMachine({ visible, mode = 'perks', perks, library, isJackpot
   ].filter(Boolean).join(' ');
 
   return (
-    <div className={overlayClasses}>
+    <div className={overlayClasses} ref={overlayRef}>
       <div className="slot-scale-wrapper" style={{ transform: `scale(${scale})` }}>
         <div style={{ position: 'relative', width: '740px' }}>
 

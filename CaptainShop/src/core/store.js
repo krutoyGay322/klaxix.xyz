@@ -17,6 +17,7 @@ window.App = window.App || {};
 
   const state = {
     scale: 1,
+    mobile: false,
     teamName: 'ЛАВКА КАПИТАНА',
     balance: PROPS.startBalance,
     survivors: freshSurvivors(),

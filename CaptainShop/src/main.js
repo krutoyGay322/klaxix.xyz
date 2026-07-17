@@ -14,8 +14,11 @@
   function onResize() {
     const w = window.innerWidth, h = window.innerHeight;
     if (!w || !h) { requestAnimationFrame(onResize); return; }
-    const scale = Math.max(0.05, Math.min(w / 2560, h / 1440));
-    if (scale !== store.state.scale) store.setState({ scale });
+    // На телефоне вписывание по высоте оставляет крошечный кадр с полями по
+    // бокам — вместо этого заполняем всю ширину, лишняя высота прокручивается.
+    const mobile = Math.min(w, h) <= 620;
+    const scale = Math.max(0.05, mobile ? w / 2560 : Math.min(w / 2560, h / 1440));
+    if (scale !== store.state.scale || mobile !== store.state.mobile) store.setState({ scale, mobile });
   }
   window.addEventListener('resize', onResize);
   onResize();

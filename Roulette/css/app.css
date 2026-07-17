@@ -239,3 +239,48 @@ html, body {
   color: #9a9482;
   min-height: 2.6em;
 }
+
+/* ── MOBILE ──────────────────────────────────────────────────────────────── */
+/* Панель и автомат больше не накладываются: медиа-запросы сжимают
+   .slot-machine-overlay, а автомат сам вписывается в неё (SlotMachine.jsx
+   меряет overlay, а не окно). */
+
+/* Телефон в альбомной ориентации: панель — узкая колонка слева. */
+@media (max-height: 520px) {
+  .slot-machine-overlay { left: 208px; }
+
+  .ro-panel {
+    top: 8px;
+    left: 8px;
+    bottom: 8px;
+    width: 192px;
+    padding: 8px 10px 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+
+  .ro-modes { grid-template-columns: 1fr; }
+  .ro-status { min-height: 0; }
+}
+
+/* Телефон в портретной ориентации: панель прижата к низу. */
+@media (max-width: 700px) and (min-height: 521px) {
+  .slot-machine-overlay { bottom: 208px; }
+
+  .ro-panel {
+    top: auto;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    width: auto;
+    padding: 8px 10px 10px;
+    box-sizing: border-box;
+  }
+
+  .ro-status { min-height: 0; }
+}
+
+/* Панель скрыта (✕) — весь экран отдаётся автомату. */
+body.ro-panel-hidden .slot-machine-overlay {
+  inset: 0;
+}

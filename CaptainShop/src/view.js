@@ -367,6 +367,7 @@ window.App = window.App || {};
         <button data-act="undo" class="pop-btn" style="background:#1a1722;border:1px solid #4a2378;color:#a86ae8;padding:22px;border-radius:6px;font-family:'Oswald',sans-serif;font-size:32px;cursor:pointer;">Отменить (Ctrl+Z)</button>
         <button data-act="resetShop" class="pop-btn" style="background:#1e1414;border:1px solid #3c2a2a;color:#c07a72;padding:22px;border-radius:6px;font-family:'Oswald',sans-serif;font-size:32px;cursor:pointer;">Полный сброс</button>
         <button data-act="tierLists" class="pop-btn" style="background:#1d242a;border:1px solid #3c4852;color:#aeb9c2;padding:22px;border-radius:6px;font-family:'Oswald',sans-serif;font-size:32px;cursor:pointer;">Списки перков</button>
+        <a href="../index.html" class="pop-btn" style="display:block;background:#141a1f;border:1px solid #2a333c;color:#8b98a2;padding:22px;border-radius:6px;font-family:'Oswald',sans-serif;font-size:32px;cursor:pointer;text-decoration:none;margin-top:12px;">← На главную</a>
       </div>`;
     } else if (p.type === 'tier_lists') {
       const perkRow = x => {

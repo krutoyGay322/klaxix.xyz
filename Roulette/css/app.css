@@ -240,6 +240,22 @@ html, body {
   min-height: 2.6em;
 }
 
+/* ── НА ГЛАВНУЮ ──────────────────────────────────────────────────────────── */
+.ro-back {
+  display: block;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #2a2a38;
+  font-size: 11px;
+  color: #9a9482;
+  text-decoration: none;
+  transition: color .15s ease;
+}
+
+.ro-back:hover {
+  color: #f0d47a;
+}
+
 /* ── MOBILE ──────────────────────────────────────────────────────────────── */
 /* Панель и автомат больше не накладываются: медиа-запросы сжимают
    .slot-machine-overlay, а автомат сам вписывается в неё (SlotMachine.jsx

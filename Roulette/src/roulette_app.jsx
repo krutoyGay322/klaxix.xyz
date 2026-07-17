@@ -291,6 +291,10 @@ function App() {
           </div>
 
           <div className="ro-status">{status}</div>
+
+          {/* Живёт в панели, а не поверх экрана: на стриме панель скрыта (✕),
+              значит и ссылка зрителям не видна. */}
+          <a className="ro-back" href="../index.html">← На главную</a>
         </div>
       )}
 

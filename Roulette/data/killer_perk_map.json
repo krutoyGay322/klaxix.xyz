@@ -1,0 +1,232 @@
+{
+  "ЧУМА": {
+    "ВМЕШАТЕЛЬСТВО СКВЕРНЫ": "Corrupt Intervention",
+    "ЗАРАЗИТЕЛЬНЫЙ УЖАС": "Infectious Fright",
+    "ТЕМНАЯ ПРЕДАННОСТЬ": "Dark Devotion"
+  },
+  "СТРЕЛОК": {
+    "АВАРИЙНАЯ КНОПКА": "Dead Man_s Switch",
+    "ЗНАТОК ТЕХНИКИ": "Gearhead",
+    "ПОРЧА: КАРА": "Hex Retribution"
+  },
+  "ТЕМНЫЙ ВЛАСТЕЛИН": {
+    "АЛЧНОСТЬ": "Human Greed",
+    "ВЛАДЫЧЕСТВО": "Dominance",
+    "ПОРЧА: ГОРЬКАЯ УЧАСТЬ": "Hex Wretched Fate"
+  },
+  "ТОРГОВКА ЧЕРЕПАМИ": {
+    "БАЦ!": "THWACK",
+    "ДОГОНЯЛКИ": "Game Afoot",
+    "РЫЧАГ ВЛИЯНИЯ": "Leverage"
+  },
+  "КАННИБАЛ": {
+    "БАРБЕКЮ И ЧИЛИ": "BBQ and Chili",
+    "ГИБЕЛЬ ФРАНКЛИНА": "Franklin_s Demise",
+    "НОКАУТ": "Knock Out"
+  },
+  "ХОРОШИЙ ПАРЕНЬ": {
+    "БАТАРЕЙКИ В КОМПЛЕКТЕ": "Batteries Included",
+    "ДРУЗЬЯ ДО ГРОБА": "Friends Til the End",
+    "ПОРЧА: ИГРА ДЛЯ ДВОИХ": "Hex Two Can Play"
+  },
+  "ЕГЕРЬ": {
+    "БЕЗ ПОЩАДЫ": "No Quarter",
+    "ОГЛУШИТЕЛЬНЫЙ ГРОМ": "All-Shaking Thunder",
+    "СЕКУЩИЙ КРЮК: ЩЕРБАТЫЙ КОМПАС": "Scourge Hook Jagged Compass"
+  },
+  "НАВЫК": {
+    "БЕЗЖАЛОСТНЫЙ": "Unrelenting",
+    "КОВАРСТВО": "Insidious",
+    "МЕРТВАЯ ХВАТКА": "Iron Grasp",
+    "НЕБРЕЖНЫЙ МЯСНИК": "Sloppy Butcher",
+    "ОХОТНИК НА ОЛЕНЕЙ": "Deerstalker",
+    "РАЗБИТЫЕ НАДЕЖДЫ": "Shattered Hope",
+    "СЕЮЩИЙ СТРАХ": "Distressing",
+    "СЕКУЩИЙ КРЮК: ЧУДОВИЩНЫЙ ХРАМ": "Scourge Hook Monstrous Shrine",
+    "СУМЕРЕЧНЫЕ ШПИОНЫ": "Spies from the Shadows",
+    "ТИХИЙ ШОРОХ": "Bitter Murmur",
+    "ШЕПОТЫ": "Whispers",
+    "ПОРЧА: НИКОМУ НЕ СКРЫТЬСЯ ОТ СМЕРТИ": "Hex No One Escapes Death",
+    "ПОРЧА: РАДОСТЬ ОХОТЫ": "Hex Thrill of the Hunt"
+  },
+  "ОНРЁ": {
+    "БЕЗЖАЛОСТНЫЙ ШТОРМ": "Merciless Storm",
+    "СОЛЕНОЕ МОРЕ": "Call of Brine",
+    "СЕКУЩИЙ КРЮК: «ПУЧИНА ЯРОСТИ»": "Scourge Hook Floods of Rage"
+  },
+  "ЛИЧ": {
+    "БЕЗЖИЗНЕННОЕ КАСАНИЕ": "Languid Touch",
+    "СВЯЗЬ С ПЛЕТЕНИЕМ": "Weave Attunement",
+    "ТЕМНОЕ ВЫСОКОМЕРИЕ": "Dark Arrogance"
+  },
+  "ЛЕГИОН": {
+    "БЕЗУМНОЕ УПОРСТВО": "Mad Grit",
+    "ЖЕЛЕЗНАЯ ДЕВА": "Iron Maiden",
+    "РАЗЛАД": "Discordance"
+  },
+  "СЛЭШЕР": {
+    "БЕЗМОЛВНАЯ ТЕНЬ": "Silent Shadow",
+    "НЕИСТОВСТВО": "Rampage",
+    "ПОРЧА: СМЕРТЕЛЬНЫЙ ИСПУГ": "Hex Scared to Death"
+  },
+  "КРАСУ": {
+    "БЛУЖДАЮЩИЙ ВЗГЛЯД": "Wandering Eye",
+    "ГОЛОД": "Ravenous",
+    "ПОРЧА: ПРЕДВЕСТИЕ РОКА": "Hex Overture of Doom"
+  },
+  "КСЕНОМОРФ": {
+    "БЫСТРАЯ ЖЕСТОКОСТЬ": "Rapid Brutality",
+    "ИНСТИНКТ ЧУЖОГО": "Alien Instinct",
+    "СОВЕРШЕННОЕ ОРУЖИЕ": "Ultimate Weapon"
+  },
+  "МОР": {
+    "ДРАКОНЬЯ ХВАТКА": "Dragon_s Grip",
+    "ПОРЧА: БЛАГОВОЛЕНИЕ КРОВИ": "Hex Blood Favor",
+    "ПОРЧА: НЕ-СМЕРТЬ": "Hex Undying"
+  },
+  "ОНИ": {
+    "ВОЗМЕЗДИЕ": "Nemesis",
+    "ОТЗВУК КРОВИ": "Blood Echo",
+    "ТАКТИКА ЗАНСИН": "Zanshin Tactics"
+  },
+  "ГУЛЬ": {
+    "ВСЕ НЕСВОБОДНЫ": "None Are Free",
+    "ПЕРЕПЛЕТЕННЫЕ НАВСЕГДА": "Forever Entwined",
+    "ПОРЧА: ТОЛЬКО ОТЧАЯНИЕ": "Hex Nothing But Misery"
+  },
+  "СВИНЬЯ": {
+    "ВЫБОР ЗА ТОБОЙ": "Make Your Choice",
+    "НАБЛЮДЕНИЕ": "Surveillance",
+    "СЕКУЩИЙ КРЮК: СЕКРЕТ ПАЛАЧА": "Hangman_s Trick"
+  },
+  "ДЕМОГОРГОН": {
+    "ВЫБРОС": "Surge",
+    "ЖЕСТОКАЯ ИЗОЛЯЦИЯ": "Cruel Limits",
+    "РАЗРУШИТЕЛЬ РАЗУМА": "Mindbreaker"
+  },
+  "СИНГУЛЯРНОСТЬ": {
+    "ВЫНУЖДЕННАЯ НЕРЕШИТЕЛЬНОСТЬ": "Forced Hesitation",
+    "ГЕНЕТИЧЕСКИЕ ОГРАНИЧЕНИЯ": "Genetic Limits",
+    "МАШИННОЕ ОБУЧЕНИЕ": "Machine Learning"
+  },
+  "ТРЮКАЧ": {
+    "ВЫХОДА НЕТ": "No Way Out",
+    "ПОРЧА: КОНТРОЛЬ ТОЛПЫ": "Hex Crowd Control",
+    "ФАНАТЕНИЕ": "Starstruck"
+  },
+  "ДЕРЕВЕНЩИНА": {
+    "ДЕТИЩЕ СВЕТА": "Lightborn",
+    "СТОЙКИЙ": "Enduring",
+    "УМЕЛЕЦ": "Tinkerer"
+  },
+  "ПРИЗРАК": {
+    "ДЕТИЩЕ ТЬМЫ": "Shadowborn",
+    "ИЩЕЙКА": "Bloodhound",
+    "ХИЩНИК": "Predator"
+  },
+  "БЛИЗНЕЦЫ": {
+    "ДОБИВАНИЕ": "Coup de Grace",
+    "ПРИТЕСНЕНИЕ": "Oppression",
+    "СКОПИДОМ": "Hoarder"
+  },
+  "ОХОТНИК": {
+    "ЗВЕРСКАЯ СИЛА": "Brutal Strength",
+    "НЕТЕРПИМОСТЬ": "Agitation",
+    "ПУГАЮЩЕЕ ПРИСУТСТВИЕ": "Unnerving Presence"
+  },
+  "МЕДСЕСТРА": {
+    "ЗОВ МЕДСЕСТРЫ": "A Nurse_s Calling",
+    "СТРИДОР": "Stridor",
+    "ТАНАТОФОБИЯ": "Thanatophobia"
+  },
+  "РЫЦАРЬ": {
+    "ИМ НЕ УКРЫТЬСЯ": "Nowhere to Hide",
+    "СВИРЕПАЯ ГОРДЫНЯ": "Hubris",
+    "ПОРЧА: ЛИК МРАКА": "Hex Face the Darkness"
+  },
+  "НЕМЕЗИС": {
+    "ИСТЕРИЯ": "Hysteria",
+    "ПОДРЫВ": "Eruption",
+    "ПРЕСЛЕДОВАТЕЛЬ-УБИЙЦА": "Lethal Pursuer"
+  },
+  "КЛОУН": {
+    "КЛОУНОФОБИЯ": "Coulrophobia",
+    "РОЗЫГРЫШ": "Bamboozle",
+    "ЧЕРТИК ИЗ ТАБАКЕРКИ": "Pop Goes the Weasel"
+  },
+  "КОШМАР": {
+    "КРОВАВЫЙ СМОТРИТЕЛЬ": "Blood Warden",
+    "ПОМНИ МЕНЯ": "Remember Me",
+    "ЯРКОЕ ПЛАМЯ": "Fire Up"
+  },
+  "КУКЛОВОД": {
+    "ЛУЧШАЯ АНАТОМИЯ": "Superior Anatomy",
+    "РАЗВИТАЯ ВНИМАТЕЛЬНОСТЬ": "Awakened Awareness",
+    "ПОСЛЕДНИЙ ЭТАП": "Terminus"
+  },
+  "НЕВЕДОМОЕ": {
+    "НЕЗАВЕРШЕННОЕ": "Undone",
+    "НЕПРЕДВИДЕННОЕ": "Unforeseen",
+    "СВОБОДНОЕ": "Unbound"
+  },
+  "ДУХ": {
+    "НЕНАВИСТЬ": "Rancor",
+    "ЯРОСТЬ ДУХА": "Spirit Fury",
+    "ПОРЧА: ПРОКЛЯТАЯ ЗЕМЛЯ": "Hex Haunted Ground"
+  },
+  "АНИМАТРОНИК": {
+    "НЕПОЛАДКИ": "Haywire",
+    "ТРЕБУЮТСЯ РАБОТНИКИ": "Help Wanted",
+    "ФАНТОМНЫЙ СТРАХ": "Phantom Fear"
+  },
+  "ТЕНЬ": {
+    "ОСТАВЬТЕ ЛУЧШЕЕ НАПОСЛЕДОК": "Save the Best for Last",
+    "ПОИГРАТЬ СО СВОЕЙ ЖЕРТВОЙ": "Play With Your Food",
+    "УГАСАЮЩИЙ СВЕТ": "Dying Light"
+  },
+  "СЕНОБИТ": {
+    "МЕРТВАЯ ХВАТКА": "Deadlock",
+    "ПОРЧА: ИГРУШКА": "Hex Plaything",
+    "СЕКУЩИЙ КРЮК: ДАР БОЛИ": "Scourge Hook Gift of Pain"
+  },
+  "ХУДОЖНИЦА": {
+    "МРАЧНЫЕ ОБЪЯТЬЯ": "Grim Embrace",
+    "СЕКУЩИЙ КРЮК: РЕЗОНАНС БОЛИ": "Scourge Hook Pain Resonance",
+    "ПОРЧА: ПЕНТИМЕНТО": "Hex Pentimento"
+  },
+  "ДОКТОР": {
+    "НЕВЫНОСИМОЕ ПРИСУТСТВИЕ": "Overwhelming Presence",
+    "ПЕРЕГРУЗКА": "Overcharge",
+    "СЛЕЖКА И НАКАЗАНИЕ": "Monitor and Abuse"
+  },
+  "ОХОТНИЦА": {
+    "ПОРЧА: КОЛЫБЕЛЬНАЯ ОХОТНИЦЫ": "Hex Huntress Lullaby",
+    "ТЕРРИТОРИАЛЬНЫЙ ИМПЕРАТИВ": "Territorial Imperative",
+    "ХИЩНЫЙ ЗВЕРЬ": "Beast of Prey"
+  },
+  "ПЕРВЫЙ": {
+    "ПЕРЕВЕСТИ ЧАСЫ НАЗАД": "Turn Back the Clock",
+    "СЕКРЕТНЫЙ ПРОЕКТ": "Secret Project",
+    "ПОРЧА: РАЗУМ УЛЬЯ": "Hex Hive Mind"
+  },
+  "ПАЛАЧ": {
+    "ПРИНУДИТЕЛЬНАЯ МЕРА": "Forced Penance",
+    "СМЕРТЕЛЬНЫЕ УЗЫ": "Deathbound",
+    "ТРОПА ТЕРЗАНИЙ": "Trail of Torment"
+  },
+  "ГОУСТ ФЕЙС": {
+    "ПУГАЮЩАЯ ТРЯСКА": "Thrilling Tremors",
+    "СКРЫТНАЯ ПОГОНЯ": "Furtive Chase",
+    "ЧУТКИЙ СЛУХ": "I_m All Ears"
+  },
+  "ГРЯЗЬ": {
+    "РАСТВОРЕНИЕ": "Dissolution",
+    "ТЛЕТВОРНОЕ КАСАНИЕ": "Septic Touch",
+    "ЯВЛЕНИЕ МРАКА": "Darkness Revealed"
+  },
+  "ВЕДЬМА": {
+    "ПОРЧА: ПОЖИРАНИЕ НАДЕЖДЫ": "Hex Devour Hope",
+    "ПОРЧА: ПОГИБЕЛЬ": "Hex Ruin",
+    "ПОРЧА: ТРЕТЬЯ ПЕЧАТЬ": "Hex Third Seal"
+  }
+}

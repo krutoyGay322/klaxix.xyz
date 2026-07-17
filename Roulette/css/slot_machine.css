@@ -1,0 +1,488 @@
+/* ==========================================================
+   slot_machine.css — Casino Slot Machine Perk Reveal
+   Adapted from Casino Feature "Lucky Sevens Slot Machine"
+   ========================================================== */
+
+@import url('fonts/cinzel-orbitron-327a95.css');
+
+/* ── CONTAINER ── */
+.slot-machine-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.slot-machine-overlay.visible {
+  opacity: 1;
+}
+
+/* ── SCALE WRAPPER ── */
+.slot-scale-wrapper {
+  transform-origin: center center;
+}
+
+/* ── CABINET BODY — Gold Ornamental Frame ── */
+.slot-cabinet {
+  position: relative;
+  z-index: 4;
+  border-radius: 30px;
+  padding: 20px;
+  background: conic-gradient(
+    from 218deg at 50% 30%,
+    #5a4110, #fff3c0 12%, #d7ad44 26%, #8a6418 42%,
+    #fff0bb 58%, #c79a34 72%, #6b4d14 86%, #fff3c0 96%, #5a4110
+  );
+  box-shadow:
+    inset 0 3px 3px rgba(255,255,255,.6),
+    inset 0 -8px 14px rgba(0,0,0,.5),
+    0 30px 60px rgba(0,0,0,.62),
+    0 9px 0 #43320b,
+    0 0 0 1px #4a360c;
+}
+
+/* Cabinet highlight sheen */
+.slot-cabinet::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 30px;
+  pointer-events: none;
+  background: radial-gradient(120% 60% at 50% -4%, rgba(255,255,255,.4), rgba(255,255,255,0) 46%);
+  mix-blend-mode: screen;
+}
+
+/* ── DECORATIVE CORNER BOLTS ── */
+.slot-bolt {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, #fff3c4, #b88a2e 55%, #5e4310);
+  box-shadow: inset 0 -1px 2px rgba(0,0,0,.55), 0 1px 1px rgba(255,255,255,.35);
+}
+.slot-bolt::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 11px;
+  height: 2.5px;
+  background: rgba(70,48,10,.85);
+  border-radius: 2px;
+}
+.slot-bolt.tl { top: 11px; left: 11px; }
+.slot-bolt.tl::after { transform: rotate(42deg); }
+.slot-bolt.tr { top: 11px; right: 11px; }
+.slot-bolt.tr::after { transform: rotate(-38deg); }
+.slot-bolt.bl { bottom: 11px; left: 11px; }
+.slot-bolt.bl::after { transform: rotate(-50deg); }
+.slot-bolt.br { bottom: 11px; right: 11px; }
+.slot-bolt.br::after { transform: rotate(46deg); }
+
+/* ── REEL BEZEL — Dark Inset Frame ── */
+.slot-bezel {
+  position: relative;
+  border-radius: 18px;
+  padding: 13px;
+  background: linear-gradient(180deg, #2a2d36 0%, #15171d 46%, #0a0b0e 100%);
+  box-shadow:
+    inset 0 2px 2px rgba(255,255,255,.18),
+    inset 0 -3px 8px rgba(0,0,0,.7),
+    0 4px 10px rgba(0,0,0,.5),
+    0 0 0 2px #6b4d14,
+    0 0 0 4px #2a1d06;
+}
+
+/* ── REEL CONTAINER ── */
+.slot-reel-container {
+  position: relative;
+  display: flex;
+  gap: 9px;
+  padding: 13px;
+  border-radius: 11px;
+  background: linear-gradient(180deg, #070809, #020203);
+  box-shadow: inset 0 6px 22px rgba(0,0,0,.98), inset 0 0 0 1px rgba(255,255,255,.05);
+}
+
+/* ── INDIVIDUAL REEL VIEWPORT ── */
+.slot-reel-viewport {
+  position: relative;
+  width: 174px;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 9px;
+  background: linear-gradient(180deg, #23262f 0%, #15171d 48%, #070809 100%);
+  box-shadow:
+    inset 0 0 0 2px #2f323c,
+    inset 0 18px 30px rgba(0,0,0,.95),
+    inset 0 -18px 30px rgba(0,0,0,.95);
+}
+
+/* ── REEL STRIP (moves via transform) ── */
+.slot-reel-strip {
+  will-change: transform;
+}
+
+/* ── REEL CELL ── */
+.slot-reel-cell {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slot-reel-cell img {
+  width: 120px;
+  height: 120px;
+  display: block;
+  pointer-events: none;
+  border-radius: 10px;
+  filter: drop-shadow(0 6px 7px rgba(0,0,0,.6));
+  object-fit: cover;
+}
+
+/* ── REEL OVERLAYS — Depth illusion ── */
+.slot-reel-highlight {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 48%;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,.17), rgba(255,255,255,0));
+  border-radius: 9px 9px 50% 50% / 9px 9px 42px 42px;
+}
+
+.slot-reel-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(2,2,4,.92) 0%,
+    rgba(2,2,4,0) 27%,
+    rgba(2,2,4,0) 73%,
+    rgba(2,2,4,.92) 100%
+  );
+}
+
+.slot-reel-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(102deg,
+    rgba(255,255,255,.13) 0%,
+    rgba(255,255,255,0) 26%,
+    rgba(255,255,255,0) 72%,
+    rgba(255,255,255,.05) 100%
+  );
+}
+
+/* ── PAYLINE INDICATOR ── */
+.slot-payline {
+  position: absolute;
+  left: 7px; right: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 3;
+}
+
+.slot-payline-arrow-left {
+  width: 0; height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 17px solid rgba(255,80,80,.95);
+  filter: drop-shadow(0 0 6px rgba(255,55,55,.9));
+}
+
+.slot-payline-arrow-right {
+  width: 0; height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-right: 17px solid rgba(255,80,80,.95);
+  filter: drop-shadow(0 0 6px rgba(255,55,55,.9));
+}
+
+.slot-payline-line {
+  flex: 1;
+  height: 2px;
+  margin: 0 4px;
+  background: linear-gradient(90deg,
+    rgba(255,70,70,0),
+    rgba(255,100,100,.5),
+    rgba(255,70,70,0)
+  );
+}
+
+/* ── RESULT BANNER — "PERKS READY" ── */
+.slot-result-banner {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 13px 32px;
+  border-radius: 15px;
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  font-size: 34px;
+  color: #1a0b00;
+  background: linear-gradient(180deg, #fff2b0, #f3c43f 50%, #c98a1e);
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,.6),
+    0 12px 32px rgba(0,0,0,.6),
+    0 0 48px rgba(255,180,40,.9);
+  pointer-events: none;
+  letter-spacing: 2px;
+  white-space: nowrap;
+  z-index: 6;
+  animation: slotWinBanner .8s ease-in-out infinite;
+}
+
+@keyframes slotWinBanner {
+  0%, 100% { transform: translate(-50%,-50%) scale(1) rotate(-2deg); }
+  50%      { transform: translate(-50%,-50%) scale(1.07) rotate(2deg); }
+}
+
+/* ── LEVER ── */
+.slot-lever-area {
+  position: absolute;
+  z-index: 3;
+  right: -128px;
+  top: 92px;
+  width: 132px;
+  height: 372px;
+}
+
+/* Lever mounting hub */
+.slot-lever-hub {
+  position: absolute;
+  left: 6px; top: 254px;
+  width: 76px; height: 76px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 37% 28%, #ffffff 0%, #cdd2d8 38%, #777c83 70%, #2b2f35 100%);
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,.9),
+    inset 0 -6px 10px rgba(0,0,0,.55),
+    0 11px 22px rgba(0,0,0,.55),
+    0 0 0 1px rgba(0,0,0,.4);
+}
+
+.slot-lever-hub-inner {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 32%, #43474d, #0b0d10 76%);
+  box-shadow: inset 0 3px 6px rgba(0,0,0,.9), inset 0 -1px 2px rgba(255,255,255,.2);
+}
+
+/* Lever arm */
+.slot-lever-arm {
+  position: absolute;
+  left: 26px; top: 32px;
+  width: 36px; height: 260px;
+  transform-origin: 50% 100%;
+  z-index: 2;
+}
+
+/* Lever collar */
+.slot-lever-collar {
+  position: absolute;
+  left: 50%; bottom: -6px;
+  transform: translateX(-50%);
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #2f333a 0%, #cbd0d6 30%, #fbfdff 50%, #a9afb6 68%, #2a2e34 100%);
+  box-shadow: 0 3px 5px rgba(0,0,0,.55);
+}
+
+/* Lever shaft */
+.slot-lever-shaft {
+  position: absolute;
+  left: 50%; top: 42px; bottom: 18px;
+  transform: translateX(-50%);
+  width: 18px;
+  border-radius: 9px;
+  background: linear-gradient(90deg, #1d2025 0%, #777d85 20%, #fbfdff 47%, #c4c9d0 60%, #5c626a 80%, #191c21 100%);
+  box-shadow: 0 4px 11px rgba(0,0,0,.45);
+}
+
+/* Lever ferrule */
+.slot-lever-ferrule {
+  position: absolute;
+  left: 50%; top: 36px;
+  transform: translateX(-50%);
+  width: 26px; height: 18px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #2b2f35, #e2e6eb 47%, #8b9099 72%, #23272c);
+  box-shadow: 0 2px 4px rgba(0,0,0,.55);
+}
+
+/* Lever ball knob */
+.slot-lever-ball {
+  position: absolute;
+  left: 50%; top: -22px;
+  transform: translateX(-50%);
+  width: 66px; height: 66px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 33% 27%, #ffc6c6 0%, #f24b4b 30%, #c01818 62%, #5c0707 100%);
+  box-shadow:
+    inset -8px -10px 16px rgba(0,0,0,.5),
+    inset 6px 7px 13px rgba(255,255,255,.45),
+    0 13px 24px rgba(0,0,0,.55);
+}
+
+.slot-lever-ball-shine {
+  position: absolute;
+  left: 14px; top: 11px;
+  width: 24px; height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.92), rgba(255,255,255,0));
+  pointer-events: none;
+}
+
+/* ── LEVER ANIMATION ── */
+.slot-lever-arm.pull {
+  animation: leverPull 0.8s cubic-bezier(.34,1.56,.5,1) forwards;
+}
+
+@keyframes leverPull {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(28deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* ── ENTRY / EXIT ANIMATIONS ── */
+.slot-machine-overlay.entering {
+  animation: slotMachineEnter 0.6s cubic-bezier(0.0, 0.0, 0.2, 1.0) forwards;
+}
+
+@keyframes slotMachineEnter {
+  0%   { opacity: 0; transform: scale(0.7) translateY(60px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.slot-machine-overlay.fade-out {
+  animation: slotMachineExit 1.2s cubic-bezier(0.4, 0.0, 1.0, 1.0) forwards;
+}
+
+@keyframes slotMachineExit {
+  0%   { opacity: 1; transform: scale(1) translateY(0); }
+  100% { opacity: 0; transform: scale(0.85) translateY(80px); }
+}
+
+/* ==========================================================
+   CHARACTER MODE — Visual Effects (same 4-reel layout)
+   ========================================================== */
+
+/* ── Spin counter (e.g. "2 / 4") ── */
+.slot-spin-counter {
+  position: absolute;
+  bottom: -52px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Orbitron', monospace;
+  font-size: 22px;
+  font-weight: 700;
+  color: rgba(255,255,255,.8);
+  text-shadow: 0 0 12px rgba(255,255,255,.3);
+  white-space: nowrap;
+  letter-spacing: 3px;
+  z-index: 10;
+}
+
+/* ── Character name overlay (shown after reel stops) ── */
+.slot-character-name {
+  position: absolute;
+  top: -52px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Cinzel', serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow:
+    0 0 20px rgba(255,200,60,.6),
+    0 2px 4px rgba(0,0,0,.8);
+  white-space: nowrap;
+  letter-spacing: 1px;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.slot-character-name.visible {
+  opacity: 1;
+}
+
+/* ── Fail spin feedback ── */
+.slot-fail-flash {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0;
+}
+
+.slot-fail-flash.active {
+  animation: failFlash 0.6s ease-out forwards;
+}
+
+@keyframes failFlash {
+  0%   { opacity: 0; box-shadow: inset 0 0 60px rgba(255,50,50,.7); }
+  30%  { opacity: 1; box-shadow: inset 0 0 80px rgba(255,50,50,.5); }
+  100% { opacity: 0; box-shadow: inset 0 0 0 rgba(255,50,50,0); }
+}
+
+/* Shake the cabinet on fail */
+.slot-cabinet.fail-shake {
+  animation: cabinetShake 0.4s ease-out;
+}
+
+@keyframes cabinetShake {
+  0%    { transform: translateX(0); }
+  15%   { transform: translateX(-8px) rotate(-0.5deg); }
+  30%   { transform: translateX(7px) rotate(0.4deg); }
+  45%   { transform: translateX(-5px) rotate(-0.3deg); }
+  60%   { transform: translateX(4px) rotate(0.2deg); }
+  75%   { transform: translateX(-2px); }
+  100%  { transform: translateX(0); }
+}
+
+/* ── Jackpot celebration glow ── */
+.slot-cabinet::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: -1;
+  animation: jackpotGlowPulse 1.5s ease-in-out infinite;
+}
+
+.slot-cabinet.jackpot-glow::after {
+  opacity: 1;
+}
+
+@keyframes jackpotGlowPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 40px rgba(255,200,60,.4),
+      0 0 80px rgba(255,160,30,.2);
+  }
+  50% {
+    box-shadow:
+      0 0 60px rgba(255,200,60,.7),
+      0 0 120px rgba(255,160,30,.4);
+  }
+}

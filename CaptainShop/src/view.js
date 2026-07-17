@@ -436,7 +436,7 @@ window.App = window.App || {};
       : '';
 
     return `
-<div class="${S.mobile ? 'mob-scroll' : ''}" style="width:100vw;height:100vh;overflow-x:hidden;overflow-y:${S.mobile ? 'auto' : 'hidden'};background:#07090c;display:flex;align-items:${S.mobile ? 'flex-start' : 'center'};justify-content:center;animation:${shakeAnim};">
+<div class="${S.mobile ? 'mob-scroll' : ''}" style="width:100vw;height:100vh;height:100dvh;overflow-x:hidden;overflow-y:${S.mobile ? 'auto' : 'hidden'};background:#07090c;display:flex;align-items:${S.mobile ? 'flex-start' : 'center'};justify-content:center;animation:${shakeAnim};">
   <div style="width:${2560 * S.scale}px;height:${1440 * S.scale}px;flex:0 0 auto;">
   <div id="frame" style="width:2560px;height:1440px;transform:scale(${S.scale});transform-origin:top left;box-sizing:border-box;background:radial-gradient(1900px 1100px at 50% -15%, #1e252d 0%, #11161b 52%, #090c0f 100%);color:#dbe2e8;font-family:'PT Sans',sans-serif;display:flex;flex-direction:column;padding:32px 44px;gap:20px;position:relative;overflow:hidden;">
     <canvas id="bg" data-key="bg" width="2560" height="1440" style="position:absolute;left:0;top:0;width:2560px;height:1440px;pointer-events:none;z-index:1;"></canvas>

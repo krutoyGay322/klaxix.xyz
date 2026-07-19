@@ -31,7 +31,9 @@ body.show-ladder {
 .stage {
   position: relative;
   width: 100vw;
+  /* dvh: на телефонах 100vh включает зону за панелями браузера и низ обрезается */
   height: 100vh;
+  height: 100dvh;
   display: flex;
   overflow: hidden;
 }
@@ -76,12 +78,13 @@ body.show-ladder {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
   padding: clamp(10px, 1.6vw, 40px) clamp(12px, 2.3vw, 60px) clamp(16px, 2.7vw, 70px);
   position: relative;
   z-index: 1;
   min-width: 0;
+  /* если вопрос с ответами не влезает по высоте — прокрутка, а не обрезка */
+  overflow-y: auto;
 }
 
 /* lifelines: ниже панели настроек, чтобы не пересекались с ней */
@@ -206,13 +209,16 @@ body:not(.show-lifelines) .lifelines {
 
 .phone-sub { text-align: center; font-size: clamp(15px, 0.9vw, 22px); color: #aab4e8; margin-top: 8px; }
 
-/* question block */
+/* question block: прижат к низу через margin-top:auto — в отличие от
+   justify-content:flex-end это не ломает прокрутку, когда блок выше экрана */
 .question-block {
   width: 100%;
   max-width: 1900px;
   display: flex;
   flex-direction: column;
   gap: clamp(10px, 1vw, 26px);
+  margin-top: auto;
+  flex-shrink: 0;
 }
 
 .q-header {
@@ -590,6 +596,9 @@ input[type=range]::-webkit-slider-thumb {
 
   .lifeline { border-width: 2px; }
   .question, .answer { border-width: 2px; }
+
+  /* отступ под жестовую полосу/панель браузера */
+  .main { padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
 
   /* подсказки ниже панели управления, чтобы не пересекались */
   .lifelines { top: 118px; }

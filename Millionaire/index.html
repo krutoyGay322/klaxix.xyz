@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кто хочет стать миллионером</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage">
+  <div class="stage-bg"></div>
+  <div class="rays-wrap"><div class="rays"></div></div>
+
+  <!-- MAIN STAGE -->
+  <div class="main">
+    <!-- lifelines -->
+    <div class="lifelines">
+      <div class="lifeline" id="ll-5050" title="50 на 50">50:50</div>
+      <div class="lifeline" id="ll-phone" title="Звонок другу"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
+      <div class="lifeline" id="ll-poll" title="Помощь зала"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+    </div>
+
+    <!-- lifeline result overlay (poll / phone) -->
+    <div class="lifeline-view hidden" id="lifeline-view">
+      <div id="poll-view" class="hidden">
+        <div class="ll-title">ПОМОЩЬ ЗАЛА</div>
+        <div class="poll-bars" id="poll-bars"></div>
+      </div>
+      <div id="phone-view" class="hidden">
+        <div class="ll-title">ЗВОНОК ДРУГУ</div>
+        <div class="phone-seconds" id="phone-seconds">🔊</div>
+        <div class="phone-sub" id="phone-sub">Звонок в эфире...</div>
+      </div>
+    </div>
+
+    <!-- question block -->
+    <div class="question-block">
+      <div class="q-header">
+        <div class="q-number" id="q-number">ВОПРОС 1</div>
+        <div class="q-prize" id="q-prize"></div>
+      </div>
+      <div class="question" id="question"><span class="dots">···</span></div>
+      <div class="answers" id="answers"></div>
+    </div>
+  </div>
+
+  <!-- PRIZE LADDER -->
+  <div class="ladder" id="ladder"></div>
+
+  <!-- MILESTONE / WIN CELEBRATION -->
+  <div class="overlay celebration hidden" id="celebration">
+    <div class="confetti" id="confetti"></div>
+    <div class="cel-title" id="cel-title"></div>
+    <div class="cel-sum" id="cel-sum"></div>
+    <div class="cel-sub" id="cel-sub"></div>
+    <div class="cel-btn" id="cel-btn"></div>
+  </div>
+
+  <!-- GAME OVER (wrong answer) -->
+  <div class="overlay gameover hidden" id="gameover">
+    <div class="go-title" id="go-title">ИГРА ОКОНЧЕНА</div>
+    <div class="go-correct" id="go-correct-text">Правильный ответ: <b id="go-correct-answer"></b></div>
+    <div class="go-sum" id="go-sum"></div>
+    <div class="go-sub" id="go-sub">ваш выигрыш</div>
+    <div class="go-btn" id="go-btn">НОВАЯ ИГРА</div>
+  </div>
+
+  <!-- RESTART CONFIRM -->
+  <div class="overlay gameover hidden" id="restart-confirm" style="z-index: 100;">
+    <div class="go-title" style="color: #ffd166;">НАЧАТЬ ЗАНОВО?</div>
+    <div class="go-sub">Текущий прогресс будет потерян</div>
+    <div style="display: flex; gap: 24px; margin-top: 30px;">
+      <div class="go-btn" id="btn-restart-yes" style="border-color: #ff7a7a; color: #ff7a7a;">ДА, РЕСТАРТ</div>
+      <div class="go-btn" id="btn-restart-no">ОТМЕНА</div>
+    </div>
+  </div>
+
+  <!-- RESET CONFIRM -->
+  <div class="overlay gameover hidden" id="reset-confirm" style="z-index: 100;">
+    <div class="go-title" style="color: #ff7a7a;">СБРОСИТЬ ИСТОРИЮ?</div>
+    <div class="go-sub">Все ранее сыгранные вопросы снова будут попадаться. Игра начнётся заново.</div>
+    <div style="display: flex; gap: 24px; margin-top: 30px;">
+      <div class="go-btn" id="btn-reset-yes" style="border-color: #ff7a7a; color: #ff7a7a;">ДА, СБРОСИТЬ</div>
+      <div class="go-btn" id="btn-reset-no">ОТМЕНА</div>
+    </div>
+  </div>
+
+  <!-- START SCREEN: первый клик разблокирует звук в браузере -->
+  <div class="overlay startscreen" id="start-screen">
+    <div class="start-title">КТО ХОЧЕТ СТАТЬ<br>МИЛЛИОНЕРОМ</div>
+    <div class="cel-btn" id="start-btn">СТАРТ</div>
+  </div>
+
+  <div class="game-controls">
+    <div class="go-btn" id="btn-toggle-controls" title="Скрыть панель" style="font-size: 20px; padding: 10px 16px; margin-top: 0; background: transparent; display: flex; align-items: center; justify-content: center;">⚙</div>
+    <div class="control-group">
+      <span class="control-label">🔊</span>
+      <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.25">
+    </div>
+    <div class="go-btn" id="btn-stats" style="font-size: 16px; padding: 10px 24px; margin-top: 0; background: transparent; border-color: #7ee08a; color: #7ee08a; display: flex; align-items: center; justify-content: center;">ВОПРОСОВ: 20</div>
+    <div class="go-btn" id="btn-restart-game" style="font-size: 16px; padding: 10px 24px; margin-top: 0; background: transparent; display: flex; align-items: center; justify-content: center;">РЕСТАРТ</div>
+    <div class="go-btn" id="btn-reset-history" style="font-size: 16px; padding: 10px 24px; margin-top: 0; background: transparent; border-color: #ff7a7a; color: #ff7a7a; display: flex; align-items: center; justify-content: center;">СБРОС ИСТОРИИ</div>
+  </div>
+
+  <!-- STATS PANEL: сколько вопросов осталось и какой сложности -->
+  <div class="stats-panel hidden" id="stats-panel">
+    <div class="stats-title">ВОПРОСЫ В БАЗЕ</div>
+    <div id="stats-body"></div>
+  </div>
+
+
+</div>
+<script src="questions.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

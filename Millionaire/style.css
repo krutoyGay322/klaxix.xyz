@@ -31,9 +31,11 @@ body.show-ladder {
 .stage {
   position: relative;
   width: 100vw;
-  /* dvh: на телефонах 100vh включает зону за панелями браузера и низ обрезается */
+  /* высота видимой области: vh/dvh на телефонах и встроенных браузерах врут,
+     поэтому скрипт измеряет её сам и пишет в --app-h (см. script.js) */
   height: 100vh;
   height: 100dvh;
+  height: var(--app-h, 100dvh);
   display: flex;
   overflow: hidden;
 }

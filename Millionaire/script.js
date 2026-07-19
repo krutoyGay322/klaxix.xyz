@@ -709,6 +709,17 @@ el.btnResetYes.addEventListener("click", () => {
 });
 
 // ----- init -----
+// реальная высота видимой области: vh/dvh во встроенных браузерах (Telegram и т.п.)
+// включают зону за панелями, из-за чего низ сцены обрезался
+function setAppHeight() {
+  const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+  document.documentElement.style.setProperty("--app-h", h + "px");
+}
+setAppHeight();
+window.addEventListener("resize", setAppHeight);
+window.addEventListener("orientationchange", setAppHeight);
+if (window.visualViewport) window.visualViewport.addEventListener("resize", setAppHeight);
+
 buildAnswers();
 buildLadder();
 // на телефонах панель управления занимает пол-экрана — сворачиваем до шестерёнки

@@ -35,6 +35,9 @@
     keyLabel: localStorage.getItem('scg-key-label') || 'ПРОБЕЛ'
   };
   let rebinding = false;
+  // на тачскринах клавиатуры нет — подпись в круге и подсказка меняются на «ТАП»
+  const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  const hitLabel = () => (isTouch ? 'ТАП' : settings.keyLabel);
 
   // State
   let phase = 'idle'; // idle | countdown | running | dead
@@ -166,14 +169,21 @@
     step(3);
   }
 
+  function clamp(v, lo, hi) {
+    // на узких экранах границы могут пересечься — тогда просто центр
+    return hi < lo ? (lo + hi) / 2 : Math.min(hi, Math.max(lo, v));
+  }
+
   function spawn(now) {
-    const R = 84 * settings.size / 100, m = R + 40;
+    // круг не должен вылезать за маленький экран телефона
+    const R = Math.min(84 * settings.size / 100, Math.min(w, h) / 2 - 30);
+    const m = R + 40;
     let x = w / 2, y = h / 2;
     if (CFG.madness) {
       const px = lastX ?? w / 2, py = lastY ?? h / 2;
       const drift = 220;
-      x = Math.min(w - m, Math.max(m, px + (Math.random() * 2 - 1) * drift));
-      y = Math.min(h - m, Math.max(m, py + (Math.random() * 2 - 1) * drift));
+      x = clamp(px + (Math.random() * 2 - 1) * drift, m, w - m);
+      y = clamp(py + (Math.random() * 2 - 1) * drift, m, h - m);
     }
     lastX = x;
     lastY = y;
@@ -283,8 +293,9 @@
     ctx.lineWidth = 2.5;
     ctx.stroke();
     // hit key label, box sized to the key name
+    const label = hitLabel();
     ctx.font = '700 15px "Chakra Petch", monospace';
-    const bw = Math.max(64, ctx.measureText(settings.keyLabel).width + 28);
+    const bw = Math.max(64, ctx.measureText(label).width + 28);
     ctx.fillStyle = 'rgba(10,10,10,0.85)';
     ctx.fillRect(-bw / 2, -14, bw, 28);
     ctx.strokeStyle = '#ffffff';
@@ -293,7 +304,7 @@
     ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(settings.keyLabel, 0, 1);
+    ctx.fillText(label, 0, 1);
     ctx.textBaseline = 'alphabetic';
     // needle
     const na = rad(ch.progress);
@@ -320,7 +331,11 @@
     sizeValue.textContent = settings.size + '%';
     keyBtn.textContent = settings.keyLabel;
     keyBtn.classList.toggle('listening', rebinding);
-    hintKey.textContent = settings.keyLabel;
+    if (isTouch) {
+      hintKey.parentElement.textContent = 'ТАП ПО ЭКРАНУ — ПОПАДАНИЕ';
+    } else {
+      hintKey.textContent = settings.keyLabel;
+    }
   }
 
   sizeRange.addEventListener('input', () => {
@@ -360,6 +375,17 @@
   startBtn.addEventListener('click', start);
   retryBtn.addEventListener('click', start);
   new ResizeObserver(fit).observe(canvas.parentElement);
+
+  // реальная высота видимой области: vh/dvh во встроенных браузерах (Telegram и т.п.)
+  // включают зону за панелями, из-за чего низ сцены обрезался
+  function setAppHeight() {
+    const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    document.documentElement.style.setProperty('--app-h', vh + 'px');
+  }
+  setAppHeight();
+  window.addEventListener('resize', setAppHeight);
+  window.addEventListener('orientationchange', setAppHeight);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', setAppHeight);
 
   fit();
   renderHud();

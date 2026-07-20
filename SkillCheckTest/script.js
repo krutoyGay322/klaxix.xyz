@@ -38,6 +38,9 @@
   // на тачскринах клавиатуры нет — подпись в круге и подсказка меняются на «ТАП»
   const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   const hitLabel = () => (isTouch ? 'ТАП' : settings.keyLabel);
+  // контейнер подсказки берём заранее: после перезаписи текста span #hintKey
+  // выпадает из DOM и его parentElement становится null
+  const hintEl = hintKey.parentElement;
 
   // State
   let phase = 'idle'; // idle | countdown | running | dead
@@ -332,7 +335,7 @@
     keyBtn.textContent = settings.keyLabel;
     keyBtn.classList.toggle('listening', rebinding);
     if (isTouch) {
-      hintKey.parentElement.textContent = 'ТАП ПО ЭКРАНУ — ПОПАДАНИЕ';
+      hintEl.textContent = 'ТАП ПО ЭКРАНУ — ПОПАДАНИЕ';
     } else {
       hintKey.textContent = settings.keyLabel;
     }

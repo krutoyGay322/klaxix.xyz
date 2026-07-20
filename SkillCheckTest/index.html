@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Испытание — Skill Check Gauntlet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header class="hud">
+    <div class="stat">
+      <span class="stat-label">ВРЕМЯ</span>
+      <span class="stat-value" id="timer">0.0с</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">РЕКОРД</span>
+      <span class="stat-value stat-value--red" id="best">—</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">ПОПАДАНИЯ</span>
+      <span class="stat-value stat-value--hits" id="hits">0</span>
+    </div>
+    <div class="settings">
+      <div class="setting">
+        <span class="stat-label">РАЗМЕР КРУГА</span>
+        <div class="size-row">
+          <input type="range" id="sizeRange" min="60" max="180" step="10" value="100">
+          <span class="size-value" id="sizeValue">100%</span>
+        </div>
+      </div>
+      <div class="setting">
+        <span class="stat-label">КЛАВИША</span>
+        <button class="key-btn" id="keyBtn">ПРОБЕЛ</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="stage">
+    <canvas id="canvas"></canvas>
+
+    <div class="overlay overlay--idle" id="idleOverlay">
+      <div class="title">ИСПЫТАНИЕ</div>
+      <div class="subtitle">Проверки реакции одна за другой. Узкая зона успеха. Круги появляются в случайных местах и могут идти в обратную сторону. Один промах — таймер останавливается.</div>
+      <button class="btn" id="startBtn">НАЧАТЬ</button>
+      <div class="hint"><span id="hintKey">ПРОБЕЛ</span> ИЛИ КЛИК — ПОПАДАНИЕ</div>
+    </div>
+
+    <div class="overlay overlay--countdown hidden" id="countdownOverlay">
+      <div class="count" id="count">3</div>
+    </div>
+
+    <div class="overlay overlay--dead hidden" id="deadOverlay">
+      <div class="dead-title">ПРОМАХ</div>
+      <div class="dead-summary">Продержались <span class="dead-time" id="lastTime">0.0с</span> · попаданий: <span id="deadHits">0</span></div>
+      <div class="new-best hidden" id="newBest">НОВЫЙ РЕКОРД</div>
+      <button class="btn" id="retryBtn">ЗАНОВО</button>
+      <aside class="history">
+        <div class="history-label">ПОСЛЕДНИЕ ПОПЫТКИ</div>
+        <div class="history-list" id="historyList"></div>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

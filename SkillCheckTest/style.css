@@ -1,0 +1,281 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #0c0a0d;
+  height: 100%;
+  overflow: hidden;
+}
+
+a { color: #d8d4d9; }
+a:hover { color: #c22b33; }
+
+.hidden { display: none !important; }
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #0c0a0d;
+  color: #d8d4d9;
+  font-family: 'Chakra Petch', monospace;
+  user-select: none;
+}
+
+/* ---- top HUD ---- */
+.hud {
+  display: flex;
+  gap: 40px;
+  padding: 16px 22px;
+  border-bottom: 1px solid #221d24;
+  align-items: baseline;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #6e6572;
+}
+
+.stat-value {
+  font-size: 34px;
+  font-weight: 700;
+  color: #f0edf1;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.stat-value--red { color: #c22b33; }
+.stat-value--hits { font-weight: 600; color: #d8d4d9; }
+
+/* ---- settings ---- */
+.settings {
+  margin-left: auto;
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.setting {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.size-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#sizeRange {
+  width: 120px;
+  accent-color: #c22b33;
+  cursor: pointer;
+}
+
+.size-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: #d8d4d9;
+  font-variant-numeric: tabular-nums;
+  width: 40px;
+}
+
+.key-btn {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 5px 14px;
+  background: transparent;
+  color: #f0edf1;
+  border: 1px solid #443c47;
+  cursor: pointer;
+  min-width: 90px;
+}
+
+.key-btn:hover { border-color: #c22b33; }
+
+.key-btn.listening {
+  border-color: #e0a33b;
+  color: #e0a33b;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* ---- play area ---- */
+.stage {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+#canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+}
+
+/* ---- overlays ---- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay--idle {
+  gap: 18px;
+  background: rgba(12, 10, 13, 0.82);
+}
+
+.title {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: #f0edf1;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #8f8694;
+  max-width: 460px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.btn {
+  margin-top: 10px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  padding: 14px 44px;
+  background: #c22b33;
+  color: #0c0a0d;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover { background: #e03b44; }
+
+.hint {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #6e6572;
+}
+
+.overlay--countdown {
+  background: rgba(12, 10, 13, 0.7);
+  pointer-events: none;
+}
+
+.count {
+  font-size: 140px;
+  font-weight: 700;
+  color: #f0edf1;
+}
+
+.overlay--dead {
+  gap: 14px;
+  background: rgba(20, 6, 8, 0.86);
+}
+
+.dead-title {
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  color: #c22b33;
+}
+
+.dead-summary {
+  font-size: 18px;
+  color: #d8d4d9;
+}
+
+.dead-time {
+  color: #f0edf1;
+  font-weight: 700;
+}
+
+.new-best {
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: #e0a33b;
+}
+
+.overlay--dead .btn { margin-top: 12px; }
+
+/* ---- history panel ---- */
+.history {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  bottom: 20px;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.history-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #6e6572;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 3px 14px;
+  align-content: flex-start;
+  flex: 1;
+  overflow: hidden;
+}
+
+.history-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  padding: 3px 10px;
+  width: 240px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.04);
+  font-variant-numeric: tabular-nums;
+}
+
+.history-n {
+  font-size: 11px;
+  color: #6e6572;
+  width: 30px;
+}
+
+.history-time {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f0edf1;
+}
+
+.history-time--best { color: #e0a33b; }
+
+.history-hits {
+  font-size: 11px;
+  color: #8f8694;
+}

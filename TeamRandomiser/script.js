@@ -4,6 +4,9 @@
 const KEY = 'teamRandomizerV1';
 const TIER3_CHANCE = 0.15; // шанс легендарного (Tier 3 из магазина капитана)
 const TIER2_CHANCE = 0.30; // шанс редкого (Tier 2)
+// У убийцы шансы выше: он один против четырёх выживших (4 броска против 16).
+const K_TIER3_CHANCE = 0.30;
+const K_TIER2_CHANCE = 0.40;
 const TIER = {
   1: { roman: 'I', c1: '#d9b545' },
   2: { roman: 'II', c1: '#57c47a' },
@@ -73,9 +76,9 @@ function save() {
   localStorage.setItem(KEY, JSON.stringify({ killer, killerPerks, survivors, muted, randKiller, randPool }));
 }
 
-function rollTier() {
+function rollTier(t3, t2) {
   const r = Math.random();
-  return r < TIER3_CHANCE ? 3 : r < TIER3_CHANCE + TIER2_CHANCE ? 2 : 1;
+  return r < t3 ? 3 : r < t3 + t2 ? 2 : 1;
 }
 
 // Редкость предмета: 10% фиолетовый, 25% зелёный, 30% жёлтый, 35% коричневый.
@@ -85,8 +88,8 @@ function rollItemRarity() {
 }
 
 // Кидает тир, затем берёт случайный неиспользованный перк этого тира из магазина капитана.
-function pickPerk(pool, used) {
-  const tier = rollTier();
+function pickPerk(pool, used, t3 = TIER3_CHANCE, t2 = TIER2_CHANCE) {
+  const tier = rollTier(t3, t2);
   for (const t of [tier, 2, 1, 3]) {
     const c = pool.filter(p => p.tier === t && !used.has(p.src));
     if (c.length) { const p = rnd(c); used.add(p.src); return p; }
@@ -554,7 +557,7 @@ function randomize() {
 
   const d = state.data;
   const kUsed = new Set();
-  const kPerks = [0, 1, 2, 3].map(() => pickPerk(d.killerPerks, kUsed));
+  const kPerks = [0, 1, 2, 3].map(() => pickPerk(d.killerPerks, kUsed, K_TIER3_CHANCE, K_TIER2_CHANCE));
   const sUsed = new Set(), itemsUsed = new Set();
   const svGear = state.survivors.map(() => {
     const rarity = rollItemRarity();

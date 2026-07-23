@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Рандомайзер Команды</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="viewport">
+  <div class="stage" id="stage">
+    <div class="vignette" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="titlebox">
+        <div class="title">Рандомайзер Команды</div>
+        <div class="subtitle">выбери персонажей · рандомизируй перки и предметы · <a href="../">на главную</a></div>
+      </div>
+      <div class="topbar__spacer"></div>
+      <button class="btn-ghost" id="btn-sound" type="button">ЗВУК: ВКЛ</button>
+      <button class="btn-ghost btn-ghost--danger" id="btn-reset" type="button">СБРОС</button>
+      <button class="btn-main" id="btn-main" type="button">ЗАГРУЗКА…</button>
+    </header>
+
+    <main class="cols">
+      <section class="panel panel--killer">
+        <div class="panel__head">
+          <div class="panel__title panel__title--killer">Убийца</div>
+          <label class="randkiller" title="Убийца будет выбираться случайно при рандомизации">
+            <input type="checkbox" id="chk-rand-killer">
+            <span>рандомить</span>
+          </label>
+          <button class="btn-pool" id="btn-pool" type="button" hidden title="Выбрать, какие убийцы участвуют в рандоме">ПУЛ: ВСЕ</button>
+        </div>
+        <div class="killer-hero" id="killer-hero"></div>
+        <div class="killer-perks" id="killer-perks"></div>
+      </section>
+
+      <section class="panel panel--surv">
+        <div class="panel__head">
+          <div class="panel__title panel__title--surv">Выжившие</div>
+          <div class="panel__hint">перетаскивай перки, чтобы менять их местами</div>
+        </div>
+        <div class="surv-rows" id="surv-rows"></div>
+      </section>
+    </main>
+
+    <canvas id="fx" class="fx" width="2560" height="1440" aria-hidden="true"></canvas>
+    <div id="picker"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

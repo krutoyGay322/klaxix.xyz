@@ -1,0 +1,1226 @@
+{
+ "killers": [
+  {
+   "name": "Охотник",
+   "src": "../CaptainShop/killerIcons/Trapper.png"
+  },
+  {
+   "name": "Призрак",
+   "src": "../CaptainShop/killerIcons/Wraith.png"
+  },
+  {
+   "name": "Деревенщина",
+   "src": "../CaptainShop/killerIcons/Hillbilly.png"
+  },
+  {
+   "name": "Медсестра",
+   "src": "../CaptainShop/killerIcons/Nurse.png"
+  },
+  {
+   "name": "Форма",
+   "src": "../CaptainShop/killerIcons/Shape Variant.png"
+  },
+  {
+   "name": "Ведьма",
+   "src": "../CaptainShop/killerIcons/Hag.png"
+  },
+  {
+   "name": "Доктор",
+   "src": "../CaptainShop/killerIcons/Doctor.png"
+  },
+  {
+   "name": "Охотница",
+   "src": "../CaptainShop/killerIcons/Huntress.png"
+  },
+  {
+   "name": "Каннибал",
+   "src": "../CaptainShop/killerIcons/Cannibal.png"
+  },
+  {
+   "name": "Кошмар",
+   "src": "../CaptainShop/killerIcons/Nightmare.png"
+  },
+  {
+   "name": "Свинья",
+   "src": "../CaptainShop/killerIcons/Pig.png"
+  },
+  {
+   "name": "Клоун",
+   "src": "../CaptainShop/killerIcons/Clown.png"
+  },
+  {
+   "name": "Дух",
+   "src": "../CaptainShop/killerIcons/Spirit.png"
+  },
+  {
+   "name": "Легион",
+   "src": "../CaptainShop/killerIcons/Legion.png"
+  },
+  {
+   "name": "Чума",
+   "src": "../CaptainShop/killerIcons/Plague.png"
+  },
+  {
+   "name": "Гоуст Фейс",
+   "src": "../CaptainShop/killerIcons/Ghostface.png"
+  },
+  {
+   "name": "Демогоргон",
+   "src": "../CaptainShop/killerIcons/Demogorgon.png"
+  },
+  {
+   "name": "Они",
+   "src": "../CaptainShop/killerIcons/Oni.png"
+  },
+  {
+   "name": "Стрелок",
+   "src": "../CaptainShop/killerIcons/Deathslinger.png"
+  },
+  {
+   "name": "Палач",
+   "src": "../CaptainShop/killerIcons/Executioner.png"
+  },
+  {
+   "name": "Мор",
+   "src": "../CaptainShop/killerIcons/Blight.png"
+  },
+  {
+   "name": "Близнецы",
+   "src": "../CaptainShop/killerIcons/Twins.png"
+  },
+  {
+   "name": "Трюкач",
+   "src": "../CaptainShop/killerIcons/Trickster.png"
+  },
+  {
+   "name": "Немезис",
+   "src": "../CaptainShop/killerIcons/Nemesis.png"
+  },
+  {
+   "name": "Сенобит",
+   "src": "../CaptainShop/killerIcons/Cenobite.png"
+  },
+  {
+   "name": "Художница",
+   "src": "../CaptainShop/killerIcons/Artist.png"
+  },
+  {
+   "name": "Онрё",
+   "src": "../CaptainShop/killerIcons/Onryo.png"
+  },
+  {
+   "name": "Грязь",
+   "src": "../CaptainShop/killerIcons/Dredge.png"
+  },
+  {
+   "name": "Кукловод",
+   "src": "../CaptainShop/killerIcons/Mastermind.png"
+  },
+  {
+   "name": "Рыцарь",
+   "src": "../CaptainShop/killerIcons/Knight.png"
+  },
+  {
+   "name": "Торговка Черепами",
+   "src": "../CaptainShop/killerIcons/Skull Merchant.png"
+  },
+  {
+   "name": "Сингулярность",
+   "src": "../CaptainShop/killerIcons/Singularity.png"
+  },
+  {
+   "name": "Ксеноморф",
+   "src": "../CaptainShop/killerIcons/Xenomorph.png"
+  },
+  {
+   "name": "Хороший Парень",
+   "src": "../CaptainShop/killerIcons/Good Guy.png"
+  },
+  {
+   "name": "Неведомое",
+   "src": "../CaptainShop/killerIcons/Unknown.png"
+  },
+  {
+   "name": "Лич",
+   "src": "../CaptainShop/killerIcons/Lich.png"
+  },
+  {
+   "name": "Темный Властелин",
+   "src": "../CaptainShop/killerIcons/Dark Lord.png"
+  },
+  {
+   "name": "Егерь",
+   "src": "../CaptainShop/killerIcons/Houndmaster.png"
+  },
+  {
+   "name": "Гуль",
+   "src": "../CaptainShop/killerIcons/Ghoul.png"
+  },
+  {
+   "name": "Аниматроник",
+   "src": "../CaptainShop/killerIcons/Animatronic.png"
+  },
+  {
+   "name": "Красу",
+   "src": "../CaptainShop/killerIcons/Krasue.png"
+  },
+  {
+   "name": "Первый",
+   "src": "../CaptainShop/killerIcons/T_UI_K42_TheFirst_Portrait.png"
+  },
+  {
+   "name": "Слэшер",
+   "src": "../CaptainShop/killerIcons/Slasher.png"
+  }
+ ],
+ "icons": [
+  {
+   "name": "Дуайт Фэйрфилд",
+   "src": "../CaptainShop/SurvivorIcons/Dwight Fairfield.png"
+  },
+  {
+   "name": "Мэг Томас",
+   "src": "../CaptainShop/SurvivorIcons/Meg Thomas.png"
+  },
+  {
+   "name": "Клодетт Морель",
+   "src": "../CaptainShop/SurvivorIcons/Claudette Morel.png"
+  },
+  {
+   "name": "Джейк Парк",
+   "src": "../CaptainShop/SurvivorIcons/Jake Park.png"
+  },
+  {
+   "name": "Нея Карлссон",
+   "src": "../CaptainShop/SurvivorIcons/Nea Karlsson.png"
+  },
+  {
+   "name": "Лори Строуд",
+   "src": "../CaptainShop/SurvivorIcons/Laurie Strode.png"
+  },
+  {
+   "name": "Эйс Висконти",
+   "src": "../CaptainShop/SurvivorIcons/Ace Visconti.png"
+  },
+  {
+   "name": "Уильям «Билл» Овербек",
+   "src": "../CaptainShop/SurvivorIcons/Bill Overbeck.png"
+  },
+  {
+   "name": "Фенг Мин",
+   "src": "../CaptainShop/SurvivorIcons/Feng Min.png"
+  },
+  {
+   "name": "Дэвид Кинг",
+   "src": "../CaptainShop/SurvivorIcons/David King.png"
+  },
+  {
+   "name": "Квентин Смит",
+   "src": "../CaptainShop/SurvivorIcons/Quentin Smith.png"
+  },
+  {
+   "name": "Детектив Тэпп",
+   "src": "../CaptainShop/SurvivorIcons/David Tapp.png"
+  },
+  {
+   "name": "Кейт Денсон",
+   "src": "../CaptainShop/SurvivorIcons/Kate Denson.png"
+  },
+  {
+   "name": "Адам Фрэнсис",
+   "src": "../CaptainShop/SurvivorIcons/Adam Francis.png"
+  },
+  {
+   "name": "Джефф Йохансен",
+   "src": "../CaptainShop/SurvivorIcons/Jeff Johansen.png"
+  },
+  {
+   "name": "Джейн Ромеро",
+   "src": "../CaptainShop/SurvivorIcons/Jane Romero.png"
+  },
+  {
+   "name": "Эшли Джей Уильямс",
+   "src": "../CaptainShop/SurvivorIcons/Ash Williams.png"
+  },
+  {
+   "name": "Нэнси Уиллер",
+   "src": "../CaptainShop/SurvivorIcons/Nancy Wheeler.png"
+  },
+  {
+   "name": "Стив Харрингтон",
+   "src": "../CaptainShop/SurvivorIcons/Steve Harrington.png"
+  },
+  {
+   "name": "Юи Кимура",
+   "src": "../CaptainShop/SurvivorIcons/Yui Kimura.png"
+  },
+  {
+   "name": "Зарина Кассир",
+   "src": "../CaptainShop/SurvivorIcons/Zarina Kassir.png"
+  },
+  {
+   "name": "Шерил Мейсон",
+   "src": "../CaptainShop/SurvivorIcons/Cheryl Mason.png"
+  },
+  {
+   "name": "Феликс Рихтер",
+   "src": "../CaptainShop/SurvivorIcons/Felix Richter.png"
+  },
+  {
+   "name": "Элоди Ракото",
+   "src": "../CaptainShop/SurvivorIcons/Elodie Rakoto.png"
+  },
+  {
+   "name": "Ли Юнчин",
+   "src": "../CaptainShop/SurvivorIcons/Yun-Jin Lee.png"
+  },
+  {
+   "name": "Джилл Валентайн",
+   "src": "../CaptainShop/SurvivorIcons/Jill Valentine.png"
+  },
+  {
+   "name": "Леон С. Кеннеди",
+   "src": "../CaptainShop/SurvivorIcons/Leon S Kennedy.png"
+  },
+  {
+   "name": "Микаэла Рид",
+   "src": "../CaptainShop/SurvivorIcons/Mikaela Reid.png"
+  },
+  {
+   "name": "Хонас Васкес",
+   "src": "../CaptainShop/SurvivorIcons/Jonah Vasquez.png"
+  },
+  {
+   "name": "Ёити Асакава",
+   "src": "../CaptainShop/SurvivorIcons/Yoichi Asakawa.png"
+  },
+  {
+   "name": "Хэдди Каур",
+   "src": "../CaptainShop/SurvivorIcons/Haddie Kaur.png"
+  },
+  {
+   "name": "Ада Вонг",
+   "src": "../CaptainShop/SurvivorIcons/Ada Wong.png"
+  },
+  {
+   "name": "Ребекка Чемберс",
+   "src": "../CaptainShop/SurvivorIcons/Rebecca Chambers.png"
+  },
+  {
+   "name": "Витторио Тоскано",
+   "src": "../CaptainShop/SurvivorIcons/Vittorio Toscano.png"
+  },
+  {
+   "name": "Талита Лира",
+   "src": "../CaptainShop/SurvivorIcons/Thalita Lyra.png"
+  },
+  {
+   "name": "Ренато Лира",
+   "src": "../CaptainShop/SurvivorIcons/Renato Lyra.png"
+  },
+  {
+   "name": "Габриэль Сома",
+   "src": "../CaptainShop/SurvivorIcons/Gabriel Soma.png"
+  },
+  {
+   "name": "Николас Кейдж",
+   "src": "../CaptainShop/SurvivorIcons/Nicolas Cage.png"
+  },
+  {
+   "name": "Эллен Рипли",
+   "src": "../CaptainShop/SurvivorIcons/Ellen Ripley.png"
+  },
+  {
+   "name": "Алан Уэйк",
+   "src": "../CaptainShop/SurvivorIcons/Alan Wake.png"
+  },
+  {
+   "name": "Сейбл Уорд",
+   "src": "../CaptainShop/SurvivorIcons/Sable Ward.png"
+  },
+  {
+   "name": "Аэстри Язар",
+   "src": "../CaptainShop/SurvivorIcons/Aestri Yazar.png"
+  },
+  {
+   "name": "Лара Крофт",
+   "src": "../CaptainShop/SurvivorIcons/Lara Croft.png"
+  },
+  {
+   "name": "Тревор Бельмонт",
+   "src": "../CaptainShop/SurvivorIcons/Trevor Belmont.png"
+  },
+  {
+   "name": "Тори Кейн",
+   "src": "../CaptainShop/SurvivorIcons/Taurie Cain.png"
+  },
+  {
+   "name": "Орела Роуз",
+   "src": "../CaptainShop/SurvivorIcons/Orela Rose.png"
+  },
+  {
+   "name": "Рик Граймс",
+   "src": "../CaptainShop/SurvivorIcons/Rick Grimes.png"
+  },
+  {
+   "name": "Мишон Граймс",
+   "src": "../CaptainShop/SurvivorIcons/Michonne Grimes.png"
+  },
+  {
+   "name": "Ви Бунясак",
+   "src": "../CaptainShop/SurvivorIcons/Vee Boonyasak.png"
+  },
+  {
+   "name": "Дастин Хендерсон",
+   "src": "../CaptainShop/SurvivorIcons/Dustin Henderson.png"
+  },
+  {
+   "name": "Одиннадцать",
+   "src": "../CaptainShop/SurvivorIcons/Eleven.png"
+  },
+  {
+   "name": "Квон Тхэён",
+   "src": "../CaptainShop/SurvivorIcons/Kwon Tae-young.png"
+  },
+  {
+   "name": "Шейн Вигваас",
+   "src": "../CaptainShop/SurvivorIcons/Shane Wiigwaas.webp"
+  }
+ ],
+ "killerPerks": [
+  {
+   "name": "Розыгрыш",
+   "src": "../CaptainShop/killerPerks/Tier 1/Bamboozle.png",
+   "tier": 1
+  },
+  {
+   "name": "Барбекю И Чили",
+   "src": "../CaptainShop/killerPerks/Tier 1/BBQ and Chili.png",
+   "tier": 1
+  },
+  {
+   "name": "Хищный Зверь",
+   "src": "../CaptainShop/killerPerks/Tier 1/Beast of Prey.png",
+   "tier": 1
+  },
+  {
+   "name": "Тихий Шорох",
+   "src": "../CaptainShop/killerPerks/Tier 1/Bitter Murmur.png",
+   "tier": 1
+  },
+  {
+   "name": "Зверская Сила",
+   "src": "../CaptainShop/killerPerks/Tier 1/Brutal Strength.png",
+   "tier": 1
+  },
+  {
+   "name": "Добивание",
+   "src": "../CaptainShop/killerPerks/Tier 1/Coup de Grace.png",
+   "tier": 1
+  },
+  {
+   "name": "Жестокая Изоляция",
+   "src": "../CaptainShop/killerPerks/Tier 1/Cruel Limits.png",
+   "tier": 1
+  },
+  {
+   "name": "Разлад",
+   "src": "../CaptainShop/killerPerks/Tier 1/Discordance.png",
+   "tier": 1
+  },
+  {
+   "name": "Растворение",
+   "src": "../CaptainShop/killerPerks/Tier 1/Dissolution.png",
+   "tier": 1
+  },
+  {
+   "name": "Драконья Хватка",
+   "src": "../CaptainShop/killerPerks/Tier 1/Dragon_s Grip.png",
+   "tier": 1
+  },
+  {
+   "name": "Стойкий",
+   "src": "../CaptainShop/killerPerks/Tier 1/Enduring.png",
+   "tier": 1
+  },
+  {
+   "name": "Порча: Радость Охоты",
+   "src": "../CaptainShop/killerPerks/Tier 1/Hex Thrill of the Hunt.png",
+   "tier": 1
+  },
+  {
+   "name": "Свирепая Гордыня",
+   "src": "../CaptainShop/killerPerks/Tier 1/Hubris.png",
+   "tier": 1
+  },
+  {
+   "name": "Мертвая Хватка",
+   "src": "../CaptainShop/killerPerks/Tier 1/Iron Grasp.png",
+   "tier": 1
+  },
+  {
+   "name": "Безжалостный Шторм",
+   "src": "../CaptainShop/killerPerks/Tier 1/Merciless Storm.png",
+   "tier": 1
+  },
+  {
+   "name": "Разрушитель Разума",
+   "src": "../CaptainShop/killerPerks/Tier 1/Mindbreaker.png",
+   "tier": 1
+  },
+  {
+   "name": "Все Несвободны",
+   "src": "../CaptainShop/killerPerks/Tier 1/None Are Free.png",
+   "tier": 1
+  },
+  {
+   "name": "Притеснение",
+   "src": "../CaptainShop/killerPerks/Tier 1/Oppression.png",
+   "tier": 1
+  },
+  {
+   "name": "Фантомный Страх",
+   "src": "../CaptainShop/killerPerks/Tier 1/Phantom Fear.png",
+   "tier": 1
+  },
+  {
+   "name": "Секущий Крюк: Дар Боли",
+   "src": "../CaptainShop/killerPerks/Tier 1/Scourge Hook Gift of Pain.png",
+   "tier": 1
+  },
+  {
+   "name": "Небрежный Мясник",
+   "src": "../CaptainShop/killerPerks/Tier 1/Sloppy Butcher.png",
+   "tier": 1
+  },
+  {
+   "name": "Ярость Духа",
+   "src": "../CaptainShop/killerPerks/Tier 1/Spirit Fury.png",
+   "tier": 1
+  },
+  {
+   "name": "Последний Этап",
+   "src": "../CaptainShop/killerPerks/Tier 1/Terminus.png",
+   "tier": 1
+  },
+  {
+   "name": "Пугающая Тряска",
+   "src": "../CaptainShop/killerPerks/Tier 1/Thrilling Tremors.png",
+   "tier": 1
+  },
+  {
+   "name": "Умелец",
+   "src": "../CaptainShop/killerPerks/Tier 1/Tinkerer.png",
+   "tier": 1
+  },
+  {
+   "name": "Тропа Терзаний",
+   "src": "../CaptainShop/killerPerks/Tier 1/Trail of Torment.png",
+   "tier": 1
+  },
+  {
+   "name": "Непредвиденное",
+   "src": "../CaptainShop/killerPerks/Tier 1/Unforeseen.png",
+   "tier": 1
+  },
+  {
+   "name": "Нетерпимость",
+   "src": "../CaptainShop/killerPerks/Tier 2/Agitation.png",
+   "tier": 2
+  },
+  {
+   "name": "Соленое Море",
+   "src": "../CaptainShop/killerPerks/Tier 2/Call of Brine.png",
+   "tier": 2
+  },
+  {
+   "name": "Мертвая Хватка",
+   "src": "../CaptainShop/killerPerks/Tier 2/Deadlock.png",
+   "tier": 2
+  },
+  {
+   "name": "Друзья До Гроба",
+   "src": "../CaptainShop/killerPerks/Tier 2/Friends Til the End.png",
+   "tier": 2
+  },
+  {
+   "name": "Порча: Благоволение Крови",
+   "src": "../CaptainShop/killerPerks/Tier 2/Hex Blood Favor.png",
+   "tier": 2
+  },
+  {
+   "name": "Порча: Разум Улья",
+   "src": "../CaptainShop/killerPerks/Tier 2/Hex Hive Mind.png",
+   "tier": 2
+  },
+  {
+   "name": "Порча: Игрушка",
+   "src": "../CaptainShop/killerPerks/Tier 2/Hex Plaything.png",
+   "tier": 2
+  },
+  {
+   "name": "Выхода Нет",
+   "src": "../CaptainShop/killerPerks/Tier 2/No Way Out.png",
+   "tier": 2
+  },
+  {
+   "name": "Им Не Укрыться",
+   "src": "../CaptainShop/killerPerks/Tier 2/Nowhere to Hide.png",
+   "tier": 2
+  },
+  {
+   "name": "Выброс",
+   "src": "../CaptainShop/killerPerks/Tier 2/Surge.png",
+   "tier": 2
+  },
+  {
+   "name": "Вмешательство Скверны",
+   "src": "../CaptainShop/killerPerks/Tier 3/Corrupt Intervention.png",
+   "tier": 3
+  },
+  {
+   "name": "Аварийная Кнопка",
+   "src": "../CaptainShop/killerPerks/Tier 3/Dead Man_s Switch.png",
+   "tier": 3
+  },
+  {
+   "name": "Подрыв",
+   "src": "../CaptainShop/killerPerks/Tier 3/Eruption.png",
+   "tier": 3
+  },
+  {
+   "name": "Мрачные Объятья",
+   "src": "../CaptainShop/killerPerks/Tier 3/Grim Embrace.png",
+   "tier": 3
+  },
+  {
+   "name": "Порча: Погибель",
+   "src": "../CaptainShop/killerPerks/Tier 3/Hex Ruin.png",
+   "tier": 3
+  },
+  {
+   "name": "Чертик Из Табакерки",
+   "src": "../CaptainShop/killerPerks/Tier 3/Pop Goes the Weasel.png",
+   "tier": 3
+  },
+  {
+   "name": "Секущий Крюк: Резонанс Боли",
+   "src": "../CaptainShop/killerPerks/Tier 3/Scourge Hook Pain Resonance.png",
+   "tier": 3
+  },
+  {
+   "name": "Перевести Часы Назад",
+   "src": "../CaptainShop/killerPerks/Tier 3/Turn Back the Clock.png",
+   "tier": 3
+  }
+ ],
+ "survivorPerks": [
+  {
+   "name": "Любыми средствами",
+   "src": "../CaptainShop/survivorPerks/Tier1/Any Means Necessary.png",
+   "tier": 1
+  },
+  {
+   "name": "Нянька",
+   "src": "../CaptainShop/survivorPerks/Tier1/Babysitter.png",
+   "tier": 1
+  },
+  {
+   "name": "Бада-бада-бум",
+   "src": "../CaptainShop/survivorPerks/Tier1/Bada Bada Boom.png",
+   "tier": 1
+  },
+  {
+   "name": "Вдохновение барда",
+   "src": "../CaptainShop/survivorPerks/Tier1/Bardic Inspiration.png",
+   "tier": 1
+  },
+  {
+   "name": "Фугасная мина",
+   "src": "../CaptainShop/survivorPerks/Tier1/Blast Mine.png",
+   "tier": 1
+  },
+  {
+   "name": "Выше головы",
+   "src": "../CaptainShop/survivorPerks/Tier1/Blood Rush.png",
+   "tier": 1
+  },
+  {
+   "name": "Через край",
+   "src": "../CaptainShop/survivorPerks/Tier1/Boil Over.png",
+   "tier": 1
+  },
+  {
+   "name": "Дар: Экспонента",
+   "src": "../CaptainShop/survivorPerks/Tier1/Boon Exponential.png",
+   "tier": 1
+  },
+  {
+   "name": "Дар: Уход в тень",
+   "src": "../CaptainShop/survivorPerks/Tier1/Boon Shadow Step.png",
+   "tier": 1
+  },
+  {
+   "name": "Поломка",
+   "src": "../CaptainShop/survivorPerks/Tier1/Breakdown.png",
+   "tier": 1
+  },
+  {
+   "name": "Форсаж",
+   "src": "../CaptainShop/survivorPerks/Tier1/Breakout.png",
+   "tier": 1
+  },
+  {
+   "name": "Строим на века",
+   "src": "../CaptainShop/survivorPerks/Tier1/Built to Last.png",
+   "tier": 1
+  },
+  {
+   "name": "Спокойствие духа",
+   "src": "../CaptainShop/survivorPerks/Tier1/Calm Spirit.png",
+   "tier": 1
+  },
+  {
+   "name": "Товарищество",
+   "src": "../CaptainShop/survivorPerks/Tier1/Camaraderie.png",
+   "tier": 1
+  },
+  {
+   "name": "Воин света",
+   "src": "../CaptainShop/survivorPerks/Tier1/Champion of Light.png",
+   "tier": 1
+  },
+  {
+   "name": "Химическая ловушка",
+   "src": "../CaptainShop/survivorPerks/Tier1/Chemical Trap.png",
+   "tier": 1
+  },
+  {
+   "name": "Убежденность",
+   "src": "../CaptainShop/survivorPerks/Tier1/Conviction.png",
+   "tier": 1
+  },
+  {
+   "name": "Уловка",
+   "src": "../CaptainShop/survivorPerks/Tier1/Deception.png",
+   "tier": 1
+  },
+  {
+   "name": "Отчаянные меры",
+   "src": "../CaptainShop/survivorPerks/Tier1/Desperate Measures.png",
+   "tier": 1
+  },
+  {
+   "name": "Детективное чутье",
+   "src": "../CaptainShop/survivorPerks/Tier1/Detective_s Hunch.png",
+   "tier": 1
+  },
+  {
+   "name": "Искажение",
+   "src": "../CaptainShop/survivorPerks/Tier1/Distortion.png",
+   "tier": 1
+  },
+  {
+   "name": "Диверсия",
+   "src": "../CaptainShop/survivorPerks/Tier1/Diversion.png",
+   "tier": 1
+  },
+  {
+   "name": "Не навреди",
+   "src": "../CaptainShop/survivorPerks/Tier1/Do No Harm.png",
+   "tier": 1
+  },
+  {
+   "name": "Эмпатическая связь",
+   "src": "../CaptainShop/survivorPerks/Tier1/Empathic Connection.png",
+   "tier": 1
+  },
+  {
+   "name": "Восприятие экстрасенса",
+   "src": "../CaptainShop/survivorPerks/Tier1/Extrasensory Perception.png",
+   "tier": 1
+  },
+  {
+   "name": "Ликование",
+   "src": "../CaptainShop/survivorPerks/Tier1/Exultation.png",
+   "tier": 1
+  },
+  {
+   "name": "Световая граната",
+   "src": "../CaptainShop/survivorPerks/Tier1/Flashbang.png",
+   "tier": 1
+  },
+  {
+   "name": "Дружеское состязание",
+   "src": "../CaptainShop/survivorPerks/Tier1/Friendly Competition.png",
+   "tier": 1
+  },
+  {
+   "name": "Внутренняя сила",
+   "src": "../CaptainShop/survivorPerks/Tier1/Inner Strength.png",
+   "tier": 1
+  },
+  {
+   "name": "Последний рубеж",
+   "src": "../CaptainShop/survivorPerks/Tier1/Last Stand.png",
+   "tier": 1
+  },
+  {
+   "name": "Ниже травы",
+   "src": "../CaptainShop/survivorPerks/Tier1/Low Profile.png",
+   "tier": 1
+  },
+  {
+   "name": "Призвание",
+   "src": "../CaptainShop/survivorPerks/Tier1/Made For This.png",
+   "tier": 1
+  },
+  {
+   "name": "Зеркальная иллюзия",
+   "src": "../CaptainShop/survivorPerks/Tier1/Mirrored Illusion.png",
+   "tier": 1
+  },
+  {
+   "name": "Без огласки",
+   "src": "../CaptainShop/survivorPerks/Tier1/Off the Record.png",
+   "tier": 1
+  },
+  {
+   "name": "Мародерское чутье",
+   "src": "../CaptainShop/survivorPerks/Tier1/Plunderer_s Instinct.png",
+   "tier": 1
+  },
+  {
+   "name": "Потенциальная энергия",
+   "src": "../CaptainShop/survivorPerks/Tier1/Potential Energy.png",
+   "tier": 1
+  },
+  {
+   "name": "Быстрый и тихий",
+   "src": "../CaptainShop/survivorPerks/Tier1/Quick and Quiet.png",
+   "tier": 1
+  },
+  {
+   "name": "Обман во благо",
+   "src": "../CaptainShop/survivorPerks/Tier1/Red Herring.png",
+   "tier": 1
+  },
+  {
+   "name": "Скрытый союз",
+   "src": "../CaptainShop/survivorPerks/Tier1/Repressed Alliance.png",
+   "tier": 1
+  },
+  {
+   "name": "Остаточное проявление",
+   "src": "../CaptainShop/survivorPerks/Tier1/Residual Manifest.png",
+   "tier": 1
+  },
+  {
+   "name": "Крушитель",
+   "src": "../CaptainShop/survivorPerks/Tier1/Saboteur.png",
+   "tier": 1
+  },
+  {
+   "name": "Сам себе доктор",
+   "src": "../CaptainShop/survivorPerks/Tier1/Self Care.png",
+   "tier": 1
+  },
+  {
+   "name": "Солидарность",
+   "src": "../CaptainShop/survivorPerks/Tier1/Solidarity.png",
+   "tier": 1
+  },
+  {
+   "name": "Оберег души",
+   "src": "../CaptainShop/survivorPerks/Tier1/Soul Guard.png",
+   "tier": 1
+  },
+  {
+   "name": "Замри и увидишь",
+   "src": "../CaptainShop/survivorPerks/Tier1/Still Sight.png",
+   "tier": 1
+  },
+  {
+   "name": "Сила во мраке",
+   "src": "../CaptainShop/survivorPerks/Tier1/Strength in Shadows.png",
+   "tier": 1
+  },
+  {
+   "name": "Командная работа: Собраться с силами",
+   "src": "../CaptainShop/survivorPerks/Tier1/Teamwork Toughen Up.png",
+   "tier": 1
+  },
+  {
+   "name": "Выдержка",
+   "src": "../CaptainShop/survivorPerks/Tier1/Tenacity.png",
+   "tier": 1
+  },
+  {
+   "name": "Городской бег",
+   "src": "../CaptainShop/survivorPerks/Tier1/Urban Evasion.png",
+   "tier": 1
+  },
+  {
+   "name": "Визионер",
+   "src": "../CaptainShop/survivorPerks/Tier1/Visionary.png",
+   "tier": 1
+  },
+  {
+   "name": "Проснись",
+   "src": "../CaptainShop/survivorPerks/Tier1/Wake Up.png",
+   "tier": 1
+  },
+  {
+   "name": "Жучок",
+   "src": "../CaptainShop/survivorPerks/Tier1/Wiretap.png",
+   "tier": 1
+  },
+  {
+   "name": "Самоучка",
+   "src": "../CaptainShop/survivorPerks/Tier2/Autodidact.png",
+   "tier": 2
+  },
+  {
+   "name": "Запасной игрок",
+   "src": "../CaptainShop/survivorPerks/Tier2/Background Player.png",
+   "tier": 2
+  },
+  {
+   "name": "Дар: Круг исцеления",
+   "src": "../CaptainShop/survivorPerks/Tier2/Boon Circle of Healing.png",
+   "tier": 2
+  },
+  {
+   "name": "Познания в ботанике",
+   "src": "../CaptainShop/survivorPerks/Tier2/Botany Knowledge.png",
+   "tier": 2
+  },
+  {
+   "name": "С чистого листа",
+   "src": "../CaptainShop/survivorPerks/Tier2/Clean Break.png",
+   "tier": 2
+  },
+  {
+   "name": "Потанцуй со мной",
+   "src": "../CaptainShop/survivorPerks/Tier2/Dance With Me.png",
+   "tier": 2
+  },
+  {
+   "name": "Врачебный долг",
+   "src": "../CaptainShop/survivorPerks/Tier2/Duty Of Care.png",
+   "tier": 2
+  },
+  {
+   "name": "Сноровка",
+   "src": "../CaptainShop/survivorPerks/Tier2/Finesse.png",
+   "tier": 2
+  },
+  {
+   "name": "На пять шагов впереди",
+   "src": "../CaptainShop/survivorPerks/Tier2/Five Moves Ahead.png",
+   "tier": 2
+  },
+  {
+   "name": "Состояние потока",
+   "src": "../CaptainShop/survivorPerks/Tier2/Flow State.png",
+   "tier": 2
+  },
+  {
+   "name": "Ради людей",
+   "src": "../CaptainShop/survivorPerks/Tier2/For the People.png",
+   "tier": 2
+  },
+  {
+   "name": "Записки о призраке",
+   "src": "../CaptainShop/survivorPerks/Tier2/Ghost Notes.png",
+   "tier": 2
+  },
+  {
+   "name": "Напролом",
+   "src": "../CaptainShop/survivorPerks/Tier2/Head On.png",
+   "tier": 2
+  },
+  {
+   "name": "Надежда",
+   "src": "../CaptainShop/survivorPerks/Tier2/Hope.png",
+   "tier": 2
+  },
+  {
+   "name": "Железная воля",
+   "src": "../CaptainShop/survivorPerks/Tier2/Iron Will.png",
+   "tier": 2
+  },
+  {
+   "name": "Лидер",
+   "src": "../CaptainShop/survivorPerks/Tier2/Leader.png",
+   "tier": 2
+  },
+  {
+   "name": "Везение",
+   "src": "../CaptainShop/survivorPerks/Tier2/Lucky Break.png",
+   "tier": 2
+  },
+  {
+   "name": "Раз, два, три, четыре!",
+   "src": "../CaptainShop/survivorPerks/Tier2/One-Two-Three-Four.png",
+   "tier": 2
+  },
+  {
+   "name": "Прояви себя",
+   "src": "../CaptainShop/survivorPerks/Tier2/Prove Thyself.png",
+   "tier": 2
+  },
+  {
+   "name": "Быстрый гамбит",
+   "src": "../CaptainShop/survivorPerks/Tier2/Quick Gambit.png",
+   "tier": 2
+  },
+  {
+   "name": "Ободрение",
+   "src": "../CaptainShop/survivorPerks/Tier2/Reassurance.png",
+   "tier": 2
+  },
+  {
+   "name": "Устойчивость",
+   "src": "../CaptainShop/survivorPerks/Tier2/Resilience.png",
+   "tier": 2
+  },
+  {
+   "name": "Второе дыхание",
+   "src": "../CaptainShop/survivorPerks/Tier2/Second Wind.png",
+   "tier": 2
+  },
+  {
+   "name": "Выслеживание подозреваемого",
+   "src": "../CaptainShop/survivorPerks/Tier2/Stake Out.png",
+   "tier": 2
+  },
+  {
+   "name": "Бессонница",
+   "src": "../CaptainShop/survivorPerks/Tier2/Vigil.png",
+   "tier": 2
+  },
+  {
+   "name": "Мы справимся",
+   "src": "../CaptainShop/survivorPerks/Tier2/We_ll Make It.png",
+   "tier": 2
+  },
+  {
+   "name": "Мы будем жить вечно",
+   "src": "../CaptainShop/survivorPerks/Tier2/We_re Gonna Live Forever.png",
+   "tier": 2
+  },
+  {
+   "name": "Уникальная возможность",
+   "src": "../CaptainShop/survivorPerks/Tier2/Windows of Opportunity.png",
+   "tier": 2
+  },
+  {
+   "name": "Адреналин",
+   "src": "../CaptainShop/survivorPerks/Tier3/Adrenaline.png",
+   "tier": 3
+  },
+  {
+   "name": "Ловкое приземление",
+   "src": "../CaptainShop/survivorPerks/Tier3/Balanced Landing.png",
+   "tier": 3
+  },
+  {
+   "name": "Крепкий орешек",
+   "src": "../CaptainShop/survivorPerks/Tier3/Dead Hard.png",
+   "tier": 3
+  },
+  {
+   "name": "Решающий удар",
+   "src": "../CaptainShop/survivorPerks/Tier3/Decisive Strike.png",
+   "tier": 3
+  },
+  {
+   "name": "Дежавю",
+   "src": "../CaptainShop/survivorPerks/Tier3/Deja Vu.png",
+   "tier": 3
+  },
+  {
+   "name": "Освобождение",
+   "src": "../CaptainShop/survivorPerks/Tier3/Deliverance.png",
+   "tier": 3
+  },
+  {
+   "name": "Драматургия",
+   "src": "../CaptainShop/survivorPerks/Tier3/Dramaturgy.png",
+   "tier": 3
+  },
+  {
+   "name": "Полная сосредоточенность",
+   "src": "../CaptainShop/survivorPerks/Tier3/Hyperfocus.png",
+   "tier": 3
+  },
+  {
+   "name": "Гибкость",
+   "src": "../CaptainShop/survivorPerks/Tier3/Lithe.png",
+   "tier": 3
+  },
+  {
+   "name": "Преодоление",
+   "src": "../CaptainShop/survivorPerks/Tier3/Overcome.png",
+   "tier": 3
+  },
+  {
+   "name": "Вот это поворот",
+   "src": "../CaptainShop/survivorPerks/Tier3/Plot Twist.png",
+   "tier": 3
+  },
+  {
+   "name": "Поправка",
+   "src": "../CaptainShop/survivorPerks/Tier3/Resurgence.png",
+   "tier": 3
+  },
+  {
+   "name": "Бремя на себя",
+   "src": "../CaptainShop/survivorPerks/Tier3/Shoulder the Burden.png",
+   "tier": 3
+  },
+  {
+   "name": "Ударный забег",
+   "src": "../CaptainShop/survivorPerks/Tier3/Smash Hit.png",
+   "tier": 3
+  },
+  {
+   "name": "Спринтер",
+   "src": "../CaptainShop/survivorPerks/Tier3/Sprint Burst.png",
+   "tier": 3
+  },
+  {
+   "name": "Несокрушимый",
+   "src": "../CaptainShop/survivorPerks/Tier3/Unbreakable.png",
+   "tier": 3
+  }
+ ],
+ "items": [
+  {
+   "name": "Китайская петарда",
+   "rarity": 1,
+   "src": "../CaptainShop/Items/Firecrackers/Chinese Firecracker.png"
+  },
+  {
+   "name": "Заводила вечеринок третьего года",
+   "rarity": 2,
+   "src": "../CaptainShop/Items/Firecrackers/Third Year Party Starter.png"
+  },
+  {
+   "name": "Зимний заводила вечеринок",
+   "rarity": 2,
+   "src": "../CaptainShop/Items/Firecrackers/Winter Party Starter.png"
+  },
+  {
+   "name": "Фонарик",
+   "rarity": 2,
+   "src": "../CaptainShop/Items/Flashlights/Flashlight.png"
+  },
+  {
+   "name": "Спортивный фонарик",
+   "rarity": 3,
+   "src": "../CaptainShop/Items/Flashlights/Sport Flashlight.png"
+  },
+  {
+   "name": "Рабочий фонарик",
+   "rarity": 4,
+   "src": "../CaptainShop/Items/Flashlights/Utility Flashlight.png"
+  },
+  {
+   "name": "Флакон подмастерья с туманом",
+   "rarity": 1,
+   "src": "../CaptainShop/Items/Fog Vials/Apprentice_s Fog Vial.png"
+  },
+  {
+   "name": "Флакон мастерового с туманом",
+   "rarity": 2,
+   "src": "../CaptainShop/Items/Fog Vials/Artisan_s Fog Vial.png"
+  },
+  {
+   "name": "Флакон Виго с туманом",
+   "rarity": 3,
+   "src": "../CaptainShop/Items/Fog Vials/Vigo_s Fog Vial.png"
+  },
+  {
+   "name": "Сломанный ключ",
+   "rarity": 1,
+   "src": "../CaptainShop/Items/Keys/Broken Key.png"
+  },
+  {
+   "name": "Потертый ключ",
+   "rarity": 2,
+   "src": "../CaptainShop/Items/Keys/Dull Key.png"
+  },
+  {
+   "name": "Ключ скелета",
+   "rarity": 3,
+   "src": "../CaptainShop/Items/Keys/Skeleton Key.png"
+  },
+  {
+   "name": "Карта с подписями",
+   "rarity": 3,
+   "src": "../CaptainShop/Items/Maps/Annotated Map.png"
+  },
+  {
+   "name": "Загадочная карта",
+   "rarity": 1,
+   "src": "../CaptainShop/Items/Maps/Cryptic Map.png"
+  },
+  {
+   "name": "Небрежная карта",
+   "rarity": 2,
+   "src": "../CaptainShop/Items/Maps/Scribbled Map.png"
+  },
+  {
+   "name": "Походная аптечка",
+   "rarity": 1,
+   "src": "../CaptainShop/Items/Medkits/Camping Aid Kit.png"
+  },
+  {
+   "name": "Аптечка первой помощи",
+   "rarity": 3,
+   "src": "../CaptainShop/Items/Medkits/Emergency Med Kit.png"
+  },
+  {
+   "name": "Аптечка",
+   "rarity": 2,
+   "src": "../CaptainShop/Items/Medkits/First Aid Kit.png"
+  },
+  {
+   "name": "Аптечка лесничего",
+   "rarity": 4,
+   "src": "../CaptainShop/Items/Medkits/Ranger Med Kit.png"
+  },
+  {
+   "name": "Ящик Алекса",
+   "rarity": 4,
+   "src": "../CaptainShop/Items/Toolboxes/Alex_s Toolbox.png"
+  },
+  {
+   "name": "Вместительный ящик с инструментами",
+   "rarity": 3,
+   "src": "../CaptainShop/Items/Toolboxes/Commodious Toolbox.png"
+  },
+  {
+   "name": "Инструменты инженера",
+   "rarity": 4,
+   "src": "../CaptainShop/Items/Toolboxes/Engineer_s Toolbox.png"
+  },
+  {
+   "name": "Инструменты механика",
+   "rarity": 3,
+   "src": "../CaptainShop/Items/Toolboxes/Mechanic_s Toolbox.png"
+  },
+  {
+   "name": "Ящик с инструментами",
+   "rarity": 2,
+   "src": "../CaptainShop/Items/Toolboxes/Toolbox.png"
+  },
+  {
+   "name": "Изношенные инструменты",
+   "rarity": 1,
+   "src": "../CaptainShop/Items/Toolboxes/Worn-Out Toolbox.png"
+  }
+ ]
+}

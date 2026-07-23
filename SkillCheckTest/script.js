@@ -182,7 +182,7 @@
 
   function spawn(now) {
     // круг не должен вылезать за маленький экран телефона
-    const R = Math.min(78 * settings.size / 100, Math.min(w, h) / 2 - 30);
+    const R = Math.min(73 * settings.size / 100, Math.min(w, h) / 2 - 30);
     const m = R + 40;
     let x = w / 2, y = h / 2;
     if (CFG.madness) {

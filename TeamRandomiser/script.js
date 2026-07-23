@@ -95,14 +95,53 @@ function pickPerk(pool, used) {
 }
 
 /* ── Масштаб сцены ── */
+// Десктоп: фикс-сцена 2560×1440, вписанная в экран. Мобила (портрет/узко/низко):
+// вертикальная сцена шириной 600 виртуальных px, масштаб по ширине, страница скроллится.
+const MOB_W = 600;
+const viewportEl = document.querySelector('.viewport');
+const fxCanvas = document.getElementById('fx');
+let mobile = false, stageScale = 1;
+
 function rescale() {
   const h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
   const w = (window.visualViewport && window.visualViewport.width) || window.innerWidth;
-  const s = Math.min(w / 2560, h / 1440);
-  stageEl.style.setProperty('--stage-scale', s);
-  stageEl.style.transform = `scale(${s})`;
+  mobile = w < h || w < 700 || h < 520;
+  document.body.classList.toggle('mob', mobile);
+  if (mobile) {
+    stageScale = w / MOB_W;
+  } else {
+    stageScale = Math.min(w / 2560, h / 1440);
+    viewportEl.style.height = '';
+    if (fxCanvas.width !== 2560) { fxCanvas.width = 2560; fxCanvas.height = 1440; }
+  }
+  stageEl.style.setProperty('--stage-scale', stageScale);
+  stageEl.style.transform = `scale(${stageScale})`;
+  syncMobileMetrics();
+  placePicker();
 }
+
+// Высота страницы под отскейленную сцену + канвас эффектов под её реальный размер.
+function syncMobileMetrics() {
+  if (!mobile) return;
+  const H = stageEl.offsetHeight; // виртуальная (неотскейленная) высота
+  viewportEl.style.height = (H * stageScale) + 'px';
+  if (fxCanvas.width !== MOB_W || fxCanvas.height !== H) { fxCanvas.width = MOB_W; fxCanvas.height = H; }
+}
+
+// На мобиле оверлей пикера растянут на всю (длинную) сцену — ставим окно в видимую область.
+function placePicker() {
+  const ov = pickerEl.querySelector('.picker-overlay');
+  if (!ov) return;
+  const pk = ov.querySelector('.picker');
+  if (!mobile) { pk.style.marginTop = ''; pk.style.height = ''; return; }
+  const vh = ((window.visualViewport && window.visualViewport.height) || window.innerHeight) / stageScale;
+  const top = Math.max(0, -stageEl.getBoundingClientRect().top / stageScale);
+  pk.style.marginTop = (top + vh * .03) + 'px';
+  pk.style.height = (vh * .94) + 'px';
+}
+
 window.addEventListener('resize', rescale);
+window.addEventListener('scroll', placePicker, { passive: true });
 if (window.visualViewport) window.visualViewport.addEventListener('resize', rescale);
 rescale();
 
@@ -150,7 +189,6 @@ function sndFor(tier) {
 function sndPick() { const c = ctx(); if (!c) return; tone(c, { f0: 380, f1: 540, dur: .14, gain: .12 }); }
 
 /* ── FX: вспышки частиц на общем канвасе ── */
-const fxCanvas = document.getElementById('fx');
 const fxCtx = fxCanvas.getContext('2d');
 let bursts = [], fxRaf = null;
 
@@ -227,7 +265,7 @@ function burstAt(fxId, tier, c1Override) {
   const el = stageEl.querySelector(`[data-fxid="${fxId}"]`);
   if (!el) return;
   const sr = stageEl.getBoundingClientRect(), r = el.getBoundingClientRect();
-  const scale = sr.width / 2560;
+  const scale = sr.width / fxCanvas.width;
   spawnBurst((r.left + r.width / 2 - sr.left) / scale, (r.top + r.height / 2 - sr.top) / scale, tier, c1Override);
 }
 
@@ -360,6 +398,7 @@ function renderPicker() {
     state.picker = null;
     sndPick(); save(); render();
   }));
+  placePicker();
 }
 
 function closePicker() { state.picker = null; renderPicker(); }
@@ -438,6 +477,7 @@ function renderPoolPicker() {
     updatePoolBtn();
     save();
   }));
+  placePicker();
 }
 
 function render() {
@@ -448,6 +488,7 @@ function render() {
   renderKiller();
   renderSurvivors();
   renderPicker();
+  syncMobileMetrics();
   state.popPortrait = null; // анимация портрета одноразовая — следующие рендеры её не повторяют
 }
 

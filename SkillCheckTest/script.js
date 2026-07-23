@@ -54,6 +54,7 @@
   let lastT = 0;
   let flash = 0;
   let lastX = null, lastY = null;
+  let lastAngle = null, lastDir = 1;
   let w = 0, h = 0;
   let cdTimeout = null;
 
@@ -149,6 +150,8 @@
     flash = 0;
     lastX = null;
     lastY = null;
+    lastAngle = null;
+    lastDir = 1;
     hits = 0;
     timerEl.textContent = '0.0с';
     renderHud();
@@ -179,7 +182,7 @@
 
   function spawn(now) {
     // круг не должен вылезать за маленький экран телефона
-    const R = Math.min(84 * settings.size / 100, Math.min(w, h) / 2 - 30);
+    const R = Math.min(78 * settings.size / 100, Math.min(w, h) / 2 - 30);
     const m = R + 40;
     let x = w / 2, y = h / 2;
     if (CFG.madness) {
@@ -190,10 +193,20 @@
     }
     lastX = x;
     lastY = y;
+    // стрелка не телепортируется: продолжает с угла, на котором закончился
+    // прошлый чек, и либо крутится дальше, либо разворачивается
+    let dir, base;
+    if (lastAngle === null) {
+      dir = CFG.madness && Math.random() < 0.3 ? -1 : 1;
+      base = Math.random() * 360;
+    } else {
+      dir = Math.random() < 0.5 ? lastDir : -lastDir;
+      base = lastAngle;
+    }
     check = {
       x, y, R,
-      dir: CFG.madness && Math.random() < 0.3 ? -1 : 1,
-      base: Math.random() * 360,
+      dir,
+      base,
       progress: 0,
       zoneStart: 110 + Math.random() * 90,
       zoneW: Math.max(6, CFG.zone),
@@ -215,6 +228,8 @@
   }
 
   function succeed() {
+    lastAngle = ((check.dir * check.progress + check.base) % 360 + 360) % 360;
+    lastDir = check.dir;
     check = null;
     nextAt = 0;
   }

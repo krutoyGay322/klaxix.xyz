@@ -50,7 +50,7 @@ a:hover { color: #f7e3a8; }
 }
 .vol:hover { border-color: #4a5866; color: #aeb9c2; }
 .vol input { width: 120px; accent-color: #d9b545; cursor: pointer; }
-.vol__val { min-width: 3.4ch; text-align: right; }
+.vol__val { width: 4ch; flex: 0 0 auto; text-align: right; }
 .btn-ghost--danger:hover { border-color: #5c2a2a; color: #c07a72; }
 
 .btn-main {

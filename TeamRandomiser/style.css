@@ -41,6 +41,16 @@ a:hover { color: #f7e3a8; }
   color: #7d8a94; cursor: pointer;
 }
 .btn-ghost:hover { border-color: #4a5866; color: #aeb9c2; }
+
+.vol {
+  display: flex; align-items: center; gap: 12px;
+  background: linear-gradient(180deg, #141920, #0d1013); border: 1px solid #2a333c; border-radius: 4px;
+  padding: 14px 18px; font-family: 'Oswald', sans-serif; font-size: 22px; letter-spacing: .1em;
+  color: #7d8a94; cursor: pointer;
+}
+.vol:hover { border-color: #4a5866; color: #aeb9c2; }
+.vol input { width: 120px; accent-color: #d9b545; cursor: pointer; }
+.vol__val { min-width: 3.4ch; text-align: right; }
 .btn-ghost--danger:hover { border-color: #5c2a2a; color: #c07a72; }
 
 .btn-main {
@@ -306,6 +316,8 @@ body.mob .title { font-size: 34px; }
 body.mob .subtitle { font-size: 14px; letter-spacing: .2em; }
 body.mob .topbar__spacer { display: none; }
 body.mob .btn-ghost { padding: 12px 16px; font-size: 20px; }
+body.mob .vol { padding: 10px 12px; font-size: 18px; gap: 8px; }
+body.mob .vol input { width: 80px; }
 body.mob .btn-main {
   padding: 14px 24px; font-size: 24px; margin-left: auto;
   clip-path: polygon(14px 0, 100% 0, 100% 100%, 0 100%, 0 14px);

@@ -24,6 +24,7 @@ const RARITY = {
 const state = {
   data: null,
   muted: false,
+  volume: .3,          // громкость звуков 0..1
   running: false,
   randKiller: false,   // рандомить убийцу вместе с перками
   randPool: [],        // src убийц, участвующих в рандоме; пусто = все
@@ -44,6 +45,8 @@ const rowsEl = document.getElementById('surv-rows');
 const pickerEl = document.getElementById('picker');
 const btnMain = document.getElementById('btn-main');
 const btnSound = document.getElementById('btn-sound');
+const volRange = document.getElementById('vol-range');
+const volVal = document.getElementById('vol-val');
 const btnReset = document.getElementById('btn-reset');
 const chkRandKiller = document.getElementById('chk-rand-killer');
 const btnPool = document.getElementById('btn-pool');
@@ -72,8 +75,8 @@ window.__imgFail = img => {
 };
 
 function save() {
-  const { killer, killerPerks, survivors, muted, randKiller, randPool } = state;
-  localStorage.setItem(KEY, JSON.stringify({ killer, killerPerks, survivors, muted, randKiller, randPool }));
+  const { killer, killerPerks, survivors, muted, volume, randKiller, randPool } = state;
+  localStorage.setItem(KEY, JSON.stringify({ killer, killerPerks, survivors, muted, volume, randKiller, randPool }));
 }
 
 function rollTier(t3, t2) {
@@ -162,7 +165,7 @@ function tone(c, { type = 'triangle', f0 = 440, f1, t0 = 0, dur = .15, gain = .1
   const o = c.createOscillator(), g = c.createGain(), now = c.currentTime + t0;
   o.type = type; o.frequency.setValueAtTime(f0, now);
   if (f1) o.frequency.exponentialRampToValueAtTime(f1, now + dur);
-  g.gain.setValueAtTime(gain, now); g.gain.exponentialRampToValueAtTime(.0001, now + dur);
+  g.gain.setValueAtTime(gain * state.volume, now); g.gain.exponentialRampToValueAtTime(.0001, now + dur);
   o.connect(g); g.connect(c.destination); o.start(now); o.stop(now + dur + .02);
 }
 function noiseBurst(c, { t0 = 0, dur = .3, gain = .25, freq = 1200 }) {
@@ -170,24 +173,21 @@ function noiseBurst(c, { t0 = 0, dur = .3, gain = .25, freq = 1200 }) {
   for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
   const s = c.createBufferSource(); s.buffer = buf;
   const fl = c.createBiquadFilter(); fl.type = 'lowpass'; fl.frequency.value = freq;
-  const g = c.createGain(); g.gain.value = gain;
+  const g = c.createGain(); g.gain.value = gain * state.volume;
   s.connect(fl); fl.connect(g); g.connect(c.destination); s.start(c.currentTime + t0);
 }
+const TIER_SFX = {
+  1: new Audio('../sfx/Tier1.wav'),
+  2: new Audio('../sfx/Tier2.wav'),
+  3: new Audio('../sfx/Tier3.wav'),
+};
+Object.values(TIER_SFX).forEach(a => { a.preload = 'auto'; });
 function sndFor(tier) {
-  const c = ctx(); if (!c) return;
-  if (tier === 3) {
-    tone(c, { type: 'sine', f0: 150, f1: 38, dur: .6, gain: .55 });
-    noiseBurst(c, { dur: .35, gain: .3, freq: 900 });
-    [523, 659, 784, 1047, 1319].forEach((f, i) => tone(c, { type: 'square', f0: f, t0: .16 + i * .07, dur: .12, gain: .07 }));
-    tone(c, { f0: 2093, t0: .55, dur: .5, gain: .06 });
-  } else if (tier === 2) {
-    tone(c, { f0: 660, dur: .18, gain: .14 });
-    tone(c, { f0: 880, t0: .09, dur: .2, gain: .13 });
-    tone(c, { f0: 1320, t0: .18, dur: .24, gain: .09 });
-    noiseBurst(c, { dur: .12, gain: .05, freq: 4000 });
-  } else {
-    tone(c, { f0: 520, f1: 760, dur: .12, gain: .14 });
-  }
+  if (state.muted) return;
+  const src = TIER_SFX[tier]; if (!src) return;
+  const a = src.cloneNode(); // клон — чтобы быстрые повторы не обрезали друг друга
+  a.volume = state.volume;
+  a.play().catch(() => {});
 }
 function sndPick() { const c = ctx(); if (!c) return; tone(c, { f0: 380, f1: 540, dur: .14, gain: .12 }); }
 
@@ -485,6 +485,8 @@ function renderPoolPicker() {
 
 function render() {
   btnSound.textContent = state.muted ? 'ЗВУК: ВЫКЛ' : 'ЗВУК: ВКЛ';
+  volRange.value = Math.round(state.volume * 100);
+  volVal.textContent = Math.round(state.volume * 100) + '%';
   btnMain.textContent = state.running ? 'ПРОПУСТИТЬ ▸▸' : (state.data ? 'РАНДОМИЗИРОВАТЬ' : 'ЗАГРУЗКА…');
   chkRandKiller.checked = state.randKiller;
   updatePoolBtn();
@@ -635,6 +637,12 @@ function skipAll() {
 /* ── Кнопки ── */
 btnMain.addEventListener('click', randomize);
 btnSound.addEventListener('click', () => { state.muted = !state.muted; save(); render(); });
+volRange.addEventListener('input', () => {
+  state.volume = volRange.value / 100;
+  volVal.textContent = volRange.value + '%';
+  save();
+});
+volRange.addEventListener('change', sndPick); // превью новой громкости
 chkRandKiller.addEventListener('change', () => {
   state.randKiller = chkRandKiller.checked;
   if (state.randKiller && state.data) {
@@ -672,6 +680,7 @@ try {
       }));
     }
     state.muted = !!s.muted;
+    if (typeof s.volume === 'number') state.volume = Math.min(1, Math.max(0, s.volume));
     state.randKiller = !!s.randKiller;
     state.randPool = Array.isArray(s.randPool) ? s.randPool.filter(x => typeof x === 'string') : [];
   }

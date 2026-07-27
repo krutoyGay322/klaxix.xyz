@@ -4,15 +4,16 @@
 const KEY = 'teamRandomizerV1';
 const TIER3_CHANCE = 0.20; // шанс легендарного (Tier 3 из магазина капитана)
 const TIER2_CHANCE = 0.30; // шанс редкого (Tier 2)
-const TIER0_CHANCE = 0.02; // тир 0 («Без сожаления», чёрный) — только у выживших в рандомайзере
+const TIER0_CHANCE = 0.01; // тир 0 («Без сожаления», чёрный) — только у выживших в рандомайзере
 // У убийцы шансы выше: он один против четырёх выживших (4 броска против 16).
 const K_TIER3_CHANCE = 0.30;
 const K_TIER2_CHANCE = 0.40;
+// Цвета вспышек частиц = цвета тиров Horror UI Kit: 0 чёрный / 1 коричневый / 2 синий / 3 фиолетовый.
 const TIER = {
-  0: { c1: '#484f58' },
-  1: { c1: '#d9b545' },
-  2: { c1: '#57c47a' },
-  3: { c1: '#a86ae8' }
+  0: { c1: '#8b95a2' },
+  1: { c1: '#a87f54' },
+  2: { c1: '#4d8bff' },
+  3: { c1: '#c650ff' }
 };
 // Редкости предметов как в лавке капитана; fx — какой «тир» эффектов (звук/частицы/тряска) играть.
 const RARITY = {
@@ -486,7 +487,12 @@ function renderPoolPicker() {
   placePicker();
 }
 
+// = длительности omPulse в style.css. Рендер пересоздаёт DOM, и анимация фиолетовых тайлов
+// стартовала бы заново; отрицательная задержка по общим часам продолжает пульс с той же фазы.
+const PULSE_PERIOD = 3.4;
+
 function render() {
+  stageEl.style.setProperty('--pulse-sync', (-(performance.now() / 1000 % PULSE_PERIOD)).toFixed(3) + 's');
   btnSound.textContent = state.muted ? 'ЗВУК: ВЫКЛ' : 'ЗВУК: ВКЛ';
   const volPct = state.muted ? 0 : Math.round(state.volume * 100); // при «ЗВУК: ВЫКЛ» показываем 0%
   volRange.value = volPct;
@@ -673,6 +679,8 @@ btnReset.addEventListener('click', () => {
   state.killer = null;
   state.killerPerks = [];
   state.survivors = fresh();
+  state.randKiller = false;
+  state.randPool = [];
   state.picker = null;
   state.lastFx = null;
   render();

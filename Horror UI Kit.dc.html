@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#07080b;}
+a{color:#c9d2dc;text-decoration:none;}a:hover{color:#ffffff;}
+@keyframes omPulse{0%,100%{filter:brightness(1) saturate(1);}50%{filter:brightness(1.3) saturate(1.25);}}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#07080b;padding:56px;display:flex;flex-direction:column;gap:72px;font-family:'PT Sans',sans-serif;color:#d8dde3;">
+
+  <!-- ================= ITEM DETAIL + GRID ================= -->
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div style="font-family:'Oswald';font-size:13px;letter-spacing:3px;color:#5a6470;text-transform:uppercase;">Карточка предмета + инвентарь</div>
+    <div style="display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;">
+
+      <!-- item detail panel -->
+      <div style="width:620px;background:linear-gradient(180deg,rgba(10,11,15,.96),rgba(13,15,20,.96));box-shadow:0 24px 60px rgba(0,0,0,.7);">
+        <div style="position:relative;display:flex;align-items:stretch;gap:0;background:linear-gradient(115deg,#c04df5 0%,#7a15c9 40%,#2a0a45 78%,#100618 100%);">
+          <div style="position:absolute;inset:0;background:url(data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='160'%20height='160'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.9'%20numOctaves='3'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='160'%20height='160'%20filter='url(%23n)'%20opacity='0.6'/%3E%3C/svg%3E),repeating-linear-gradient(105deg,rgba(0,0,0,0) 0 7px,rgba(0,0,0,.28) 7px 9px),radial-gradient(120% 140% at 8% 0%,rgba(255,255,255,.14),rgba(0,0,0,0) 45%);mix-blend-mode:overlay;pointer-events:none;"></div>
+          <div style="position:absolute;inset:0;background:radial-gradient(120% 160% at 85% 100%,rgba(0,0,0,.65),rgba(0,0,0,0) 55%);pointer-events:none;"></div>
+          <div style="position:relative;width:118px;min-height:118px;margin:12px 0 12px 12px;background:linear-gradient(160deg,#c650ff,#8a17e8 45%,#3c0575);border:6px solid #0e0f12;box-shadow:0 0 0 2px rgba(0,0,0,.85),inset 0 0 20px rgba(0,0,0,.6),0 0 26px rgba(190,80,255,.8);animation:omPulse 2.4s ease-in-out infinite;display:flex;align-items:center;justify-content:center;">
+            <div style="font-size:46px;color:#f2f4f6;text-shadow:0 2px 6px rgba(0,0,0,.6);">✚</div>
+            <div style="position:absolute;right:4px;bottom:2px;font-family:'Oswald';font-weight:600;font-size:18px;color:#fff;text-shadow:0 1px 3px #000;">4</div>
+          </div>
+          <div style="position:relative;flex:1;padding:18px 22px 14px;display:flex;flex-direction:column;justify-content:center;gap:6px;">
+            <div style="font-family:'Oswald';font-weight:600;font-size:27px;letter-spacing:1.5px;color:#f4f2f7;text-transform:uppercase;text-shadow:0 2px 4px rgba(0,0,0,.55);">Полевая аптечка спасателя</div>
+            <div style="height:2px;background:linear-gradient(90deg,rgba(255,255,255,.55),rgba(255,255,255,0));"></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;">
+              <div style="font-family:'Oswald';font-weight:500;font-size:16px;letter-spacing:2.5px;color:#e6dff0;text-transform:uppercase;">Предмет</div>
+              <div style="font-family:'Oswald';font-weight:500;font-size:15px;letter-spacing:1.5px;color:#e6dff0;text-transform:uppercase;">Очень редк.</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:24px 28px 28px;font-size:17.5px;line-height:1.5;color:#e9edf2;">
+          <p style="margin:0 0 12px;">Прочный металлический кейс с медикаментами, собранный для спасательных операций в удалённых и труднодоступных районах.</p>
+          <ul style="margin:0 0 14px;padding-left:22px;list-style:none;display:flex;flex-direction:column;gap:5px;">
+            <li>· <b>24 заряда</b>.</li>
+            <li>· <b>Увеличивает</b> скорость лечения союзников на <b>50%</b>.</li>
+            <li>· Позволяет <b>лечить себя</b>.</li>
+            <li>· <b>Уменьшает</b> скорость и эффективность лечения себя на <b>33%</b>.</li>
+          </ul>
+          <p style="margin:0 0 22px;font-style:italic;">Полное лечение требует <b>16</b> зарядов.</p>
+          <p style="margin:0;font-style:italic;color:#d6dde5;">«На крышке выцарапаны инициалы прежнего владельца — В.С.»</p>
+        </div>
+      </div>
+
+      <!-- inventory grid -->
+      <div style="display:grid;grid-template-columns:repeat(5,124px);gap:22px;padding:34px;background:radial-gradient(140% 120% at 50% 0%,#232a38 0%,#141821 55%,#0b0d13 100%);box-shadow:inset 0 0 80px rgba(0,0,0,.7);">
+        <sc-for list="{{ tiles }}" as="t" hint-placeholder-count="15">
+          <div style="position:relative;width:124px;height:124px;background:{{ t.g }};border:{{ t.bd }};box-shadow:{{ t.sh }};transform:{{ t.rot }};animation:{{ t.anim }};display:flex;align-items:center;justify-content:center;">
+            <div style="position:absolute;inset:0;background:url(data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='160'%20height='160'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.9'%20numOctaves='3'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='160'%20height='160'%20filter='url(%23n)'%20opacity='0.55'/%3E%3C/svg%3E);mix-blend-mode:overlay;"></div>
+            <div style="position:absolute;inset:0;background:radial-gradient(90% 90% at 50% 46%,rgba(0,0,0,0) 40%,rgba(0,0,0,.55) 100%);"></div>
+            <div style="position:absolute;inset:12px;background:radial-gradient(closest-side at 50% 52%,rgba(255,255,255,.20),rgba(255,255,255,0) 74%);"></div>
+            <div style="position:absolute;inset:0;background:{{ t.sheen }};"></div>
+            <div style="position:relative;font-size:44px;color:#f2f4f6;text-shadow:0 2px 6px rgba(0,0,0,.65),0 0 18px rgba(255,255,255,.35);">{{ t.i }}</div>
+            <div style="position:absolute;right:6px;bottom:3px;font-family:'Oswald';font-weight:600;font-size:19px;color:#fff;text-shadow:0 1px 3px #000;">{{ t.n }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SMALL COMPONENTS ================= -->
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div style="font-family:'Oswald';font-size:13px;letter-spacing:3px;color:#5a6470;text-transform:uppercase;">Снаряжение, подношение, персонаж, шаблоны</div>
+    <div style="display:flex;gap:36px;align-items:flex-start;flex-wrap:wrap;">
+
+      <!-- loadout -->
+      <div style="padding:26px 30px;background:linear-gradient(170deg,#2c3a52 0%,#1a2334 60%,#10151f 100%);box-shadow:inset 0 0 60px rgba(0,0,0,.55);">
+        <div style="display:flex;gap:118px;margin-bottom:16px;">
+          <div style="font-family:'Oswald';font-weight:600;font-size:19px;letter-spacing:2px;color:#dfe5ec;text-transform:uppercase;">Предмет</div>
+          <div style="font-family:'Oswald';font-weight:600;font-size:19px;letter-spacing:2px;color:#dfe5ec;text-transform:uppercase;">Улучшения</div>
+        </div>
+        <div style="display:flex;align-items:center;">
+          <div style="position:relative;width:96px;height:96px;background:linear-gradient(160deg,#3d7bff,#1c45cc 55%,#0a1e78);border:6px solid #0e0f12;box-shadow:0 0 0 2px rgba(0,0,0,.85),inset 0 0 18px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;">
+            <div style="font-size:38px;color:#f2f4f6;text-shadow:0 2px 6px rgba(0,0,0,.6);">✚</div>
+            <div style="position:absolute;right:5px;bottom:2px;font-family:'Oswald';font-weight:600;font-size:17px;color:#fff;text-shadow:0 1px 3px #000;">7</div>
+          </div>
+          <div style="width:56px;height:3px;background:#0c0e12;"></div>
+          <div style="width:82px;height:82px;background:#181c26;border:6px solid #0e0f12;box-shadow:0 0 0 2px rgba(0,0,0,.8),inset 0 0 16px rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;">
+            <div style="font-size:26px;color:#2e3542;">✚</div>
+          </div>
+          <div style="width:40px;height:3px;background:#0c0e12;"></div>
+          <div style="width:82px;height:82px;background:#181c26;border:6px solid #0e0f12;box-shadow:0 0 0 2px rgba(0,0,0,.8),inset 0 0 16px rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;">
+            <div style="font-size:26px;color:#2e3542;">✚</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- offering -->
+      <div style="padding:26px 34px;background:linear-gradient(170deg,#26334a 0%,#161e2e 65%,#0e131d 100%);box-shadow:inset 0 0 50px rgba(0,0,0,.55);display:flex;flex-direction:column;gap:16px;align-items:flex-start;">
+        <div style="font-family:'Oswald';font-weight:600;font-size:19px;letter-spacing:2px;color:#dfe5ec;text-transform:uppercase;">Подношение</div>
+        <div style="width:118px;height:132px;background:#141924;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 24px rgba(0,0,0,.8);">
+          <div style="width:96px;height:108px;background:#1b2130;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;">
+            <div style="font-size:30px;color:#2e3644;">✚</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- character header -->
+      <div style="padding:26px 34px;background:linear-gradient(120deg,#151824 0%,#1f2534 55%,#12151f 100%);display:flex;align-items:center;gap:20px;">
+        <div style="position:relative;">
+          <div style="width:84px;height:84px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#c2a173,#8a6c45 60%,#5c4529);border:4px solid #23201c;box-shadow:0 10px 18px -4px rgba(255,80,10,.55),inset 0 -12px 16px -6px rgba(255,80,10,.7),inset 0 6px 10px rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;">
+            <div style="font-family:'Oswald';font-weight:700;font-size:34px;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.7);">{{ prestige }}</div>
+          </div>
+          <div style="position:absolute;top:-8px;left:22px;width:26px;height:26px;border-radius:50%;background:#d3222a;display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:700;font-size:15px;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.6);">!</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <div style="font-family:'Oswald';font-weight:600;font-size:26px;letter-spacing:1.5px;color:#f0f2f5;text-transform:uppercase;">Виктор Соколов</div>
+          <div style="font-family:'Oswald';font-weight:500;font-size:17px;letter-spacing:2.5px;color:#a9b4c1;text-transform:uppercase;">Снаряжение</div>
+        </div>
+      </div>
+
+      <!-- dropdown -->
+      <div style="width:300px;display:flex;flex-direction:column;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#0b0c0f;border:2px solid #3a3f4a;font-family:'Oswald';font-weight:600;font-size:17px;letter-spacing:2px;color:#e8ebef;text-transform:uppercase;">
+          <span>Шаблон 7</span>
+          <span style="font-size:12px;color:#b7c0cb;">▲</span>
+        </div>
+        <div style="display:flex;flex-direction:column;background:rgba(70,68,84,.92);box-shadow:0 18px 40px rgba(0,0,0,.6);">
+          <sc-for list="{{ templates }}" as="tp" hint-placeholder-count="7">
+            <div style="padding:11px 16px;background:{{ tp.bg }};border:1px solid rgba(20,20,26,.9);font-family:'Oswald';font-weight:500;font-size:16px;letter-spacing:2px;color:{{ tp.c }};text-transform:uppercase;" style-hover="background:rgba(28,28,36,.95);color:#ffffff;">{{ tp.t }}</div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- pagination + arrow -->
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <div style="display:flex;gap:10px;padding:16px 20px;background:linear-gradient(160deg,#3a2126,#241318);">
+          <div style="width:44px;height:44px;background:linear-gradient(160deg,#4a4f5a,#23262e);border:4px solid #0e0f12;display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:700;font-size:20px;color:#e8ebef;box-shadow:0 0 0 1px rgba(255,255,255,.15);">1</div>
+          <div style="width:44px;height:44px;background:linear-gradient(160deg,#3a3e48,#1c1f26);border:4px solid #0e0f12;display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:700;font-size:20px;color:#8d95a1;">2</div>
+        </div>
+        <div style="width:96px;height:110px;background:linear-gradient(170deg,#2a3a54,#162032);display:flex;align-items:center;justify-content:center;">
+          <div style="width:0;height:0;border-top:34px solid transparent;border-bottom:34px solid transparent;border-left:44px solid #0d1017;filter:drop-shadow(2px 0 0 #3a4356);"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PERKS (RHOMBUS) ================= -->
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div style="font-family:'Oswald';font-size:13px;letter-spacing:3px;color:#5a6470;text-transform:uppercase;">Навыки (ромбы)</div>
+    <div style="display:flex;gap:30px;align-items:flex-start;padding:44px 48px 36px;background:radial-gradient(130% 120% at 50% 0%,#222a3a 0%,#131722 55%,#0a0c12 100%);box-shadow:inset 0 0 90px rgba(0,0,0,.7);">
+      <sc-for list="{{ perks }}" as="pk" hint-placeholder-count="4">
+        <div style="width:170px;display:flex;flex-direction:column;align-items:center;gap:18px;">
+          <div style="width:160px;height:160px;display:flex;align-items:center;justify-content:center;">
+            <div style="position:relative;width:106px;height:106px;transform:rotate(45deg);background:{{ pk.g }};border:{{ pk.bd }};box-shadow:{{ pk.sh }};animation:{{ pk.anim }};overflow:hidden;">
+              <div style="position:absolute;inset:0;background:url(data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='160'%20height='160'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.9'%20numOctaves='3'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='160'%20height='160'%20filter='url(%23n)'%20opacity='0.55'/%3E%3C/svg%3E);mix-blend-mode:overlay;"></div>
+              <div style="position:absolute;inset:0;background:radial-gradient(100% 100% at 50% 50%,rgba(0,0,0,0) 38%,rgba(0,0,0,.6) 100%);"></div>
+              <div style="position:absolute;inset:0;background:{{ pk.sheen }};"></div>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform:rotate(-45deg);">
+                <div style="font-size:44px;color:#f2f4f6;text-shadow:0 2px 6px rgba(0,0,0,.7),0 0 20px rgba(255,255,255,.4);">{{ pk.i }}</div>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center;font-family:'Oswald';font-weight:500;font-size:15px;letter-spacing:1.5px;color:#e6eaf0;text-transform:uppercase;line-height:1.3;">{{ pk.name }}</div>
+        </div>
+      </sc-for>
+      <div style="width:170px;display:flex;flex-direction:column;align-items:center;gap:18px;">
+        <div style="width:160px;height:160px;display:flex;align-items:center;justify-content:center;">
+          <div style="position:relative;width:106px;height:106px;transform:rotate(45deg);background:#151a24;border:7px solid #0c0d10;box-shadow:0 0 0 2px rgba(0,0,0,.8),inset 0 0 22px rgba(0,0,0,.85);">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform:rotate(-45deg);">
+              <div style="font-size:36px;color:#2c3442;">✚</div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center;font-family:'Oswald';font-weight:500;font-size:15px;letter-spacing:1.5px;color:#4a5260;text-transform:uppercase;">Пустой слот</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= LEVEL-UP SCREEN ================= -->
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div style="font-family:'Oswald';font-size:13px;letter-spacing:3px;color:#5a6470;text-transform:uppercase;">Повышение уровня</div>
+    <div style="width:1560px;background:#050608;box-shadow:0 30px 80px rgba(0,0,0,.8);padding-bottom:44px;">
+      <div style="position:relative;padding:40px 0 34px;background:linear-gradient(180deg,#5a7890 0%,#31485c 55%,#15202c 100%);text-align:center;">
+        <div style="position:absolute;inset:0;background:url(data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='160'%20height='160'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.9'%20numOctaves='3'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='160'%20height='160'%20filter='url(%23n)'%20opacity='0.6'/%3E%3C/svg%3E),repeating-linear-gradient(100deg,rgba(0,0,0,0) 0 9px,rgba(0,0,0,.3) 9px 11px),linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,0) 30%,rgba(0,0,0,.55));mix-blend-mode:overlay;"></div>
+        <div style="position:absolute;inset:0;background:radial-gradient(60% 120% at 20% 0%,rgba(0,0,0,.5),rgba(0,0,0,0) 50%),radial-gradient(60% 120% at 90% 100%,rgba(0,0,0,.55),rgba(0,0,0,0) 50%);"></div>
+        <div style="position:relative;font-family:'Oswald';font-weight:600;font-size:34px;letter-spacing:3px;color:#f2f5f8;text-transform:uppercase;text-shadow:0 3px 8px rgba(0,0,0,.7);">Потратить очки крови</div>
+      </div>
+      <div style="text-align:center;padding:46px 0 10px;font-size:19px;color:#e3e8ef;">Выберите количество уровней для повышения. Открывает новые награды.</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:52px 0 40px;">
+        <div style="font-family:'Oswald';font-weight:500;font-size:18px;letter-spacing:3px;color:#e6eaf0;text-transform:uppercase;">Уровни</div>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="width:54px;height:54px;border:2px solid #8d95a1;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:600;font-size:24px;color:#dbe0e6;cursor:pointer;" style-hover="background:rgba(255,255,255,.12);" onClick="{{ minLevels }}">«</div>
+          <div style="width:54px;height:54px;border:2px solid #8d95a1;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:600;font-size:28px;color:#dbe0e6;cursor:pointer;" style-hover="background:rgba(255,255,255,.12);" onClick="{{ decLevels }}">−</div>
+          <div style="width:330px;height:58px;border:2px solid #d6dde5;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:600;font-size:24px;color:#f0f3f6;">{{ levels }}</div>
+          <div style="width:54px;height:54px;border:2px solid #8d95a1;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:600;font-size:28px;color:#dbe0e6;cursor:pointer;" style-hover="background:rgba(255,255,255,.12);" onClick="{{ incLevels }}">+</div>
+          <div style="width:54px;height:54px;border:2px solid #8d95a1;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:600;font-size:24px;color:#dbe0e6;cursor:pointer;" style-hover="background:rgba(255,255,255,.12);" onClick="{{ maxLevels }}">»</div>
+        </div>
+      </div>
+      <div style="height:2px;margin:0 60px;background:linear-gradient(90deg,rgba(200,210,220,0),rgba(200,210,220,.4),rgba(200,210,220,0));"></div>
+      <div style="display:flex;justify-content:center;align-items:center;gap:56px;padding:56px 0 30px;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+          <div style="width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#c2a173,#8a6c45 60%,#5c4529);border:4px solid #23201c;box-shadow:0 12px 20px -4px rgba(255,80,10,.55),inset 0 -14px 18px -6px rgba(255,80,10,.7),inset 0 6px 10px rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:700;font-size:40px;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.7);">{{ prestige }}</div>
+          <div style="text-align:center;font-size:17px;color:#e3e8ef;line-height:1.5;">Престиж {{ prestige }}<br>Уровень {{ lvlFrom }}</div>
+        </div>
+        <div style="width:0;height:0;border-top:30px solid transparent;border-bottom:30px solid transparent;border-left:40px solid #6d7682;opacity:.8;"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+          <div style="width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#c2a173,#8a6c45 60%,#5c4529);border:4px solid #23201c;box-shadow:0 12px 20px -4px rgba(255,80,10,.55),inset 0 -14px 18px -6px rgba(255,80,10,.7),inset 0 6px 10px rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:700;font-size:40px;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.7);">{{ prestige }}</div>
+          <div style="text-align:center;font-size:17px;color:#e3e8ef;line-height:1.5;">Престиж {{ prestige }}<br>Уровень {{ lvlTo }}</div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 60px 0;">
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 26px 12px 16px;border-bottom:1px solid #4a505a;cursor:pointer;" style-hover="background:rgba(255,255,255,.05);">
+          <div style="width:10px;height:22px;background:#d3222a;clip-path:polygon(50% 0,100% 100%,0 100%);"></div>
+          <div style="font-family:'Oswald';font-weight:600;font-size:18px;letter-spacing:2px;color:#e8ebef;text-transform:uppercase;">Отменить</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 26px;background:linear-gradient(120deg,#5a4460,#3a2a44 70%,#241a2e);box-shadow:0 4px 14px rgba(0,0,0,.6);">
+          <div style="width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-bottom:15px solid #d3222a;"></div>
+          <div style="font-family:'Oswald';font-weight:600;font-size:19px;color:#f0f3f6;">{{ spendBp }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= QUESTS SCREEN ================= -->
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div style="font-family:'Oswald';font-size:13px;letter-spacing:3px;color:#5a6470;text-transform:uppercase;">Задания</div>
+    <div style="width:1560px;padding:44px 52px 60px;background:radial-gradient(120% 100% at 50% 0%,#2a3448 0%,#171d2b 45%,#0a0d14 100%);box-shadow:0 30px 80px rgba(0,0,0,.8),inset 0 0 120px rgba(0,0,0,.6);">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:34px;">
+        <div style="display:flex;align-items:center;gap:22px;">
+          <div style="width:64px;height:64px;background:#12161f;border:2px solid #2c3442;display:flex;align-items:center;justify-content:center;font-size:30px;color:#c9d1dc;">❋</div>
+          <div>
+            <div style="font-family:'Oswald';font-weight:600;font-size:30px;letter-spacing:2.5px;color:#f0f3f6;text-transform:uppercase;">Задания</div>
+            <div style="font-size:17px;color:#c3ccd7;">Выполняйте задачи, чтобы получать очки крови и другие награды.</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:20px;">
+          <div style="display:flex;gap:26px;font-family:'Oswald';font-weight:500;font-size:18px;color:#e4e8ed;">
+            <div style="display:flex;align-items:center;gap:7px;"><span style="width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffd76a,#b8860b);display:inline-block;"></span>665</div>
+            <div style="display:flex;align-items:center;gap:7px;"><span style="width:15px;height:15px;background:linear-gradient(160deg,#b45ae0,#5a1a8c);clip-path:polygon(50% 0,100% 35%,80% 100%,20% 100%,0 35%);display:inline-block;"></span>11 233</div>
+            <div style="display:flex;align-items:center;gap:7px;"><span style="width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-bottom:15px solid #d3222a;display:inline-block;"></span>{{ bpText }}</div>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;width:260px;padding:11px 16px;border:2px solid #4a5260;background:rgba(0,0,0,.35);font-family:'Oswald';font-weight:500;font-size:15px;letter-spacing:2.5px;color:#a9b4c1;text-transform:uppercase;">Поиск <span style="font-size:17px;">⌕</span></div>
+            <div style="width:46px;height:46px;border:2px solid #4a5260;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;font-size:18px;color:#a9b4c1;">▼</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:44px;align-items:flex-start;">
+        <div style="display:flex;flex-direction:column;gap:18px;width:360px;">
+          <sc-for list="{{ cats }}" as="c" hint-placeholder-count="4">
+            <div style="position:relative;padding:20px 18px 14px;background:{{ c.bg }};border:{{ c.bd }};box-shadow:{{ c.sh }};cursor:pointer;" style-hover="filter:brightness(1.2);">
+              <div style="display:flex;align-items:center;gap:14px;">
+                <div style="font-size:26px;color:#b8c0cc;">{{ c.i }}</div>
+                <div>
+                  <div style="font-family:'Oswald';font-weight:600;font-size:19px;letter-spacing:2px;color:#eef1f5;text-transform:uppercase;">{{ c.t }}</div>
+                  <sc-if value="{{ c.time }}" hint-placeholder-val="{{ true }}"><div style="font-size:14px;color:#b7c0cb;">◷ {{ c.time }}</div></sc-if>
+                </div>
+              </div>
+              <div style="text-align:right;font-family:'Oswald';font-weight:500;font-size:16px;color:#e6eaf0;">{{ c.p }}</div>
+              <sc-if value="{{ c.alert }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;top:-10px;right:-8px;width:26px;height:26px;border-radius:50%;background:#d3222a;display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:700;font-size:15px;color:#fff;">!</div></sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0 4px;">
+            <div style="font-family:'Oswald';font-weight:500;font-size:17px;letter-spacing:2px;color:#dfe5ec;text-transform:uppercase;">Задания выжившего (1/14)</div>
+            <div style="font-size:13px;color:#a9b4c1;">▲</div>
+          </div>
+          <sc-for list="{{ quests }}" as="q" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:20px;padding:18px 22px;background:{{ q.bg }};border:{{ q.bd }};opacity:{{ q.op }};">
+              <div style="flex-shrink:0;width:52px;height:52px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#3a4356,#1a2030);border:2px solid #2c3442;display:flex;align-items:center;justify-content:center;font-size:22px;color:#c9d1dc;">{{ q.i }}</div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:10px;">
+                <div style="font-family:'Oswald';font-weight:600;font-size:17px;letter-spacing:1.5px;color:#e8ebef;text-transform:uppercase;line-height:1.35;">{{ q.t }}</div>
+                <div style="display:flex;align-items:center;gap:14px;">
+                  <div style="flex:1;height:8px;background:#232833;box-shadow:inset 0 1px 3px rgba(0,0,0,.7);"><div style="height:8px;background:linear-gradient(90deg,#c9a15a,#a37e3c);width:{{ q.pct }};"></div></div>
+                  <div style="font-size:14px;color:#b7c0cb;">{{ q.p }}</div>
+                </div>
+              </div>
+              <div style="flex-shrink:0;width:56px;height:56px;background:linear-gradient(160deg,#c22a30,#7e1418);border:3px solid #12080a;display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:600;font-size:13px;color:#fff;text-align:center;line-height:1.1;box-shadow:0 4px 10px rgba(0,0,0,.6);">{{ q.rw }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;prestige&quot;: {&quot;editor&quot;: &quot;int&quot;, &quot;default&quot;: 3, &quot;min&quot;: 1, &quot;max&quot;: 100, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Персонаж&quot;},
+  &quot;bloodPoints&quot;: {&quot;editor&quot;: &quot;int&quot;, &quot;default&quot;: 707566, &quot;min&quot;: 0, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Валюта&quot;},
+  &quot;spendPoints&quot;: {&quot;editor&quot;: &quot;int&quot;, &quot;default&quot;: 9250, &quot;min&quot;: 0, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Валюта&quot;},
+  &quot;levelsToBuy&quot;: {&quot;editor&quot;: &quot;int&quot;, &quot;default&quot;: 1, &quot;min&quot;: 1, &quot;max&quot;: 50, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Повышение уровня&quot;}
+}">
+class Component extends DCLogic {
+  state = { levels: null };
+  renderVals() {
+    const P = "linear-gradient(160deg,#c650ff,#8a17e8 45%,#3c0575)";
+    const Y = "linear-gradient(160deg,#ffd75e,#db9c14 50%,#7a4e06)";
+    const BR = "linear-gradient(160deg,#a87f54,#71492a 55%,#3a2412)";
+    const B = "linear-gradient(160deg,#3d7bff,#1c45cc 55%,#0a1e78)";
+    const G = "linear-gradient(160deg,#55d44a,#1e9c28 55%,#0c5216)";
+    const bdN = "6px solid #0e0f12";
+    const shN = "0 0 0 2px rgba(0,0,0,.85),inset 0 0 20px rgba(0,0,0,.6)";
+    const shSel = "0 0 0 3px #f2f4f6,0 0 26px rgba(255,255,255,.5),inset 0 0 20px rgba(0,0,0,.6)";
+    const rots = ["-0.9deg","0.7deg","-0.4deg","1deg","-0.6deg"];
+    let ti = 0;
+    const glowFor = g => g===P ? ",0 0 26px rgba(190,80,255,.8),0 0 64px rgba(150,40,255,.4)" : g===B ? ",0 0 14px rgba(80,130,255,.45)" : g===G ? ",0 0 12px rgba(80,220,90,.35)" : "";
+    const sheenFor = g => g===P ? "linear-gradient(115deg,rgba(255,255,255,0) 32%,rgba(255,255,255,.30) 44%,rgba(255,255,255,0) 58%)" : "none";
+    const animFor = g => g===P ? "omPulse 2.4s ease-in-out infinite" : "none";
+    const mk = (g,i,n,sel) => ({ g, i, n, bd: bdN, sh: (sel ? shSel : shN) + glowFor(g), rot: "rotate(" + rots[ti++ % 5] + ")", anim: animFor(g), sheen: sheenFor(g) });
+    const tiles = [
+      mk(P,"✚",4), mk(P,"⚒",3), mk(P,"▤",6), mk(P,"⌁",2), mk(B,"✚",7,true),
+      mk(B,"▤",4), mk(B,"⚒",7), mk(B,"❋",6), mk(B,"⚷",3), mk(B,"⌁",7),
+      mk(BR,"❂",2), mk(G,"✚",3), mk(G,"✉",12), mk(Y,"⚷",8), mk(Y,"❂",12)
+    ];
+    const PK = P;
+    const GK = G;
+    const YK = Y;
+    const pkBd = "7px solid #0c0d10";
+    const pkSh = "0 0 0 2px rgba(0,0,0,.85),inset 0 0 22px rgba(0,0,0,.6)";
+    const pkShSel = "0 0 0 3px #f2f4f6,0 0 30px rgba(255,255,255,.55),inset 0 0 22px rgba(0,0,0,.6)";
+    const mp = (g,i,name,sel) => ({ g, i, name, bd: pkBd, sh: (sel ? pkShSel : pkSh) + glowFor(g), anim: animFor(g), sheen: sheenFor(g) });
+    const perks = [
+      mp(PK,"❖","Прилив адреналина"),
+      mp(PK,"✦","Тихий шаг",true),
+      mp(GK,"❂","Чутьё жертвы"),
+      mp(YK,"✜","Последний рывок")
+    ];
+    const templates = [];
+    for (let i = 1; i <= 7; i++) templates.push({
+      t: "Шаблон " + i,
+      bg: i === 7 ? "rgba(24,24,32,.95)" : "rgba(84,82,98,.55)",
+      c: i === 7 ? "#ffffff" : "#d4d8df"
+    });
+    const catBg = "linear-gradient(120deg,rgba(20,24,32,.9),rgba(32,38,50,.85))";
+    const cats = [
+      { t: "В туман", i: "❖", p: "19/32", time: "", alert: false,
+        bg: "linear-gradient(120deg,rgba(12,14,18,.95),rgba(26,30,40,.9))",
+        bd: "3px solid #f2f4f6", sh: "0 0 28px rgba(220,30,30,.85),0 0 60px rgba(220,30,30,.45)" },
+      { t: "Этап", i: "❋", p: "0/7", time: "71 д. 6 ч.", alert: false, bg: catBg, bd: "2px solid #3a4250", sh: "none" },
+      { t: "Пропуск разлома", i: "◉", p: "2/9", time: "71 д. 6 ч.", alert: false, bg: catBg, bd: "2px solid #3a4250", sh: "none" },
+      { t: "Ежедневно", i: "❂", p: "0/4", time: "6 ч. 55 мин.", alert: true, bg: catBg, bd: "2px solid #3a4250", sh: "none" }
+    ];
+    const qBgA = "linear-gradient(120deg,rgba(20,32,52,.9),rgba(14,18,26,.95))";
+    const qBgL = "rgba(14,17,23,.85)";
+    const quests = [
+      { t: "Выполните все задания этапа «13»", p: "1/13", pct: "8%", i: "❂", rw: "125", bg: qBgA, bd: "2px solid #4a5260", op: 1 },
+      { t: "Завершите матч, используя навык «Связь»", p: "0/1", pct: "0%", i: "❂", rw: "10 000", bg: qBgA, bd: "2px solid #4a5260", op: 1 },
+      { t: "Успешно пройдите проверки реакции во время ремонта 4 раз(а)", p: "0/4", pct: "0%", i: "🔒", rw: "10 000", bg: qBgL, bd: "2px solid #262c38", op: 0.55 },
+      { t: "Успешно пройдите проверки реакции при лечении 2 раз(а)", p: "0/2", pct: "0%", i: "🔒", rw: "10 000", bg: qBgL, bd: "2px solid #262c38", op: 0.55 },
+      { t: "Полностью используйте инструменты: 1 шт.", p: "0/1", pct: "0%", i: "🔒", rw: "10 000", bg: qBgL, bd: "2px solid #262c38", op: 0.55 }
+    ];
+    const fmt = n => String(n).replace(/\B(?=(\d{3})+$)/g, " ");
+    const prestige = this.props.prestige ?? 3;
+    const levels = this.state.levels ?? (this.props.levelsToBuy ?? 1);
+    const maxL = 50;
+    const set = v => this.setState({ levels: Math.min(maxL, Math.max(1, v)) });
+    return {
+      tiles, templates, cats, quests, perks, prestige, levels,
+      lvlFrom: 1, lvlTo: 1 + levels,
+      bpText: fmt(this.props.bloodPoints ?? 707566),
+      spendBp: fmt(this.props.spendPoints ?? 9250),
+      decLevels: () => set(levels - 1), incLevels: () => set(levels + 1),
+      minLevels: () => set(1), maxLevels: () => set(maxL)
+    };
+  }
+}
+</script>
+</body>
+</html>

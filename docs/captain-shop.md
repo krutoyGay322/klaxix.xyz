@@ -27,8 +27,20 @@ src/
     killerIcons.js      Пути портретов убийц
     config.js           Цвета тиров, RARITY, каталог ITEMS, экономика (PROPS)
 
-assets/ survivorPerks/ killerPerks/ killerIcons/ SurvivorIcons/ Items/   картинки
+assets/                 картинки самой лавки (Auric_Cell, mapRights)
 _legacy/                старая версия на фреймворке (в гит не попадает, можно удалить)
+```
+
+Картинки перков/портретов/предметов — общие для лавки и Рандомайзера Команды,
+лежат в корне репозитория:
+
+```
+../assets/dbd/
+  survivorPerks/Tier0..Tier3/   перки выживших (Tier0 — только для рандомайзера)
+  killerPerks/Tier1..Tier3/     перки убийц
+  items/<Категория>/            предметы
+  survivorIcons/                портреты выживших
+  killerIcons/                  портреты убийц
 ```
 
 ## Частые правки
@@ -37,8 +49,8 @@ _legacy/                старая версия на фреймворке (в 
 - **Редкости предметов / шансы дропа**: `src/data/config.js` → `RARITY` (цвета + `weight`)
   и `ITEMS` (каталог: имя, редкость, картинка).
 - **Добавить/изменить перк выжившего**: `src/data/perks.js` (+ описание в `perkDesc.js`);
-  картинку — в `survivorPerks/TierN/`.
-- **Добавить/изменить перк убийцы**: `src/data/killerPerks.js`; картинку — в `killerPerks/Tier N/`.
+  картинку — в `../assets/dbd/survivorPerks/TierN/`.
+- **Добавить/изменить перк убийцы**: `src/data/killerPerks.js`; картинку — в `../assets/dbd/killerPerks/TierN/`.
 - **Поменять вид секции**: найди функцию секции в `src/view.js`
   (`header`, `reel`, `shrine`, `survivors`, `killer`, `overlays`, `popup`).
 - **Поменять анимацию**: `src/styles.css` (`@keyframes`).

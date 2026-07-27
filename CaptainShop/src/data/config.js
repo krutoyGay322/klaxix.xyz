@@ -25,26 +25,26 @@ App.RARITY = {
 // Survivor items: Russian names + rarities from items.json, matched to the
 // artwork in the Items/ folders.
 App.ITEMS = [
-  { name: 'Аптечка первой помощи',              rarity: 'Редкий',       img: 'Items/Medkits/First Aid Kit.png' },
-  { name: 'Вместительный ящик с инструментами', rarity: 'Редкий',       img: 'Items/Toolboxes/Commodious Toolbox.png' },
-  { name: 'Инструменты механика',               rarity: 'Редкий',       img: 'Items/Toolboxes/Mechanic_s Toolbox.png' },
-  { name: 'Карта с подписями',                  rarity: 'Редкий',       img: 'Items/Maps/Annotated Map.png' },
-  { name: 'Ключ скелета',                       rarity: 'Редкий',       img: 'Items/Keys/Skeleton Key.png' },
-  { name: 'Спортивный фонарик',                 rarity: 'Редкий',       img: 'Items/Flashlights/Sport Flashlight.png' },
-  { name: 'Флакон Виго с туманом',              rarity: 'Редкий',       img: 'Items/Fog Vials/Vigo_s Fog Vial.png' },
-  { name: 'Аптечка',                            rarity: 'Необычный',    img: 'Items/Medkits/Emergency Med Kit.png' },
-  { name: 'Небрежная карта',                    rarity: 'Необычный',    img: 'Items/Maps/Scribbled Map.png' },
-  { name: 'Потертый ключ',                      rarity: 'Необычный',    img: 'Items/Keys/Dull Key.png' },
-  { name: 'Флакон мастерового с туманом',       rarity: 'Необычный',    img: 'Items/Fog Vials/Artisan_s Fog Vial.png' },
-  { name: 'Фонарик',                            rarity: 'Необычный',    img: 'Items/Flashlights/Flashlight.png' },
-  { name: 'Ящик с инструментами',               rarity: 'Необычный',    img: 'Items/Toolboxes/Toolbox.png' },
-  { name: 'Загадочная карта',                   rarity: 'Обычный',      img: 'Items/Maps/Cryptic Map.png' },
-  { name: 'Изношенные инструменты',             rarity: 'Обычный',      img: 'Items/Toolboxes/Worn-Out Toolbox.png' },
-  { name: 'Походная аптечка',                   rarity: 'Обычный',      img: 'Items/Medkits/Camping Aid Kit.png' },
-  { name: 'Сломанный ключ',                     rarity: 'Обычный',      img: 'Items/Keys/Broken Key.png' },
-  { name: 'Флакон подмастерья с туманом',       rarity: 'Обычный',      img: 'Items/Fog Vials/Apprentice_s Fog Vial.png' },
-  { name: 'Аптечка лесничего',                  rarity: 'Очень редкий', img: 'Items/Medkits/Ranger Med Kit.png' },
-  { name: 'Инструменты инженера',               rarity: 'Очень редкий', img: 'Items/Toolboxes/Engineer_s Toolbox.png' }
+  { name: 'Аптечка первой помощи',              rarity: 'Редкий',       img: '../assets/dbd/items/Medkits/First Aid Kit.png' },
+  { name: 'Вместительный ящик с инструментами', rarity: 'Редкий',       img: '../assets/dbd/items/Toolboxes/Commodious Toolbox.png' },
+  { name: 'Инструменты механика',               rarity: 'Редкий',       img: '../assets/dbd/items/Toolboxes/Mechanic_s Toolbox.png' },
+  { name: 'Карта с подписями',                  rarity: 'Редкий',       img: '../assets/dbd/items/Maps/Annotated Map.png' },
+  { name: 'Ключ скелета',                       rarity: 'Редкий',       img: '../assets/dbd/items/Keys/Skeleton Key.png' },
+  { name: 'Спортивный фонарик',                 rarity: 'Редкий',       img: '../assets/dbd/items/Flashlights/Sport Flashlight.png' },
+  { name: 'Флакон Виго с туманом',              rarity: 'Редкий',       img: '../assets/dbd/items/Fog Vials/Vigo_s Fog Vial.png' },
+  { name: 'Аптечка',                            rarity: 'Необычный',    img: '../assets/dbd/items/Medkits/Emergency Med Kit.png' },
+  { name: 'Небрежная карта',                    rarity: 'Необычный',    img: '../assets/dbd/items/Maps/Scribbled Map.png' },
+  { name: 'Потертый ключ',                      rarity: 'Необычный',    img: '../assets/dbd/items/Keys/Dull Key.png' },
+  { name: 'Флакон мастерового с туманом',       rarity: 'Необычный',    img: '../assets/dbd/items/Fog Vials/Artisan_s Fog Vial.png' },
+  { name: 'Фонарик',                            rarity: 'Необычный',    img: '../assets/dbd/items/Flashlights/Flashlight.png' },
+  { name: 'Ящик с инструментами',               rarity: 'Необычный',    img: '../assets/dbd/items/Toolboxes/Toolbox.png' },
+  { name: 'Загадочная карта',                   rarity: 'Обычный',      img: '../assets/dbd/items/Maps/Cryptic Map.png' },
+  { name: 'Изношенные инструменты',             rarity: 'Обычный',      img: '../assets/dbd/items/Toolboxes/Worn-Out Toolbox.png' },
+  { name: 'Походная аптечка',                   rarity: 'Обычный',      img: '../assets/dbd/items/Medkits/Camping Aid Kit.png' },
+  { name: 'Сломанный ключ',                     rarity: 'Обычный',      img: '../assets/dbd/items/Keys/Broken Key.png' },
+  { name: 'Флакон подмастерья с туманом',       rarity: 'Обычный',      img: '../assets/dbd/items/Fog Vials/Apprentice_s Fog Vial.png' },
+  { name: 'Аптечка лесничего',                  rarity: 'Очень редкий', img: '../assets/dbd/items/Medkits/Ranger Med Kit.png' },
+  { name: 'Инструменты инженера',               rarity: 'Очень редкий', img: '../assets/dbd/items/Toolboxes/Engineer_s Toolbox.png' }
 ];
 
 // Tunables that used to live in the editor "props" panel — edit to rebalance.

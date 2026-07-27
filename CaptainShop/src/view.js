@@ -15,7 +15,7 @@ window.App = window.App || {};
   const cell = (s = '1.2em', tr = '-0.35em') =>
     `<img src="${CELL}" style="width:${s};height:${s};vertical-align:${tr};object-fit:contain;filter:drop-shadow(0 0 4px rgba(220,180,90,0.5));">`;
   const EMPTY = { c1: '#242b32', c2: '#171c21', glow: 'transparent' };
-  const survIcon = i => 'SurvivorIcons/' + encodeURIComponent(SURVIVOR_ICONS[i % SURVIVOR_ICONS.length]);
+  const survIcon = i => '../assets/dbd/survivorIcons/' + encodeURIComponent(SURVIVOR_ICONS[i % SURVIVOR_ICONS.length]);
 
   // Visual attributes for a perk or an item (unifies colour/label/image).
   function vis(entry) {
@@ -321,7 +321,7 @@ window.App = window.App || {};
     if (S.iconPick !== null) {
       const opts = each(SURVIVOR_ICONS, (io, k) => {
         const ring = S.survivors[S.iconPick].icon === k ? '0 0 0 4px #aeb9c2' : 'none';
-        return `<div data-act="pickSurvIcon" data-k="${k}" class="icon-opt" style="width:115px;height:115px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #2b343d, #171c21 75%);border:3px solid #aeb9c2;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;box-shadow:${ring};"><img src="SurvivorIcons/${encodeURIComponent(io)}" style="width:100%;height:100%;object-fit:cover;transform:scale(1.45);"></div>`;
+        return `<div data-act="pickSurvIcon" data-k="${k}" class="icon-opt" style="width:115px;height:115px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #2b343d, #171c21 75%);border:3px solid #aeb9c2;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;box-shadow:${ring};"><img src="../assets/dbd/survivorIcons/${encodeURIComponent(io)}" style="width:100%;height:100%;object-fit:cover;transform:scale(1.45);"></div>`;
       });
       out += `<div data-key="iconpick" data-act="closeIcon" style="position:absolute;inset:0;z-index:60;background:rgba(6,8,10,.75);display:flex;align-items:center;justify-content:center;animation:fadeIn .15s ease;">
         <div data-act="stop" style="background:#14191e;border:1px solid #2a333c;border-radius:6px;padding:34px 44px;display:flex;flex-direction:column;gap:24px;animation:pop .2s ease;">

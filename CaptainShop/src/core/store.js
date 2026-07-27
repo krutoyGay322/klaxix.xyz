@@ -88,7 +88,11 @@ window.App = window.App || {};
         'ГОРЬКИЙ ШЕПОТ': 'ТИХИЙ ШОРОХ', 'ЗОВ МОРЯ': 'СОЛЕНОЕ МОРЕ',
         'УДАР МИЛОСЕРДИЯ': 'ДОБИВАНИЕ', 'ГОРДЫНЯ': 'СВИРЕПАЯ ГОРДЫНЯ'
       };
-      const REMOVED = new Set(['Дерзость', 'Чары: Пауки-прядильщики']); // perks cut from the pool entirely
+      const REMOVED = new Set([
+        'Дерзость', 'Чары: Пауки-прядильщики',
+        // вырезаны из ассетов 27.07.2026:
+        'Спокойствие духа', 'Искажение', 'Восприятие экстрасенса', 'Ликование', 'Замри и увидишь'
+      ]); // perks cut from the pool entirely
       const fix = p => (p && RENAMED[p.name]) ? { ...p, name: RENAMED[p.name] } : p;
       const keep = p => !(p && REMOVED.has(p.name));
       if (s) {

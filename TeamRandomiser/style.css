@@ -167,15 +167,17 @@ a:hover { color: #f7e3a8; }
 .panel--killer .diamond--empty { border-color: #3c2a2a; }
 .panel--killer .diamond--empty > div { color: #3c2a2a; }
 
+.t0 { background: linear-gradient(135deg, #1c1e22, #030304); box-shadow: 0 0 22px rgba(0,0,0,.9), 0 0 8px rgba(140,150,160,.25), inset 0 0 16px rgba(0,0,0,.8); }
 .t1 { background: linear-gradient(135deg, #d9b545, #6e5410); box-shadow: 0 0 20px rgba(217,181,69,.5), inset 0 0 14px rgba(0,0,0,.55); }
 .t2 { background: linear-gradient(135deg, #57c47a, #1d5c33); box-shadow: 0 0 20px rgba(87,196,122,.5), inset 0 0 14px rgba(0,0,0,.55); }
 .t3 { background: linear-gradient(135deg, #a86ae8, #4a2378); box-shadow: 0 0 20px rgba(168,106,232,.6), inset 0 0 14px rgba(0,0,0,.55); }
 
 /* Редкость предметов как в DBD: коричневый / жёлтый / зелёный / фиолетовый */
 .r1 { background: linear-gradient(135deg, #9a6e48, #4a3220); box-shadow: 0 0 16px rgba(154,110,72,.45), inset 0 0 14px rgba(0,0,0,.55); }
-.r2 { background: linear-gradient(135deg, #d9b545, #6e5410); box-shadow: 0 0 20px rgba(217,181,69,.5), inset 0 0 14px rgba(0,0,0,.55); }
-.r3 { background: linear-gradient(135deg, #57c47a, #1d5c33); box-shadow: 0 0 20px rgba(87,196,122,.5), inset 0 0 14px rgba(0,0,0,.55); }
+.r2 { background: linear-gradient(135deg, #57c47a, #1d5c33); box-shadow: 0 0 20px rgba(87,196,122,.5), inset 0 0 14px rgba(0,0,0,.55); }
+.r3 { background: linear-gradient(135deg, #2e6da8, #122c44); box-shadow: 0 0 20px rgba(46,109,168,.5), inset 0 0 14px rgba(0,0,0,.55); }
 .r4 { background: linear-gradient(135deg, #a86ae8, #4a2378); box-shadow: 0 0 20px rgba(168,106,232,.6), inset 0 0 14px rgba(0,0,0,.55); }
+.r5 { background: linear-gradient(135deg, #d9b545, #6e5410); box-shadow: 0 0 20px rgba(217,181,69,.5), inset 0 0 14px rgba(0,0,0,.55); }
 
 .pslot__name { line-height: 1.15; color: #c3ccd4; text-align: center; }
 .pslot--k .pslot__name { font-size: 20px; max-width: 280px; min-height: 24px; }
@@ -183,6 +185,7 @@ a:hover { color: #f7e3a8; }
 .pslot__name--empty { color: #3a4653; }
 
 /* Анимации появления */
+.pop0 { animation: slotSlam 1.1s cubic-bezier(.22,1,.36,1) both; }
 .pop1 { animation: slotPop .7s cubic-bezier(.22,1,.36,1) both; }
 .pop2 { animation: slotPop2 .8s cubic-bezier(.22,1,.36,1) both; }
 .pop3 { animation: slotSlam 1.1s cubic-bezier(.22,1,.36,1) both; }
@@ -241,9 +244,10 @@ a:hover { color: #f7e3a8; }
 .gear__label { font-size: 18px; text-align: center; line-height: 1.15; max-width: 210px; }
 .gear__label--empty { color: #3a4653; }
 .gear__label--r1 { color: #b98a5e; }
-.gear__label--r2 { color: #d9b545; }
-.gear__label--r3 { color: #57c47a; }
+.gear__label--r2 { color: #57c47a; }
+.gear__label--r3 { color: #4da6e0; }
 .gear__label--r4 { color: #a86ae8; }
+.gear__label--r5 { color: #d9b545; }
 
 .gear__itembox[draggable="true"] { cursor: grab; }
 .gear__itembox.dragover .item, .gear__itembox.dragover .item--empty { outline: 3px dashed #9db4c8; outline-offset: 5px; }

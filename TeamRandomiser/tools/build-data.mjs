@@ -1,10 +1,10 @@
-// Генерирует TeamRandomiser/data.json из ассетов CaptainShop + словарей Roulette.
+// Генерирует TeamRandomiser/data.json из общих ассетов assets/dbd + словарей Roulette.
 // Запуск: node TeamRandomiser/tools/build-data.mjs (из корня репозитория)
 import { readFileSync, readdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 const ROOT = process.cwd();
-const SHOP = join(ROOT, 'CaptainShop');
+const ASSETS = join(ROOT, 'assets/dbd');
 const j = p => JSON.parse(readFileSync(p, 'utf8'));
 
 const perkMap = j(join(ROOT, 'Roulette/data/perk_map.json'));           // рус -> eng (файл)
@@ -15,6 +15,8 @@ const killerMap = j(join(ROOT, 'Roulette/data/killer_map.json'));       // РУ�
 const inv = obj => Object.fromEntries(Object.entries(obj).map(([k, v]) => [v, k]));
 
 const survPerkRu = inv(perkMap);
+// В perk_map имя устарело; в рандомайзере и лавке перк называется «Скромная победа».
+survPerkRu['Teamwork Toughen Up'] = 'Командная работа: Скромная победа';
 const killerPerkRu = {};
 for (const perks of Object.values(killerPerkMap))
   for (const [ru, en] of Object.entries(perks)) killerPerkRu[en] = ru;
@@ -58,21 +60,21 @@ function orderIdx(order, en, kind) {
 function perkPool(dir, tiers, ruMap, kind) {
   const out = [];
   for (const [tier, sub] of tiers) {
-    for (const f of files(join(SHOP, dir, sub))) {
+    for (const f of files(join(ASSETS, dir, sub))) {
       const en = f.replace(/\.png$/, '');
       let ru = ruMap[en];
       if (!ru) { missing.push(`${kind}: ${en}`); ru = en; }
-      out.push({ name: kind === 'killer' ? titleCase(ru.toLowerCase()) : ru, src: `../CaptainShop/${dir}/${sub}/${f}`, tier });
+      out.push({ name: kind === 'killer' ? titleCase(ru.toLowerCase()) : ru, src: `../assets/dbd/${dir}/${sub}/${f}`, tier });
     }
   }
   return out;
 }
 
-const survivorPerks = perkPool('survivorPerks', [[1, 'Tier1'], [2, 'Tier2'], [3, 'Tier3']], survPerkRu, 'surv');
-const killerPerks = perkPool('killerPerks', [[1, 'Tier 1'], [2, 'Tier 2'], [3, 'Tier 3']], killerPerkRu, 'killer');
+const survivorPerks = perkPool('survivorPerks', [[0, 'Tier0'], [1, 'Tier1'], [2, 'Tier2'], [3, 'Tier3']], survPerkRu, 'surv');
+const killerPerks = perkPool('killerPerks', [[1, 'Tier1'], [2, 'Tier2'], [3, 'Tier3']], killerPerkRu, 'killer');
 
-// Предметы: русское имя + редкость как в DBD из items.json
-// (1 обычный/коричневый, 2 необычный/жёлтый, 3 редкий/зелёный, 4 очень редкий/фиолетовый).
+// Предметы: русское имя + редкость
+// (1 обычный/коричневый, 2 необычный/зелёный, 3 редкий/синий, 4 очень редкий/фиолетовый, 5 ивентовый/золотой).
 const ITEMS = {
   'Medkits/Camping Aid Kit.png': ['Походная аптечка', 1],
   'Medkits/First Aid Kit.png': ['Аптечка', 2],
@@ -96,34 +98,34 @@ const ITEMS = {
   'Fog Vials/Apprentice_s Fog Vial.png': ['Флакон подмастерья с туманом', 1],
   'Fog Vials/Artisan_s Fog Vial.png': ['Флакон мастерового с туманом', 2],
   'Fog Vials/Vigo_s Fog Vial.png': ['Флакон Виго с туманом', 3],
-  'Firecrackers/Chinese Firecracker.png': ['Китайская петарда', 1],
-  'Firecrackers/Winter Party Starter.png': ['Зимний заводила вечеринок', 2],
-  'Firecrackers/Third Year Party Starter.png': ['Заводила вечеринок третьего года', 2],
+  'Firecrackers/Chinese Firecracker.png': ['Китайская петарда', 5],
+  'Firecrackers/Winter Party Starter.png': ['Зимний заводила вечеринок', 5],
+  'Firecrackers/Third Year Party Starter.png': ['Заводила вечеринок третьего года', 5],
 };
 const items = [];
-for (const cat of readdirSync(join(SHOP, 'Items'))) {
-  for (const f of files(join(SHOP, 'Items', cat))) {
+for (const cat of readdirSync(join(ASSETS, 'items'))) {
+  for (const f of files(join(ASSETS, 'items', cat))) {
     const key = `${cat}/${f}`;
     const meta = ITEMS[key];
     if (!meta) { missing.push(`item: ${key}`); continue; }
-    items.push({ name: meta[0], rarity: meta[1], src: `../CaptainShop/Items/${cat}/${f}` });
+    items.push({ name: meta[0], rarity: meta[1], src: `../assets/dbd/items/${cat}/${f}` });
   }
 }
 
 const KILLER_OVERRIDES = { 'Shape Variant': 'ФОРМА', 'T_UI_K42_TheFirst_Portrait': 'ПЕРВЫЙ' };
-const killers = files(join(SHOP, 'killerIcons')).map(f => {
+const killers = files(join(ASSETS, 'killerIcons')).map(f => {
   const en = base(f);
   let ru = killerRu[en] || KILLER_OVERRIDES[en];
   if (!ru) { missing.push(`killerIcon: ${en}`); ru = en; }
-  return { name: titleCase(ru.toLowerCase()), src: `../CaptainShop/killerIcons/${f}`, idx: orderIdx(KILLER_ORDER, en, 'убийца') };
+  return { name: titleCase(ru.toLowerCase()), src: `../assets/dbd/killerIcons/${f}`, idx: orderIdx(KILLER_ORDER, en, 'убийца') };
 }).sort((a, b) => a.idx - b.idx).map(({ idx, ...k }) => k);
 
 const SURV_OVERRIDES = { 'Shane Wiigwaas': 'Шейн Вигваас' };
-const icons = files(join(SHOP, 'SurvivorIcons')).map(f => {
+const icons = files(join(ASSETS, 'survivorIcons')).map(f => {
   const en = base(f);
   let ru = survRu[en] || SURV_OVERRIDES[en];
   if (!ru) { missing.push(`survIcon: ${en}`); ru = en; }
-  return { name: ru, src: `../CaptainShop/SurvivorIcons/${f}`, idx: orderIdx(SURVIVOR_ORDER, en, 'выживший') };
+  return { name: ru, src: `../assets/dbd/survivorIcons/${f}`, idx: orderIdx(SURVIVOR_ORDER, en, 'выживший') };
 }).sort((a, b) => a.idx - b.idx).map(({ idx, ...s }) => s);
 
 const data = { killers, icons, killerPerks, survivorPerks, items };

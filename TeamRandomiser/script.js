@@ -4,20 +4,23 @@
 const KEY = 'teamRandomizerV1';
 const TIER3_CHANCE = 0.20; // шанс легендарного (Tier 3 из магазина капитана)
 const TIER2_CHANCE = 0.30; // шанс редкого (Tier 2)
+const TIER0_CHANCE = 0.02; // тир 0 («Без сожаления», чёрный) — только у выживших в рандомайзере
 // У убийцы шансы выше: он один против четырёх выживших (4 броска против 16).
 const K_TIER3_CHANCE = 0.30;
 const K_TIER2_CHANCE = 0.40;
 const TIER = {
-  1: { roman: 'I', c1: '#d9b545' },
-  2: { roman: 'II', c1: '#57c47a' },
-  3: { roman: 'III', c1: '#a86ae8' }
+  0: { c1: '#484f58' },
+  1: { c1: '#d9b545' },
+  2: { c1: '#57c47a' },
+  3: { c1: '#a86ae8' }
 };
-// Редкости предметов как в DBD; fx — какой «тир» эффектов (звук/частицы/тряска) играть.
+// Редкости предметов как в лавке капитана; fx — какой «тир» эффектов (звук/частицы/тряска) играть.
 const RARITY = {
-  1: { roman: 'I', fx: 1 },   // обычный (коричневый)
-  2: { roman: 'II', fx: 1 },  // необычный (жёлтый)
-  3: { roman: 'III', fx: 2 }, // редкий (зелёный)
-  4: { roman: 'IV', fx: 3 }   // очень редкий (фиолетовый)
+  1: { fx: 1 },  // обычный (коричневый)
+  2: { fx: 1 },  // необычный (зелёный)
+  3: { fx: 2 },  // редкий (синий)
+  4: { fx: 3 },  // очень редкий (фиолетовый)
+  5: { fx: 1 }   // ивентовый (золотой) — мусорные ивентовые предметы
 };
 
 /* ── Состояние ── */
@@ -79,20 +82,20 @@ function save() {
   localStorage.setItem(KEY, JSON.stringify({ killer, killerPerks, survivors, muted, volume, randKiller, randPool }));
 }
 
-function rollTier(t3, t2) {
+function rollTier(t3, t2, t0 = 0) {
   const r = Math.random();
-  return r < t3 ? 3 : r < t3 + t2 ? 2 : 1;
+  return r < t0 ? 0 : r < t0 + t3 ? 3 : r < t0 + t3 + t2 ? 2 : 1;
 }
 
-// Редкость предмета: 10% фиолетовый, 25% зелёный, 30% жёлтый, 35% коричневый.
+// Редкость предмета: 30% фиолетовый, 25% синий, 20% зелёный, 15% коричневый, 10% ивентовый.
 function rollItemRarity() {
   const r = Math.random();
-  return r < .10 ? 4 : r < .35 ? 3 : r < .65 ? 2 : 1;
+  return r < .30 ? 4 : r < .55 ? 3 : r < .75 ? 2 : r < .90 ? 1 : 5;
 }
 
 // Кидает тир, затем берёт случайный неиспользованный перк этого тира из магазина капитана.
-function pickPerk(pool, used, t3 = TIER3_CHANCE, t2 = TIER2_CHANCE) {
-  const tier = rollTier(t3, t2);
+function pickPerk(pool, used, t3 = TIER3_CHANCE, t2 = TIER2_CHANCE, t0 = 0) {
+  const tier = rollTier(t3, t2, t0);
   for (const t of [tier, 2, 1, 3]) {
     const c = pool.filter(p => p.tier === t && !used.has(p.src));
     if (c.length) { const p = rnd(c); used.add(p.src); return p; }
@@ -177,6 +180,7 @@ function noiseBurst(c, { t0 = 0, dur = .3, gain = .25, freq = 1200 }) {
   s.connect(fl); fl.connect(g); g.connect(c.destination); s.start(c.currentTime + t0);
 }
 const TIER_SFX = {
+  0: new Audio('../sfx/Tier0.mp3'),
   1: new Audio('../sfx/Tier1.wav'),
   2: new Audio('../sfx/Tier2.wav'),
   3: new Audio('../sfx/Tier3.wav'),
@@ -292,10 +296,9 @@ function perkSlotHTML(kind, id, perk, dndAttrs = '') {
       <div class="pslot__name pslot__name--empty">${kind === 'k' ? 'Пустой слот' : ''}</div>
     </div>`;
   }
-  const t = TIER[perk.tier];
   return `<div class="${cls}" data-fxid="${id}" ${dndAttrs}>
     <div class="pslot__box"><div class="popwrap${popClass(id, perk.tier)}"><div class="diamond t${perk.tier}">${imgHTML(perk.src, initials(perk.name))}</div></div></div>
-    <div class="pslot__name">${esc(perk.name)}${kind === 's' ? ' · ' + t.roman : ''}</div>
+    <div class="pslot__name">${esc(perk.name)}</div>
   </div>`;
 }
 
@@ -334,11 +337,11 @@ function renderSurvivors() {
       ? `<div class="addon r${item.rarity}${addonPop ? ' pop' + (k ? ' pop--late' : '') : ''}" title="Аддон предмета"></div>`
       : `<div class="addon addon--empty" title="Аддон"></div>`).join('');
     const label = item
-      ? `<div class="gear__label gear__label--r${item.rarity}">${esc(item.name)} · ${RARITY[item.rarity].roman}</div>`
+      ? `<div class="gear__label gear__label--r${item.rarity}">${esc(item.name)}</div>`
       : `<div class="gear__label gear__label--empty">ПРЕДМЕТ</div>`;
 
     const perks = sv.perks.map((p, i) => {
-      const dnd = `data-s="${si}" data-i="${i}" draggable="${!!p && !state.running}"`;
+      const dnd = `data-s="${si}" data-i="${i}" draggable="${!!p && !state.running && p.tier !== 0}"`;
       return perkSlotHTML('s', `sp${si}-${i}`, p, dnd);
     }).join('');
 
@@ -485,8 +488,9 @@ function renderPoolPicker() {
 
 function render() {
   btnSound.textContent = state.muted ? 'ЗВУК: ВЫКЛ' : 'ЗВУК: ВКЛ';
-  volRange.value = Math.round(state.volume * 100);
-  volVal.textContent = Math.round(state.volume * 100) + '%';
+  const volPct = state.muted ? 0 : Math.round(state.volume * 100); // при «ЗВУК: ВЫКЛ» показываем 0%
+  volRange.value = volPct;
+  volVal.textContent = volPct + '%';
   btnMain.textContent = state.running ? 'ПРОПУСТИТЬ ▸▸' : (state.data ? 'РАНДОМИЗИРОВАТЬ' : 'ЗАГРУЗКА…');
   chkRandKiller.checked = state.randKiller;
   updatePoolBtn();
@@ -502,6 +506,11 @@ function dragTarget(e, kind) {
   const sel = kind === 'perk' ? '.pslot--s' : '.gear__itembox';
   return e.target.closest(sel);
 }
+// Тир-0 («Без сожаления») прибит к своему слоту: его нельзя ни утащить, ни вытеснить обменом.
+function lockedPerkSlot(slot) {
+  const p = state.survivors[+slot.dataset.s].perks[+slot.dataset.i];
+  return !!p && p.tier === 0;
+}
 rowsEl.addEventListener('dragstart', e => {
   const perk = e.target.closest('.pslot--s[draggable="true"]');
   const item = e.target.closest('.gear__itembox[draggable="true"]');
@@ -513,7 +522,8 @@ rowsEl.addEventListener('dragstart', e => {
 rowsEl.addEventListener('dragover', e => {
   if (!dragFrom) return;
   const slot = dragTarget(e, dragFrom.kind);
-  if (slot) { e.preventDefault(); slot.classList.add('dragover'); }
+  if (!slot || (dragFrom.kind === 'perk' && lockedPerkSlot(slot))) return;
+  e.preventDefault(); slot.classList.add('dragover');
 });
 rowsEl.addEventListener('dragleave', e => {
   const slot = e.target.closest('.pslot--s, .gear__itembox');
@@ -526,6 +536,7 @@ rowsEl.addEventListener('drop', e => {
   e.preventDefault();
   let changed = false;
   if (dragFrom.kind === 'perk') {
+    if (lockedPerkSlot(slot)) { dragFrom = null; return; }
     const to = { s: +slot.dataset.s, i: +slot.dataset.i };
     if (to.s !== dragFrom.s || to.i !== dragFrom.i) {
       const a = state.survivors[dragFrom.s].perks, b = state.survivors[to.s].perks;
@@ -567,7 +578,7 @@ function randomize() {
     if (!pool.length) pool = d.items.filter(it => !itemsUsed.has(it.src));
     const item = rnd(pool);
     itemsUsed.add(item.src);
-    return { item, perks: [0, 1, 2, 3].map(() => pickPerk(d.survivorPerks, sUsed)) };
+    return { item, perks: [0, 1, 2, 3].map(() => pickPerk(d.survivorPerks, sUsed, TIER3_CHANCE, TIER2_CHANCE, TIER0_CHANCE)) };
   });
 
   queue = [];
@@ -617,10 +628,10 @@ function runStep() {
   render();
   burstAt(st.id, st.tier, st.c1);
   sndFor(st.tier);
-  if (st.tier === 3) shake();
+  if (st.tier === 3 || st.tier === 0) shake(); // тир 0 — такой же драматичный, как легендарка
   save();
   qi++;
-  const dur = st.tier === 3 ? 1500 : st.tier === 2 ? 950 : 620;
+  const dur = (st.tier === 3 || st.tier === 0) ? 1500 : st.tier === 2 ? 950 : 620;
   clearTimeout(stepTimer);
   stepTimer = setTimeout(runStep, Math.max(220, dur));
 }
@@ -638,6 +649,7 @@ function skipAll() {
 btnMain.addEventListener('click', randomize);
 btnSound.addEventListener('click', () => { state.muted = !state.muted; save(); render(); });
 volRange.addEventListener('input', () => {
+  if (state.muted) { state.muted = false; btnSound.textContent = 'ЗВУК: ВКЛ'; } // движение ползунка снимает выкл
   state.volume = volRange.value / 100;
   volVal.textContent = volRange.value + '%';
   save();
@@ -670,19 +682,30 @@ btnReset.addEventListener('click', () => {
 try {
   const s = JSON.parse(localStorage.getItem(KEY));
   if (s && (s.killer || s.survivors)) {
-    state.killer = s.killer || null;
-    state.killerPerks = Array.isArray(s.killerPerks) ? s.killerPerks : [];
+    // ассеты переехали из CaptainShop/ в assets/dbd/ — чиним пути в старых сохранениях
+    const fixSrc = v => typeof v === 'string'
+      ? v.replace('../CaptainShop/', '../assets/dbd/').replace('/Items/', '/items/')
+         .replace('/SurvivorIcons/', '/survivorIcons/').replace(/\/Tier (\d)\//, '/Tier$1/')
+      : v;
+    const fixObj = o => (o && o.src) ? { ...o, src: fixSrc(o.src) } : o;
+    state.killer = fixObj(s.killer || null);
+    state.killerPerks = Array.isArray(s.killerPerks) ? s.killerPerks.map(fixObj) : [];
     if (Array.isArray(s.survivors) && s.survivors.length === 4) {
+      // старые сохранения с прежним (ошибочным) именем перка
+      const fixName = p => (p && p.name === 'Командная работа: Собраться с силами')
+        ? { ...p, name: 'Командная работа: Скромная победа' } : p;
+      // петарды из старых сохранений — теперь ивентовая (золотая) редкость
+      const fixItem = it => (it && it.src && it.src.includes('/Firecrackers/')) ? { ...it, rarity: 5 } : it;
       state.survivors = s.survivors.map(x => ({
-        icon: x.icon || null,
-        item: x.item && x.item.rarity ? x.item : null, // старые сохранения без rarity сбрасываем
-        perks: Array.isArray(x.perks) && x.perks.length === 4 ? x.perks : [null, null, null, null]
+        icon: fixObj(x.icon) || null,
+        item: x.item && x.item.rarity ? fixItem(fixObj(x.item)) : null, // старые сохранения без rarity сбрасываем
+        perks: Array.isArray(x.perks) && x.perks.length === 4 ? x.perks.map(p => fixName(fixObj(p))) : [null, null, null, null]
       }));
     }
     state.muted = !!s.muted;
     if (typeof s.volume === 'number') state.volume = Math.min(1, Math.max(0, s.volume));
     state.randKiller = !!s.randKiller;
-    state.randPool = Array.isArray(s.randPool) ? s.randPool.filter(x => typeof x === 'string') : [];
+    state.randPool = Array.isArray(s.randPool) ? s.randPool.filter(x => typeof x === 'string').map(fixSrc) : [];
   }
 } catch (e) { /* битый localStorage — начинаем с чистого */ }
 

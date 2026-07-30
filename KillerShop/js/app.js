@@ -236,7 +236,11 @@ function renderCells() {
   w.classList.toggle("minus", hd != null && hd < 0);
   w.classList.toggle("plus", hd != null && hd > 0);
 }
-function hover(delta) { S.hoverDelta = delta; renderCells(); }
+function hover(delta) {
+  if (TOUCH) return; // на тачскринах "hover" залипает после нажатия - превью только для ПК
+  S.hoverDelta = delta;
+  renderCells();
+}
 
 /* ---------- perk markup ---------- */
 function pkHTML(cls, img) {

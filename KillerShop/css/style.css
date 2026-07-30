@@ -1,6 +1,10 @@
 /* ============ base ============ */
-html, body { margin: 0; padding: 0; background: #07080b; overflow: hidden; }
+html, body {
+  margin: 0; padding: 0; background: #07080b; overflow: hidden;
+  touch-action: manipulation; overscroll-behavior: none; -webkit-tap-highlight-color: transparent;
+}
 body { font-family: 'PT Sans', sans-serif; color: #d8dde3; }
+#stage { user-select: none; -webkit-user-select: none; }
 a { color: #c9d2dc; text-decoration: none; }
 a:hover { color: #fff; }
 button { font: inherit; border: none; background: none; color: inherit; padding: 0; }
@@ -439,8 +443,24 @@ button { font: inherit; border: none; background: none; color: inherit; padding:
 
 /* drag & drop highlight — same look as the team randomiser */
 .slot.dragover .pk-d, .slot.dragover .slot-empty,
-.kslot.dragover .pk-d, .kslot.dragover .kslot-empty {
+.kslot.dragover .pk-d, .kslot.dragover .kslot-empty,
+.sperk.selected .pk-d, .kperk.selected .pk-d {
   outline: 3px dashed #9db4c8; outline-offset: 6px;
+}
+
+/* phones: drag&drop doesn't exist on touchscreens — tap-to-move instead,
+   and the 16:9 stage is unusable in portrait, so ask for landscape */
+#rotate-hint {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: rgba(4,5,8,.96); color: #dfe5ec;
+  flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+  text-align: center; font-family: 'Oswald'; font-weight: 500; font-size: 18px;
+  letter-spacing: 2px; text-transform: uppercase; padding: 0 30px;
+}
+.rotate-icon { font-size: 56px; animation: rotHint 2s ease-in-out infinite; }
+@keyframes rotHint { 0%,100% { transform: rotate(0); } 50% { transform: rotate(90deg); } }
+@media (orientation: portrait) and (pointer: coarse) {
+  #rotate-hint { display: flex; }
 }
 
 .anim-pop { animation: kPopW .6s cubic-bezier(.2,1.5,.4,1); }

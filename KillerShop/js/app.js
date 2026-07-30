@@ -43,10 +43,14 @@ function initialState() {
     survivors: [[null,null,null,null],[null,null,null,null],[null,null,null,null],[null,null,null,null]],
     killerPerks: [],
     reel: null, spinning: false, resultTier: null, missed: false,
-    pickerTier: null, pickerChoices: null, confirmDel: null, debugOpen: false
+    pickerTier: null, pickerChoices: null, confirmDel: null, debugOpen: false,
+    sel: null, ksel: null
   };
 }
 let S = initialState();
+
+/* touchscreens have no HTML5 drag & drop - perks move by tap-select + tap-place */
+const TOUCH = window.matchMedia("(pointer: coarse)").matches;
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
@@ -462,6 +466,7 @@ function sellChoice() {
 
 /* ---------- survivors panel ---------- */
 function renderSurvivors() {
+  S.sel = null; // re-render wipes the tap-selection highlight
   $("surv-rows").innerHTML = S.survivors.map((row, si) => {
     const sv = surv(si);
     const ii = S.survItems[si];
@@ -499,8 +504,17 @@ function renderSurvivors() {
     el.addEventListener("click", () => { S.rosterPick = { type: "surv", row: +el.dataset.si }; renderOverlay(); }));
   document.querySelectorAll(".item-cell[data-si]").forEach(el =>
     el.addEventListener("click", () => { S.itemPick = +el.dataset.si; renderOverlay(); }));
-  document.querySelectorAll(".sperk").forEach(el =>
-    el.addEventListener("dragstart", () => { S.drag = { si: +el.dataset.si, idx: +el.dataset.idx }; }));
+  document.querySelectorAll(".sperk").forEach(el => {
+    const si = +el.dataset.si, idx = +el.dataset.idx;
+    el.addEventListener("dragstart", () => { S.drag = { si, idx }; });
+    if (TOUCH) el.addEventListener("click", e => {
+      e.stopPropagation();
+      if (S.sel && S.sel.si === si && S.sel.idx === idx) { S.sel = null; el.classList.remove("selected"); return; }
+      const clear = () => document.querySelectorAll(".sperk.selected").forEach(x => x.classList.remove("selected"));
+      if (S.sel) { const s = S.sel; S.sel = null; clear(); moveSurv(s.si, s.idx, si, idx, e); return; }
+      S.sel = { si, idx }; clear(); el.classList.add("selected");
+    });
+  });
   document.querySelectorAll(".slot").forEach(el => {
     el.addEventListener("dragover", e => {
       if (!S.drag) return;
@@ -509,25 +523,34 @@ function renderSurvivors() {
     });
     el.addEventListener("dragleave", () => el.classList.remove("dragover"));
     el.addEventListener("drop", e => { el.classList.remove("dragover"); drop(+el.dataset.si, +el.dataset.idx, e); });
+    if (TOUCH) el.addEventListener("click", () => {
+      if (!S.sel) return;
+      const s = S.sel; S.sel = null;
+      moveSurv(s.si, s.idx, +el.dataset.si, +el.dataset.idx, null);
+    });
   });
 }
 function drop(si, idx, e) {
   const d = S.drag;
   S.drag = null;
-  if (!d || (d.si === si && d.idx === idx)) return;
-  const src = S.survivors[d.si][d.idx];
+  if (!d) return;
+  moveSurv(d.si, d.idx, si, idx, e);
+}
+function moveSurv(fsi, fidx, si, idx, e) {
+  if (fsi === si && fidx === idx) return;
+  const src = S.survivors[fsi][fidx];
   if (!src) return;
   const tgt = S.survivors[si][idx];
   if (!tgt) {
     S.survivors[si][idx] = Object.assign({}, src, { anim: "anim-pop-fast" });
-    S.survivors[d.si][d.idx] = null;
+    S.survivors[fsi][fidx] = null;
     renderSurvivors();
   } else if (tgt.t === src.t && src.t < 3) {
-    S.mergeAsk = { from: [d.si, d.idx], to: [si, idx], t: src.t, at: e ? stagePt(e) : null };
+    S.mergeAsk = { from: [fsi, fidx], to: [si, idx], t: src.t, at: e ? stagePt(e) : null };
     renderOverlay();
   } else {
     S.survivors[si][idx] = Object.assign({}, src, { anim: "anim-pop-fast" });
-    S.survivors[d.si][d.idx] = Object.assign({}, tgt, { anim: "anim-pop-fast" });
+    S.survivors[fsi][fidx] = Object.assign({}, tgt, { anim: "anim-pop-fast" });
     renderSurvivors();
     if (tgt.t === src.t) toast("Тир III - только перемещение");
   }
@@ -567,6 +590,7 @@ function buyItem(row, gi) {
 
 /* ---------- killer panel ---------- */
 function renderKiller() {
+  S.ksel = null; // re-render wipes the tap-selection highlight
   const k = killer();
   $("killer-panel").innerHTML = '<div class="kp-inner">' +
     '<div class="kp-av" id="kp-av" title="' + esc(k.name) + ' - сменить убийцу"><img src="' + esc(k.img) + '" alt=""></div>' +
@@ -600,8 +624,16 @@ function renderKiller() {
   $("kp-av").addEventListener("click", () => { S.rosterPick = { type: "killer" }; renderOverlay(); });
   document.querySelectorAll(".kperk").forEach(el => {
     const i = +el.dataset.i;
-    el.addEventListener("click", () => { S.confirmDel = i; renderOverlay(); });
     el.addEventListener("dragstart", () => { S.kdrag = i; });
+    el.addEventListener("click", e => {
+      if (!TOUCH) { S.confirmDel = i; renderOverlay(); return; }
+      // touch: first tap selects for merging, second tap on the same perk asks to delete
+      e.stopPropagation();
+      const clear = () => document.querySelectorAll(".kperk.selected").forEach(x => x.classList.remove("selected"));
+      if (S.ksel === i) { S.ksel = null; clear(); S.confirmDel = i; renderOverlay(); return; }
+      if (S.ksel != null) { const d = S.ksel; S.ksel = null; clear(); killerMerge(d, i, e); return; }
+      S.ksel = i; clear(); el.classList.add("selected");
+    });
   });
   document.querySelectorAll(".kslot").forEach(el => {
     const i = +el.dataset.i;
@@ -623,7 +655,11 @@ function renderKiller() {
 function killerDrop(i, e) {
   const d = S.kdrag;
   S.kdrag = null;
-  if (d == null || d === i) return;
+  if (d == null) return;
+  killerMerge(d, i, e);
+}
+function killerMerge(d, i, e) {
+  if (d === i) return;
   const src = S.killerPerks[d], tgt = S.killerPerks[i];
   if (!src || !tgt) return;
   if (src.tier !== tgt.tier) { toast("Только два одинаковых тира"); return; }
@@ -824,6 +860,7 @@ document.addEventListener("dragend", () => {
 
 /* ---------- boot ---------- */
 buildStaticControls();
+if (TOUCH) $("surv-hint").textContent = "Нажмите перк, затем слот - перемещение и объединение";
 renderSound();
 renderCells(); renderControls(); renderResult(); renderSurvivors(); renderKiller();
 idleReel();

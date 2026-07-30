@@ -9,6 +9,9 @@ const CONFIG = { startCells: 200, unlockNeed: 3 };
 const ORDER = ["S", "A", "B", "C", "D", "F"];
 // one canonical reel strip - every column is this exact sequence, only the stop position differs
 const STRIP = ["S","D","C","F","B","D","F","C","A","D","F","B","C","D","F","C","B","D"];
+// how many strip steps a spin travels: iOS Safari drops composited layers that
+// grow past its texture limit (blank reels), so touch devices get a short run
+const STOP = window.matchMedia("(pointer: coarse)").matches ? 20 : 68;
 const BTNS = [
   { name: "Ржавое колесо", cost: 100, hit: .3, odds: { S: 1, A: 5, B: 12, C: 22, D: 32, F: 28 } },
   { name: "Кровавое колесо", cost: 250, hit: .4, odds: { S: 5, A: 12, B: 22, C: 28, D: 21, F: 12 } },
@@ -51,6 +54,7 @@ let S = initialState();
 
 /* touchscreens have no HTML5 drag & drop - perks move by tap-select + tap-place */
 const TOUCH = window.matchMedia("(pointer: coarse)").matches;
+if (TOUCH) document.body.classList.add("touch"); // css disables the costly effects
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
@@ -111,8 +115,9 @@ function shake() {
 function burst(color, at) {
   const host = document.createElement("div");
   host.style.cssText = "position:absolute;left:" + (at ? at.x : 960) + "px;top:" + (at ? at.y : 454) + "px;";
-  for (let i = 0; i < 26; i++) {
-    const a = (i / 26) * Math.PI * 2, d = 160 + Math.random() * 320;
+  const N = TOUCH ? 12 : 26; // fewer shards on weaker mobile GPUs
+  for (let i = 0; i < N; i++) {
+    const a = (i / N) * Math.PI * 2, d = 160 + Math.random() * 320;
     const sh = document.createElement("div");
     sh.className = "shard";
     sh.style.cssText = "width:" + (14 + Math.random() * 14) + "px;height:" + (14 + Math.random() * 14) +
@@ -147,11 +152,34 @@ try {
 } catch (e) { /* битый localStorage - начинаем с настроек по умолчанию */ }
 function sndSave() { try { localStorage.setItem(SND_KEY, JSON.stringify(sndCfg)); } catch (e) {} }
 
+/* Every sound goes through Web Audio: on iOS an <audio> element may only
+   start inside a user gesture, so sounds fired from timers (reel stops,
+   wins) never played there - decoded buffers have no such limit. */
+const bufCache = new Map();
+function getBuf(url) {
+  const c = audioCtx();
+  if (!c) return Promise.resolve(null);
+  if (!bufCache.has(url)) {
+    bufCache.set(url, fetch(encodeURI(url))
+      .then(r => r.arrayBuffer())
+      .then(ab => c.decodeAudioData(ab))
+      .catch(() => null));
+  }
+  return bufCache.get(url);
+}
 function play(url, vol) {
   if (sndCfg.muted) return;
-  const a = new Audio(encodeURI(url));
-  a.volume = vol * sndCfg.volume;
-  a.play().catch(() => {});
+  const c = audioCtx();
+  if (!c) return;
+  getBuf(url).then(buf => {
+    if (!buf || sndCfg.muted) return;
+    const src = c.createBufferSource();
+    src.buffer = buf;
+    const g = c.createGain();
+    g.gain.value = vol * sndCfg.volume;
+    src.connect(g); g.connect(c.destination);
+    src.start();
+  });
 }
 /* The reel loop uses the Web Audio API: an <audio loop> element leaves an
    audible gap at the loop point and can't stop precisely - a buffer source
@@ -164,17 +192,6 @@ function audioCtx() {
     return actx;
   } catch (e) { return null; }
 }
-const loopFetch = fetch(encodeURI(SND.reelLoop)).then(r => r.arrayBuffer()).catch(() => null);
-let loopBufPromise = null;
-function loadLoopBuf() {
-  if (loopBufPromise) return loopBufPromise;
-  const c = audioCtx();
-  if (!c) return Promise.resolve(null);
-  loopBufPromise = loopFetch
-    .then(ab => ab ? c.decodeAudioData(ab) : null)
-    .catch(() => null);
-  return loopBufPromise;
-}
 let loop = null; // { src, gain, vol }
 function startLoop(vol) {
   stopLoop(0);
@@ -182,7 +199,7 @@ function startLoop(vol) {
   const c = audioCtx();
   if (!c) return;
   const token = loop = { src: null, gain: null, vol };
-  loadLoopBuf().then(buf => {
+  getBuf(SND.reelLoop).then(buf => {
     if (!buf || loop !== token) return;
     const src = c.createBufferSource();
     src.buffer = buf; src.loop = true;
@@ -210,16 +227,18 @@ function setLoopVolume() {
   if (loop && loop.gain) loop.gain.gain.value = sndCfg.muted ? 0 : loop.vol * sndCfg.volume;
 }
 const TIER_SFX = { 0: "../sfx/Tier0.mp3", 1: "../sfx/Tier1.wav", 2: "../sfx/Tier2.wav", 3: "../sfx/Tier3.wav" };
-const _tierAudio = {};
-for (const t in TIER_SFX) { _tierAudio[t] = new Audio(encodeURI(TIER_SFX[t])); _tierAudio[t].preload = "auto"; }
 function sndTier(t) {
-  if (sndCfg.muted) return;
-  const src = _tierAudio[t];
-  if (!src) return;
-  const a = src.cloneNode(); // clone so quick repeats don't cut each other off
-  a.volume = .7 * sndCfg.volume;
-  a.play().catch(() => {});
+  if (TIER_SFX[t]) play(TIER_SFX[t], .7);
 }
+/* iOS unlocks audio only inside a user gesture: resume the context and
+   pre-decode every sound on the first tap/click */
+const sndUnlock = () => {
+  removeEventListener("pointerdown", sndUnlock);
+  if (!audioCtx()) return;
+  Object.values(SND).forEach(getBuf);
+  Object.values(TIER_SFX).forEach(getBuf);
+};
+addEventListener("pointerdown", sndUnlock);
 function renderSound() {
   $("btn-sound").textContent = sndCfg.muted ? "Звук: выкл" : "Звук: вкл";
   const pct = sndCfg.muted ? 0 : Math.round(sndCfg.volume * 100); // при «выкл» показываем 0%
@@ -265,6 +284,21 @@ function idleReel() {
     setCol(i, Array.from({ length: 10 }, (_, j) => STRIP[(j + i * 7) % STRIP.length]), y, "none");
   }
 }
+// shrink the strips back to the visible window once a spin ends - otherwise a
+// multi-thousand-pixel composited layer stays resident (blank reels + memory
+// pressure on iOS Safari)
+function compactReel() {
+  if (!S.reel) return;
+  const H = reelH();
+  const vis = Math.ceil(H / 300) + 2;
+  S.reel.cols.forEach((c, i) => {
+    const fi = c.items.length - 8;
+    const from = Math.max(0, fi - vis);
+    c.items = c.items.slice(from);
+    c.y = c.fy = H / 2 - ((fi - from) * 150 + 75 + 2);
+    setCol(i, c.items, c.y, "none");
+  });
+}
 function pickWeighted(odds) {
   let r = Math.random() * 100;
   for (const t of ORDER) { r -= odds[t]; if (r <= 0) return t; }
@@ -298,13 +332,13 @@ function spin(btn) {
   };
   const L = STRIP.length;
   // on a win all reels stop at the SAME strip position, so neighbors match perfectly
-  const rotFor = t => { const o = []; for (let r = 0; r < L; r++) if (STRIP[(r + 68) % L] === t) o.push(r); return rnd(o); };
+  const rotFor = t => { const o = []; for (let r = 0; r < L; r++) if (STRIP[(r + STOP) % L] === t) o.push(r); return rnd(o); };
   const winRot = win ? rotFor(tier) : null;
   const cols = [0,1,2,3].map(i => {
     const c = cur(i);
     const rot = win ? winRot : rotFor(finals[i]);
-    const tail = Array.from({ length: 76 }, (_, k) => STRIP[(rot + k) % L]);
-    const fy = H / 2 - ((c.items.length + 68) * 150 + 75 + 2);
+    const tail = Array.from({ length: STOP + 8 }, (_, k) => STRIP[(rot + k) % L]);
+    const fy = H / 2 - ((c.items.length + STOP) * 150 + 75 + 2);
     return { items: c.items.concat(tail), y: c.y, fy, dur: 3.0 + i * 0.85 };
   });
   S.cells -= btn.cost; S.spinning = true; S.resultTier = null; S.missed = false; S.reel = { cols };
@@ -325,6 +359,7 @@ function spin(btn) {
   }, 60 + c.dur * 1000 + 320));
   setTimeout(() => {
     cols.forEach(c => { c.y = c.fy; });
+    compactReel();
     stopLoop(800);
     if (!win) {
       S.spinning = false; S.missed = true;
@@ -433,7 +468,7 @@ function buildStaticControls() {
 /* lamp beat: fast while spinning */
 let lampPhase = 0, lampLast = performance.now();
 (function beat() {
-  const step = S.spinning ? 110 : 650;
+  const step = S.spinning ? (TOUCH ? 220 : 110) : 650;
   const now = performance.now();
   if (now - lampLast >= step) {
     lampLast = now; lampPhase = lampPhase ? 0 : 1;

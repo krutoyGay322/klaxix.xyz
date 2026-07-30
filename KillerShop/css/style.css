@@ -463,6 +463,14 @@ button { font: inherit; border: none; background: none; color: inherit; padding:
   #rotate-hint { display: flex; }
 }
 
+/* performance on phones/tablets: blend modes and animated filters/text-shadows
+   repaint every frame and crawl on mobile GPUs - switch them off there */
+body.touch .noise { display: none; }
+body.touch .pk-d,
+body.touch .reel-gem { animation: none !important; }
+body.touch .machine-result.jackpot,
+body.touch .picker-tier { animation: none; }
+
 .anim-pop { animation: kPopW .6s cubic-bezier(.2,1.5,.4,1); }
 .anim-pop-fast { animation: kPopW .3s ease; }
 .anim-merge { animation: kMergeW .8s cubic-bezier(.2,1.5,.4,1); }

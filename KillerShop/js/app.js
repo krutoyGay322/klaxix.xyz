@@ -17,8 +17,8 @@ const BTNS = [
   { name: "Кровавое колесо", cost: 250, hit: .4, odds: { S: 5, A: 12, B: 22, C: 28, D: 21, F: 12 } },
   { name: "Проклятое колесо", cost: 500, hit: .5, odds: { S: 14, A: 24, B: 30, C: 19, D: 9, F: 4 } }
 ];
-const REWARD = { 1: 250, 2: 400, 3: 550 };
-const CHOICE_REWARD = 25000;
+const REWARD = { 1: 250, 2: 300, 3: 550 };
+const CHOICE_REWARD = 5000;
 const ST_LABEL = { 0: "0", 1: "I", 2: "II", 3: "III" };
 const ST_COLOR = { 0: "#aeb6c0", 1: "#ffd75e", 2: "#55d44a", 3: "#c650ff" };
 const TIER_COLOR = { S: "#ff6b74", A: "#c650ff", B: "#3d7bff", C: "#55d44a", D: "#a87f54", F: "#aeb6c0" };
@@ -28,11 +28,11 @@ const KADDONS = [
   { name: "Чёрное перо" }
 ];
 const KAQ = [
-  { l: "Обычный", cost: 150, cls: "rar0" },
-  { l: "Необычный", cost: 300, cls: "rar1" },
-  { l: "Редкий", cost: 600, cls: "rar2" },
-  { l: "Оч. редкий", cost: 1200, cls: "rar3" },
-  { l: "Ультраредкий", cost: 2400, cls: "rar4" }
+  { l: "Обычный", cost: 75, cls: "rar0" },
+  { l: "Необычный", cost: 150, cls: "rar1" },
+  { l: "Редкий", cost: 300, cls: "rar2" },
+  { l: "Оч. редкий", cost: 600, cls: "rar3" },
+  { l: "Ультраредкий", cost: 1200, cls: "rar4" }
 ];
 const PICKER_CHOICES = 4;
 
@@ -479,13 +479,39 @@ let lampPhase = 0, lampLast = performance.now();
 })();
 
 /* ---------- selling perks to survivors ---------- */
+/* один выживший не может носить два одинаковых перка */
+function survHas(si, name, skipIdx) {
+  return S.survivors[si].some((p, i) => p && p.name === name && !(skipIdx && skipIdx.includes(i)));
+}
+/* перки с «Усталостью» не стакаются - максимум один на выжившего (и значит max 4 на доске) */
+const EXHAUST = ["Balanced Landing", "Dead Hard", "Dramaturgy", "Lithe", "Overcome", "Smash Hit", "Sprint Burst", "Head On", "Background Player"];
+const isExhaust = p => EXHAUST.some(n => p.img.indexOf("/" + n + ".png") !== -1);
+function survHasExhaust(si, skipIdx) {
+  return S.survivors[si].some((p, i) => p && isExhaust(p) && !(skipIdx && skipIdx.includes(i)));
+}
+function rollSurvPerk(t, si, skipIdx) {
+  let pool = D.survivorPerks[t].filter(p => !survHas(si, p.name, skipIdx));
+  if (survHasExhaust(si, skipIdx)) {
+    const noEx = pool.filter(p => !isExhaust(p));
+    if (noEx.length) pool = noEx;
+  }
+  if (!pool.length) return rnd(D.survivorPerks[t]);
+  // раздаем тир по всей доске без повторов: дубликаты появляются только когда
+  // весь пул уже в игре (тир III - всего 16 перков), и тогда идет второй круг
+  const count = {};
+  S.survivors.forEach(row => row.forEach(p => {
+    if (p && p.t === t) count[p.name] = (count[p.name] || 0) + 1;
+  }));
+  const min = Math.min(...pool.map(p => count[p.name] || 0));
+  return rnd(pool.filter(p => (count[p.name] || 0) === min));
+}
 function sellPerk(t) {
   if (S.spinning) return;
   const empties = [];
   S.survivors.forEach((row, si) => row.forEach((p, idx) => { if (!p) empties.push([si, idx]); }));
   if (!empties.length) { toast("У выживших нет места"); return; }
   const [si, idx] = rnd(empties);
-  const perk = rnd(D.survivorPerks[t]);
+  const perk = rollSurvPerk(t, si);
   S.survivors[si][idx] = { t, name: perk.name, img: perk.img, desc: perk.desc, anim: "anim-pop" };
   S.soldTotal += 1; S.cells += REWARD[t];
   sndTier(t);
@@ -581,6 +607,8 @@ function moveSurv(fsi, fidx, si, idx, e) {
   if (!src) return;
   const tgt = S.survivors[si][idx];
   if (!tgt) {
+    if (fsi !== si && survHas(si, src.name)) { toast("У выжившего уже есть этот перк"); renderSurvivors(); return; }
+    if (fsi !== si && isExhaust(src) && survHasExhaust(si)) { toast("«Усталость» не стакается - максимум один такой перк"); renderSurvivors(); return; }
     S.survivors[si][idx] = Object.assign({}, src, { anim: "anim-pop-fast" });
     S.survivors[fsi][fidx] = null;
     renderSurvivors();
@@ -588,6 +616,12 @@ function moveSurv(fsi, fidx, si, idx, e) {
     S.mergeAsk = { from: [fsi, fidx], to: [si, idx], t: src.t, at: e ? stagePt(e) : null };
     renderOverlay();
   } else {
+    if (fsi !== si && (survHas(si, src.name, [idx]) || survHas(fsi, tgt.name, [fidx]))) {
+      toast("У выжившего уже есть этот перк"); renderSurvivors(); return;
+    }
+    if (fsi !== si && ((isExhaust(src) && survHasExhaust(si, [idx])) || (isExhaust(tgt) && survHasExhaust(fsi, [fidx])))) {
+      toast("«Усталость» не стакается - максимум один такой перк"); renderSurvivors(); return;
+    }
     S.survivors[si][idx] = Object.assign({}, src, { anim: "anim-pop-fast" });
     S.survivors[fsi][fidx] = Object.assign({}, tgt, { anim: "anim-pop-fast" });
     renderSurvivors();
@@ -603,7 +637,9 @@ function mergeDo(upgrade) {
   if (!src || !tgt || src.t !== tgt.t) return;
   if (upgrade) {
     const nt = src.t + 1;
-    const perk = rnd(D.survivorPerks[nt]);
+    // both consumed slots don't count against the duplicate check
+    const skip = m.from[0] === m.to[0] ? [m.from[1], m.to[1]] : [m.to[1]];
+    const perk = rollSurvPerk(nt, m.to[0], skip);
     S.survivors[m.to[0]][m.to[1]] = { t: nt, name: perk.name, img: perk.img, desc: perk.desc, anim: "anim-merge" };
     S.survivors[m.from[0]][m.from[1]] = null;
     sndTier(nt);
@@ -611,6 +647,12 @@ function mergeDo(upgrade) {
     fx(nt === 3 ? "rgba(190,80,255,.45)" : "rgba(80,220,90,.35)", false);
     toast("Объединение! Тир " + ST_LABEL[nt]);
   } else {
+    if (m.from[0] !== m.to[0] && (survHas(m.to[0], src.name, [m.to[1]]) || survHas(m.from[0], tgt.name, [m.from[1]]))) {
+      toast("У выжившего уже есть этот перк"); return;
+    }
+    if (m.from[0] !== m.to[0] && ((isExhaust(src) && survHasExhaust(m.to[0], [m.to[1]])) || (isExhaust(tgt) && survHasExhaust(m.from[0], [m.from[1]])))) {
+      toast("«Усталость» не стакается - максимум один такой перк"); return;
+    }
     S.survivors[m.to[0]][m.to[1]] = Object.assign({}, src, { anim: "anim-pop-fast" });
     S.survivors[m.from[0]][m.from[1]] = Object.assign({}, tgt, { anim: "anim-pop-fast" });
   }
@@ -618,13 +660,22 @@ function mergeDo(upgrade) {
 }
 
 /* ---------- items ---------- */
+/* каждый дубликат предмета у других выживших режет выплату убийце вдвое */
+function itemDups(row, gi) {
+  return S.survItems.filter((v, si) => si !== row && v === gi).length;
+}
+function itemPay(row, gi) {
+  return Math.max(1, Math.floor(D.items[gi].price / Math.pow(2, itemDups(row, gi))));
+}
 function buyItem(row, gi) {
   const it = D.items[gi];
-  S.survItems[row] = gi; S.itemPick = null; S.cells += it.price;
-  floater("+" + it.price, "#55d44a");
+  const dup = itemDups(row, gi);
+  const pay = itemPay(row, gi);
+  S.survItems[row] = gi; S.itemPick = null; S.cells += pay;
+  floater("+" + pay, "#55d44a");
   fx("rgba(85,212,74,.25)", false);
   renderCells(); renderSurvivors(); renderOverlay();
-  toast(surv(row).name + " купил(а): " + it.name);
+  toast(surv(row).name + " купил(а): " + it.name + (dup ? " (дубликат ×½)" : ""));
 }
 
 /* ---------- killer panel ---------- */
@@ -791,13 +842,15 @@ function itemPickHTML() {
     '<div class="item-groups">' +
     cats.map(cat =>
       '<div class="item-group"><div class="item-group-title">' + esc(cat) + '</div><div class="item-cards">' +
-      byCat[cat].map(([it, gi]) =>
-        '<div class="item-card ' + RARITY_CLS[it.rarity] + '" data-gi="' + gi + '">' +
+      byCat[cat].map(([it, gi]) => {
+        const dup = itemDups(S.itemPick, gi);
+        return '<div class="item-card ' + RARITY_CLS[it.rarity] + '" data-gi="' + gi + '">' +
           '<div class="ic-img"><img src="' + esc(it.img) + '" alt=""></div>' +
           '<div class="ic-name">' + esc(it.name) + "</div>" +
           '<div class="ic-rar">' + it.rarity + "</div>" +
-          '<div class="ic-price">+' + it.price + " ⬧</div>" +
-        "</div>").join("") +
+          '<div class="ic-price">+' + itemPay(S.itemPick, gi) + " ⬧" + (dup ? " · дубль" : "") + "</div>" +
+        "</div>";
+      }).join("") +
       "</div></div>").join("") +
     "</div>" +
     '<div class="ov-hint">Нажмите вне карточек, чтобы закрыть</div></div>';

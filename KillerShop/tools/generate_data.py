@@ -103,10 +103,10 @@ for t in range(4):
 # rarity + russian names: base list from CaptainShop/items.json conventions,
 # extended with the variants that exist only as assets.
 RARITY_PRICE = {
-    "Обычный": 150,
-    "Необычный": 250,
+    "Обычный": 300,
+    "Необычный": 350,
     "Редкий": 400,
-    "Очень редкий": 600,
+    "Очень редкий": 500,
     "Событие": 250,
 }
 ITEM_INFO = {  # file stem -> (russian name, rarity) — mirrors CaptainShop/src/data/config.js
@@ -153,12 +153,24 @@ CATEGORY_RU = {
     "Firecrackers": "Петарды",
 }
 CATEGORY_ORDER = ["Medkits", "Toolboxes", "Flashlights", "Maps", "Keys", "Fog Vials", "Firecrackers"]
+# what the shop actually sells - the other asset variants are excluded from stock
+ITEM_STOCK = {
+    "Ranger Med Kit",                          # аптечки: только фиолетовая
+    "Alex_s Toolbox", "Engineer_s Toolbox",    # инструменты: две фиолетовые
+    "Sport Flashlight", "Utility Flashlight",  # фонарики: синий и фиолетовый
+    "Skeleton Key",                            # ключи: только синий
+    "Annotated Map",                           # карты: только синяя
+    "Apprentice_s Fog Vial", "Artisan_s Fog Vial", "Vigo_s Fog Vial",
+    "Third Year Party Starter",                # петарды: только одна
+}
 
 items = []
 for cat in CATEGORY_ORDER:
     folder = os.path.join(DBD, "items", cat)
     for fn in pngs(folder):
         st = stem(fn)
+        if st not in ITEM_STOCK:
+            continue
         info = ITEM_INFO.get(st)
         if not info:
             unmatched.append(("item", st))
@@ -176,19 +188,50 @@ order = {c: i for i, c in enumerate(CATEGORY_RU.values())}
 items.sort(key=lambda it: (order[it["cat"]], it["price"], it["name"]))
 
 # ---------- rosters ----------
-def roster(folder, ru_map, rel):
+# DBD chapter release order (file stems). New characters go to the end until added here.
+SURVIVOR_ORDER = [
+    "Dwight Fairfield", "Meg Thomas", "Claudette Morel", "Jake Park", "Nea Karlsson",
+    "Laurie Strode", "Ace Visconti", "Bill Overbeck", "Feng Min", "David King",
+    "Quentin Smith", "David Tapp", "Kate Denson", "Adam Francis", "Jeff Johansen",
+    "Jane Romero", "Ash Williams", "Nancy Wheeler", "Steve Harrington", "Yui Kimura",
+    "Zarina Kassir", "Cheryl Mason", "Felix Richter", "Elodie Rakoto", "Yun-Jin Lee",
+    "Jill Valentine", "Leon S Kennedy", "Mikaela Reid", "Jonah Vasquez", "Yoichi Asakawa",
+    "Haddie Kaur", "Ada Wong", "Rebecca Chambers", "Vittorio Toscano", "Thalita Lyra",
+    "Renato Lyra", "Gabriel Soma", "Nicolas Cage", "Ellen Ripley", "Alan Wake",
+    "Sable Ward", "Aestri Yazar", "Lara Croft", "Trevor Belmont", "Taurie Cain",
+    "Orela Rose", "Rick Grimes", "Michonne Grimes", "Vee Boonyasak", "Dustin Henderson",
+    "Eleven", "Kwon Tae-young", "Shane Wiigwaas",
+]
+KILLER_ORDER = [
+    "Trapper", "Wraith", "Hillbilly", "Nurse", "Shape Variant",
+    "Hag", "Doctor", "Huntress", "Cannibal", "Nightmare",
+    "Pig", "Clown", "Spirit", "Legion", "Plague",
+    "Ghostface", "Demogorgon", "Oni", "Deathslinger", "Executioner",
+    "Blight", "Twins", "Trickster", "Nemesis", "Cenobite",
+    "Artist", "Onryo", "Dredge", "Mastermind", "Knight",
+    "Skull Merchant", "Singularity", "Xenomorph", "Good Guy", "Unknown",
+    "Lich", "Dark Lord", "Houndmaster", "Ghoul", "Animatronic",
+    "Krasue", "T_UI_K42_TheFirst_Portrait", "Slasher",
+]
+
+def roster(folder, ru_map, order):
+    idx = {n: i for i, n in enumerate(order)}
     out = []
     for fn in pngs(os.path.join(DBD, folder)):
         st = stem(fn)
         ru = ru_map.get(st)
         if not ru:
             unmatched.append((folder, st))
-        out.append({"name": ru or pretty_en(st), "img": f"../assets/dbd/{folder}/{fn}"})
-    out.sort(key=lambda c: c["name"].lower())
+        if st not in idx:
+            unmatched.append((folder + " (release order)", st))
+        out.append({"_st": st, "name": ru or pretty_en(st), "img": f"../assets/dbd/{folder}/{fn}"})
+    out.sort(key=lambda c: (idx.get(c["_st"], len(order)), c["name"].lower()))
+    for c in out:
+        del c["_st"]
     return out
 
-survivors = roster("survivorIcons", surv_ru, "survivorIcons")
-killers = roster("killerIcons", killer_ru, "killerIcons")
+survivors = roster("survivorIcons", surv_ru, SURVIVOR_ORDER)
+killers = roster("killerIcons", killer_ru, KILLER_ORDER)
 
 data = {
     "killerPerks": killer_perks,

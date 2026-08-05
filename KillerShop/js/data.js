@@ -1054,81 +1054,25 @@ window.SHOP_DATA = {
  },
  "items": [
   {
-   "name": "Походная аптечка",
-   "cat": "Аптечки",
-   "rarity": "Обычный",
-   "price": 150,
-   "img": "../assets/dbd/items/Medkits/Camping Aid Kit.png"
-  },
-  {
-   "name": "Аптечка",
-   "cat": "Аптечки",
-   "rarity": "Необычный",
-   "price": 250,
-   "img": "../assets/dbd/items/Medkits/Emergency Med Kit.png"
-  },
-  {
-   "name": "Аптечка первой помощи",
-   "cat": "Аптечки",
-   "rarity": "Редкий",
-   "price": 400,
-   "img": "../assets/dbd/items/Medkits/First Aid Kit.png"
-  },
-  {
    "name": "Аптечка лесничего",
    "cat": "Аптечки",
    "rarity": "Очень редкий",
-   "price": 600,
+   "price": 500,
    "img": "../assets/dbd/items/Medkits/Ranger Med Kit.png"
-  },
-  {
-   "name": "Изношенные инструменты",
-   "cat": "Инструменты",
-   "rarity": "Обычный",
-   "price": 150,
-   "img": "../assets/dbd/items/Toolboxes/Worn-Out Toolbox.png"
-  },
-  {
-   "name": "Ящик с инструментами",
-   "cat": "Инструменты",
-   "rarity": "Необычный",
-   "price": 250,
-   "img": "../assets/dbd/items/Toolboxes/Toolbox.png"
-  },
-  {
-   "name": "Вместительный ящик с инструментами",
-   "cat": "Инструменты",
-   "rarity": "Редкий",
-   "price": 400,
-   "img": "../assets/dbd/items/Toolboxes/Commodious Toolbox.png"
-  },
-  {
-   "name": "Инструменты механика",
-   "cat": "Инструменты",
-   "rarity": "Редкий",
-   "price": 400,
-   "img": "../assets/dbd/items/Toolboxes/Mechanic_s Toolbox.png"
   },
   {
    "name": "Инструменты Алекс",
    "cat": "Инструменты",
    "rarity": "Очень редкий",
-   "price": 600,
+   "price": 500,
    "img": "../assets/dbd/items/Toolboxes/Alex_s Toolbox.png"
   },
   {
    "name": "Инструменты инженера",
    "cat": "Инструменты",
    "rarity": "Очень редкий",
-   "price": 600,
+   "price": 500,
    "img": "../assets/dbd/items/Toolboxes/Engineer_s Toolbox.png"
-  },
-  {
-   "name": "Фонарик",
-   "cat": "Фонарики",
-   "rarity": "Необычный",
-   "price": 250,
-   "img": "../assets/dbd/items/Flashlights/Flashlight.png"
   },
   {
    "name": "Спортивный фонарик",
@@ -1141,22 +1085,8 @@ window.SHOP_DATA = {
    "name": "Практичный фонарик",
    "cat": "Фонарики",
    "rarity": "Очень редкий",
-   "price": 600,
+   "price": 500,
    "img": "../assets/dbd/items/Flashlights/Utility Flashlight.png"
-  },
-  {
-   "name": "Сломанный ключ",
-   "cat": "Ключи",
-   "rarity": "Обычный",
-   "price": 150,
-   "img": "../assets/dbd/items/Keys/Broken Key.png"
-  },
-  {
-   "name": "Потертый ключ",
-   "cat": "Ключи",
-   "rarity": "Необычный",
-   "price": 250,
-   "img": "../assets/dbd/items/Keys/Dull Key.png"
   },
   {
    "name": "Ключ скелета",
@@ -1164,20 +1094,6 @@ window.SHOP_DATA = {
    "rarity": "Редкий",
    "price": 400,
    "img": "../assets/dbd/items/Keys/Skeleton Key.png"
-  },
-  {
-   "name": "Загадочная карта",
-   "cat": "Карты",
-   "rarity": "Обычный",
-   "price": 150,
-   "img": "../assets/dbd/items/Maps/Cryptic Map.png"
-  },
-  {
-   "name": "Небрежная карта",
-   "cat": "Карты",
-   "rarity": "Необычный",
-   "price": 250,
-   "img": "../assets/dbd/items/Maps/Scribbled Map.png"
   },
   {
    "name": "Карта с подписями",
@@ -1190,14 +1106,14 @@ window.SHOP_DATA = {
    "name": "Флакон подмастерья с туманом",
    "cat": "Флаконы с туманом",
    "rarity": "Обычный",
-   "price": 150,
+   "price": 300,
    "img": "../assets/dbd/items/Fog Vials/Apprentice_s Fog Vial.png"
   },
   {
    "name": "Флакон мастерового с туманом",
    "cat": "Флаконы с туманом",
    "rarity": "Необычный",
-   "price": 250,
+   "price": 350,
    "img": "../assets/dbd/items/Fog Vials/Artisan_s Fog Vial.png"
   },
   {
@@ -1206,20 +1122,6 @@ window.SHOP_DATA = {
    "rarity": "Редкий",
    "price": 400,
    "img": "../assets/dbd/items/Fog Vials/Vigo_s Fog Vial.png"
-  },
-  {
-   "name": "Зимняя петарда",
-   "cat": "Петарды",
-   "rarity": "Событие",
-   "price": 250,
-   "img": "../assets/dbd/items/Firecrackers/Winter Party Starter.png"
-  },
-  {
-   "name": "Китайская петарда",
-   "cat": "Петарды",
-   "rarity": "Событие",
-   "price": 250,
-   "img": "../assets/dbd/items/Firecrackers/Chinese Firecracker.png"
   },
   {
    "name": "Праздничная петарда",
@@ -1231,390 +1133,390 @@ window.SHOP_DATA = {
  ],
  "survivors": [
   {
-   "name": "Ада Вонг",
-   "img": "../assets/dbd/survivorIcons/Ada Wong.png"
-  },
-  {
-   "name": "Адам Фрэнсис",
-   "img": "../assets/dbd/survivorIcons/Adam Francis.png"
-  },
-  {
-   "name": "Алан Уэйк",
-   "img": "../assets/dbd/survivorIcons/Alan Wake.png"
-  },
-  {
-   "name": "Аэстри Язар",
-   "img": "../assets/dbd/survivorIcons/Aestri Yazar.png"
-  },
-  {
-   "name": "Ви Бунясак",
-   "img": "../assets/dbd/survivorIcons/Vee Boonyasak.png"
-  },
-  {
-   "name": "Витторио Тоскано",
-   "img": "../assets/dbd/survivorIcons/Vittorio Toscano.png"
-  },
-  {
-   "name": "Габриэль Сома",
-   "img": "../assets/dbd/survivorIcons/Gabriel Soma.png"
-  },
-  {
-   "name": "Дастин Хендерсон",
-   "img": "../assets/dbd/survivorIcons/Dustin Henderson.png"
-  },
-  {
-   "name": "Детектив Тэпп",
-   "img": "../assets/dbd/survivorIcons/David Tapp.png"
-  },
-  {
-   "name": "Джейк Парк",
-   "img": "../assets/dbd/survivorIcons/Jake Park.png"
-  },
-  {
-   "name": "Джейн Ромеро",
-   "img": "../assets/dbd/survivorIcons/Jane Romero.png"
-  },
-  {
-   "name": "Джефф Йохансен",
-   "img": "../assets/dbd/survivorIcons/Jeff Johansen.png"
-  },
-  {
-   "name": "Джилл Валентайн",
-   "img": "../assets/dbd/survivorIcons/Jill Valentine.png"
-  },
-  {
    "name": "Дуайт Фэйрфилд",
    "img": "../assets/dbd/survivorIcons/Dwight Fairfield.png"
-  },
-  {
-   "name": "Дэвид Кинг",
-   "img": "../assets/dbd/survivorIcons/David King.png"
-  },
-  {
-   "name": "Зарина Кассир",
-   "img": "../assets/dbd/survivorIcons/Zarina Kassir.png"
-  },
-  {
-   "name": "Квентин Смит",
-   "img": "../assets/dbd/survivorIcons/Quentin Smith.png"
-  },
-  {
-   "name": "Квон Тхэён",
-   "img": "../assets/dbd/survivorIcons/Kwon Tae-young.png"
-  },
-  {
-   "name": "Кейт Денсон",
-   "img": "../assets/dbd/survivorIcons/Kate Denson.png"
-  },
-  {
-   "name": "Клодетт Морель",
-   "img": "../assets/dbd/survivorIcons/Claudette Morel.png"
-  },
-  {
-   "name": "Лара Крофт",
-   "img": "../assets/dbd/survivorIcons/Lara Croft.png"
-  },
-  {
-   "name": "Леон С. Кеннеди",
-   "img": "../assets/dbd/survivorIcons/Leon S Kennedy.png"
-  },
-  {
-   "name": "Ли Юнчин",
-   "img": "../assets/dbd/survivorIcons/Yun-Jin Lee.png"
-  },
-  {
-   "name": "Лори Строуд",
-   "img": "../assets/dbd/survivorIcons/Laurie Strode.png"
-  },
-  {
-   "name": "Микаэла Рид",
-   "img": "../assets/dbd/survivorIcons/Mikaela Reid.png"
-  },
-  {
-   "name": "Мишон Граймс",
-   "img": "../assets/dbd/survivorIcons/Michonne Grimes.png"
   },
   {
    "name": "Мэг Томас",
    "img": "../assets/dbd/survivorIcons/Meg Thomas.png"
   },
   {
+   "name": "Клодетт Морель",
+   "img": "../assets/dbd/survivorIcons/Claudette Morel.png"
+  },
+  {
+   "name": "Джейк Парк",
+   "img": "../assets/dbd/survivorIcons/Jake Park.png"
+  },
+  {
    "name": "Нея Карлссон",
    "img": "../assets/dbd/survivorIcons/Nea Karlsson.png"
   },
   {
-   "name": "Николас Кейдж",
-   "img": "../assets/dbd/survivorIcons/Nicolas Cage.png"
-  },
-  {
-   "name": "Нэнси Уиллер",
-   "img": "../assets/dbd/survivorIcons/Nancy Wheeler.png"
-  },
-  {
-   "name": "Одиннадцать",
-   "img": "../assets/dbd/survivorIcons/Eleven.png"
-  },
-  {
-   "name": "Орела Роуз",
-   "img": "../assets/dbd/survivorIcons/Orela Rose.png"
-  },
-  {
-   "name": "Ребекка Чемберс",
-   "img": "../assets/dbd/survivorIcons/Rebecca Chambers.png"
-  },
-  {
-   "name": "Ренато Лира",
-   "img": "../assets/dbd/survivorIcons/Renato Lyra.png"
-  },
-  {
-   "name": "Рик Граймс",
-   "img": "../assets/dbd/survivorIcons/Rick Grimes.png"
-  },
-  {
-   "name": "Сейбл Уорд",
-   "img": "../assets/dbd/survivorIcons/Sable Ward.png"
-  },
-  {
-   "name": "Стив Харрингтон",
-   "img": "../assets/dbd/survivorIcons/Steve Harrington.png"
-  },
-  {
-   "name": "Талита Лира",
-   "img": "../assets/dbd/survivorIcons/Thalita Lyra.png"
-  },
-  {
-   "name": "Тори Кейн",
-   "img": "../assets/dbd/survivorIcons/Taurie Cain.png"
-  },
-  {
-   "name": "Тревор Бельмонт",
-   "img": "../assets/dbd/survivorIcons/Trevor Belmont.png"
-  },
-  {
-   "name": "Уильям «Билл» Овербек",
-   "img": "../assets/dbd/survivorIcons/Bill Overbeck.png"
-  },
-  {
-   "name": "Феликс Рихтер",
-   "img": "../assets/dbd/survivorIcons/Felix Richter.png"
-  },
-  {
-   "name": "Фенг Мин",
-   "img": "../assets/dbd/survivorIcons/Feng Min.png"
-  },
-  {
-   "name": "Хонас Васкес",
-   "img": "../assets/dbd/survivorIcons/Jonah Vasquez.png"
-  },
-  {
-   "name": "Хэдди Каур",
-   "img": "../assets/dbd/survivorIcons/Haddie Kaur.png"
-  },
-  {
-   "name": "Шейн Виигваас",
-   "img": "../assets/dbd/survivorIcons/Shane Wiigwaas.webp"
-  },
-  {
-   "name": "Шерил Мейсон",
-   "img": "../assets/dbd/survivorIcons/Cheryl Mason.png"
+   "name": "Лори Строуд",
+   "img": "../assets/dbd/survivorIcons/Laurie Strode.png"
   },
   {
    "name": "Эйс Висконти",
    "img": "../assets/dbd/survivorIcons/Ace Visconti.png"
   },
   {
-   "name": "Эллен Рипли",
-   "img": "../assets/dbd/survivorIcons/Ellen Ripley.png"
+   "name": "Уильям «Билл» Овербек",
+   "img": "../assets/dbd/survivorIcons/Bill Overbeck.png"
   },
   {
-   "name": "Элоди Ракото",
-   "img": "../assets/dbd/survivorIcons/Elodie Rakoto.png"
+   "name": "Фенг Мин",
+   "img": "../assets/dbd/survivorIcons/Feng Min.png"
+  },
+  {
+   "name": "Дэвид Кинг",
+   "img": "../assets/dbd/survivorIcons/David King.png"
+  },
+  {
+   "name": "Квентин Смит",
+   "img": "../assets/dbd/survivorIcons/Quentin Smith.png"
+  },
+  {
+   "name": "Детектив Тэпп",
+   "img": "../assets/dbd/survivorIcons/David Tapp.png"
+  },
+  {
+   "name": "Кейт Денсон",
+   "img": "../assets/dbd/survivorIcons/Kate Denson.png"
+  },
+  {
+   "name": "Адам Фрэнсис",
+   "img": "../assets/dbd/survivorIcons/Adam Francis.png"
+  },
+  {
+   "name": "Джефф Йохансен",
+   "img": "../assets/dbd/survivorIcons/Jeff Johansen.png"
+  },
+  {
+   "name": "Джейн Ромеро",
+   "img": "../assets/dbd/survivorIcons/Jane Romero.png"
   },
   {
    "name": "Эшли Джей Уильямс",
    "img": "../assets/dbd/survivorIcons/Ash Williams.png"
   },
   {
+   "name": "Нэнси Уиллер",
+   "img": "../assets/dbd/survivorIcons/Nancy Wheeler.png"
+  },
+  {
+   "name": "Стив Харрингтон",
+   "img": "../assets/dbd/survivorIcons/Steve Harrington.png"
+  },
+  {
    "name": "Юи Кимура",
    "img": "../assets/dbd/survivorIcons/Yui Kimura.png"
   },
   {
+   "name": "Зарина Кассир",
+   "img": "../assets/dbd/survivorIcons/Zarina Kassir.png"
+  },
+  {
+   "name": "Шерил Мейсон",
+   "img": "../assets/dbd/survivorIcons/Cheryl Mason.png"
+  },
+  {
+   "name": "Феликс Рихтер",
+   "img": "../assets/dbd/survivorIcons/Felix Richter.png"
+  },
+  {
+   "name": "Элоди Ракото",
+   "img": "../assets/dbd/survivorIcons/Elodie Rakoto.png"
+  },
+  {
+   "name": "Ли Юнчин",
+   "img": "../assets/dbd/survivorIcons/Yun-Jin Lee.png"
+  },
+  {
+   "name": "Джилл Валентайн",
+   "img": "../assets/dbd/survivorIcons/Jill Valentine.png"
+  },
+  {
+   "name": "Леон С. Кеннеди",
+   "img": "../assets/dbd/survivorIcons/Leon S Kennedy.png"
+  },
+  {
+   "name": "Микаэла Рид",
+   "img": "../assets/dbd/survivorIcons/Mikaela Reid.png"
+  },
+  {
+   "name": "Хонас Васкес",
+   "img": "../assets/dbd/survivorIcons/Jonah Vasquez.png"
+  },
+  {
    "name": "Ёити Асакава",
    "img": "../assets/dbd/survivorIcons/Yoichi Asakawa.png"
+  },
+  {
+   "name": "Хэдди Каур",
+   "img": "../assets/dbd/survivorIcons/Haddie Kaur.png"
+  },
+  {
+   "name": "Ада Вонг",
+   "img": "../assets/dbd/survivorIcons/Ada Wong.png"
+  },
+  {
+   "name": "Ребекка Чемберс",
+   "img": "../assets/dbd/survivorIcons/Rebecca Chambers.png"
+  },
+  {
+   "name": "Витторио Тоскано",
+   "img": "../assets/dbd/survivorIcons/Vittorio Toscano.png"
+  },
+  {
+   "name": "Талита Лира",
+   "img": "../assets/dbd/survivorIcons/Thalita Lyra.png"
+  },
+  {
+   "name": "Ренато Лира",
+   "img": "../assets/dbd/survivorIcons/Renato Lyra.png"
+  },
+  {
+   "name": "Габриэль Сома",
+   "img": "../assets/dbd/survivorIcons/Gabriel Soma.png"
+  },
+  {
+   "name": "Николас Кейдж",
+   "img": "../assets/dbd/survivorIcons/Nicolas Cage.png"
+  },
+  {
+   "name": "Эллен Рипли",
+   "img": "../assets/dbd/survivorIcons/Ellen Ripley.png"
+  },
+  {
+   "name": "Алан Уэйк",
+   "img": "../assets/dbd/survivorIcons/Alan Wake.png"
+  },
+  {
+   "name": "Сейбл Уорд",
+   "img": "../assets/dbd/survivorIcons/Sable Ward.png"
+  },
+  {
+   "name": "Аэстри Язар",
+   "img": "../assets/dbd/survivorIcons/Aestri Yazar.png"
+  },
+  {
+   "name": "Лара Крофт",
+   "img": "../assets/dbd/survivorIcons/Lara Croft.png"
+  },
+  {
+   "name": "Тревор Бельмонт",
+   "img": "../assets/dbd/survivorIcons/Trevor Belmont.png"
+  },
+  {
+   "name": "Тори Кейн",
+   "img": "../assets/dbd/survivorIcons/Taurie Cain.png"
+  },
+  {
+   "name": "Орела Роуз",
+   "img": "../assets/dbd/survivorIcons/Orela Rose.png"
+  },
+  {
+   "name": "Рик Граймс",
+   "img": "../assets/dbd/survivorIcons/Rick Grimes.png"
+  },
+  {
+   "name": "Мишон Граймс",
+   "img": "../assets/dbd/survivorIcons/Michonne Grimes.png"
+  },
+  {
+   "name": "Ви Бунясак",
+   "img": "../assets/dbd/survivorIcons/Vee Boonyasak.png"
+  },
+  {
+   "name": "Дастин Хендерсон",
+   "img": "../assets/dbd/survivorIcons/Dustin Henderson.png"
+  },
+  {
+   "name": "Одиннадцать",
+   "img": "../assets/dbd/survivorIcons/Eleven.png"
+  },
+  {
+   "name": "Квон Тхэён",
+   "img": "../assets/dbd/survivorIcons/Kwon Tae-young.png"
+  },
+  {
+   "name": "Шейн Виигваас",
+   "img": "../assets/dbd/survivorIcons/Shane Wiigwaas.webp"
   }
  ],
  "killers": [
   {
-   "name": "АНИМАТРОНИК",
-   "img": "../assets/dbd/killerIcons/Animatronic.png"
-  },
-  {
-   "name": "БЛИЗНЕЦЫ",
-   "img": "../assets/dbd/killerIcons/Twins.png"
-  },
-  {
-   "name": "ВЕДЬМА",
-   "img": "../assets/dbd/killerIcons/Hag.png"
-  },
-  {
-   "name": "ГОУСТ ФЕЙС",
-   "img": "../assets/dbd/killerIcons/Ghostface.png"
-  },
-  {
-   "name": "ГРЯЗЬ",
-   "img": "../assets/dbd/killerIcons/Dredge.png"
-  },
-  {
-   "name": "ГУЛЬ",
-   "img": "../assets/dbd/killerIcons/Ghoul.png"
-  },
-  {
-   "name": "ДЕМОГОРГОН",
-   "img": "../assets/dbd/killerIcons/Demogorgon.png"
-  },
-  {
-   "name": "ДЕРЕВЕНЩИНА",
-   "img": "../assets/dbd/killerIcons/Hillbilly.png"
-  },
-  {
-   "name": "ДОКТОР",
-   "img": "../assets/dbd/killerIcons/Doctor.png"
-  },
-  {
-   "name": "ДУХ",
-   "img": "../assets/dbd/killerIcons/Spirit.png"
-  },
-  {
-   "name": "ЕГЕРЬ",
-   "img": "../assets/dbd/killerIcons/Houndmaster.png"
-  },
-  {
-   "name": "КАННИБАЛ",
-   "img": "../assets/dbd/killerIcons/Cannibal.png"
-  },
-  {
-   "name": "КЛОУН",
-   "img": "../assets/dbd/killerIcons/Clown.png"
-  },
-  {
-   "name": "КОШМАР",
-   "img": "../assets/dbd/killerIcons/Nightmare.png"
-  },
-  {
-   "name": "КРАСУ",
-   "img": "../assets/dbd/killerIcons/Krasue.png"
-  },
-  {
-   "name": "КСЕНОМОРФ",
-   "img": "../assets/dbd/killerIcons/Xenomorph.png"
-  },
-  {
-   "name": "КУКЛОВОД",
-   "img": "../assets/dbd/killerIcons/Mastermind.png"
-  },
-  {
-   "name": "ЛЕГИОН",
-   "img": "../assets/dbd/killerIcons/Legion.png"
-  },
-  {
-   "name": "ЛИЧ",
-   "img": "../assets/dbd/killerIcons/Lich.png"
-  },
-  {
-   "name": "МЕДСЕСТРА",
-   "img": "../assets/dbd/killerIcons/Nurse.png"
-  },
-  {
-   "name": "МОР",
-   "img": "../assets/dbd/killerIcons/Blight.png"
-  },
-  {
-   "name": "НЕВЕДОМОЕ",
-   "img": "../assets/dbd/killerIcons/Unknown.png"
-  },
-  {
-   "name": "НЕМЕЗИС",
-   "img": "../assets/dbd/killerIcons/Nemesis.png"
-  },
-  {
-   "name": "ОНИ",
-   "img": "../assets/dbd/killerIcons/Oni.png"
-  },
-  {
-   "name": "ОНРЁ",
-   "img": "../assets/dbd/killerIcons/Onryo.png"
-  },
-  {
    "name": "ОХОТНИК",
    "img": "../assets/dbd/killerIcons/Trapper.png"
-  },
-  {
-   "name": "ОХОТНИЦА",
-   "img": "../assets/dbd/killerIcons/Huntress.png"
-  },
-  {
-   "name": "ПАЛАЧ",
-   "img": "../assets/dbd/killerIcons/Executioner.png"
-  },
-  {
-   "name": "ПЕРВЫЙ",
-   "img": "../assets/dbd/killerIcons/T_UI_K42_TheFirst_Portrait.png"
   },
   {
    "name": "ПРИЗРАК",
    "img": "../assets/dbd/killerIcons/Wraith.png"
   },
   {
-   "name": "РЫЦАРЬ",
-   "img": "../assets/dbd/killerIcons/Knight.png"
+   "name": "ДЕРЕВЕНЩИНА",
+   "img": "../assets/dbd/killerIcons/Hillbilly.png"
   },
   {
-   "name": "СВИНЬЯ",
-   "img": "../assets/dbd/killerIcons/Pig.png"
-  },
-  {
-   "name": "СЕНОБИТ",
-   "img": "../assets/dbd/killerIcons/Cenobite.png"
-  },
-  {
-   "name": "СИНГУЛЯРНОСТЬ",
-   "img": "../assets/dbd/killerIcons/Singularity.png"
-  },
-  {
-   "name": "СЛЭШЕР",
-   "img": "../assets/dbd/killerIcons/Slasher.png"
-  },
-  {
-   "name": "СТРЕЛОК",
-   "img": "../assets/dbd/killerIcons/Deathslinger.png"
-  },
-  {
-   "name": "ТЕМНЫЙ ВЛАСТЕЛИН",
-   "img": "../assets/dbd/killerIcons/Dark Lord.png"
+   "name": "МЕДСЕСТРА",
+   "img": "../assets/dbd/killerIcons/Nurse.png"
   },
   {
    "name": "ТЕНЬ",
    "img": "../assets/dbd/killerIcons/Shape Variant.png"
   },
   {
-   "name": "ТОРГОВКА ЧЕРЕПАМИ",
-   "img": "../assets/dbd/killerIcons/Skull Merchant.png"
+   "name": "ВЕДЬМА",
+   "img": "../assets/dbd/killerIcons/Hag.png"
+  },
+  {
+   "name": "ДОКТОР",
+   "img": "../assets/dbd/killerIcons/Doctor.png"
+  },
+  {
+   "name": "ОХОТНИЦА",
+   "img": "../assets/dbd/killerIcons/Huntress.png"
+  },
+  {
+   "name": "КАННИБАЛ",
+   "img": "../assets/dbd/killerIcons/Cannibal.png"
+  },
+  {
+   "name": "КОШМАР",
+   "img": "../assets/dbd/killerIcons/Nightmare.png"
+  },
+  {
+   "name": "СВИНЬЯ",
+   "img": "../assets/dbd/killerIcons/Pig.png"
+  },
+  {
+   "name": "КЛОУН",
+   "img": "../assets/dbd/killerIcons/Clown.png"
+  },
+  {
+   "name": "ДУХ",
+   "img": "../assets/dbd/killerIcons/Spirit.png"
+  },
+  {
+   "name": "ЛЕГИОН",
+   "img": "../assets/dbd/killerIcons/Legion.png"
+  },
+  {
+   "name": "ЧУМА",
+   "img": "../assets/dbd/killerIcons/Plague.png"
+  },
+  {
+   "name": "ГОУСТ ФЕЙС",
+   "img": "../assets/dbd/killerIcons/Ghostface.png"
+  },
+  {
+   "name": "ДЕМОГОРГОН",
+   "img": "../assets/dbd/killerIcons/Demogorgon.png"
+  },
+  {
+   "name": "ОНИ",
+   "img": "../assets/dbd/killerIcons/Oni.png"
+  },
+  {
+   "name": "СТРЕЛОК",
+   "img": "../assets/dbd/killerIcons/Deathslinger.png"
+  },
+  {
+   "name": "ПАЛАЧ",
+   "img": "../assets/dbd/killerIcons/Executioner.png"
+  },
+  {
+   "name": "МОР",
+   "img": "../assets/dbd/killerIcons/Blight.png"
+  },
+  {
+   "name": "БЛИЗНЕЦЫ",
+   "img": "../assets/dbd/killerIcons/Twins.png"
   },
   {
    "name": "ТРЮКАЧ",
    "img": "../assets/dbd/killerIcons/Trickster.png"
   },
   {
-   "name": "ХОРОШИЙ ПАРЕНЬ",
-   "img": "../assets/dbd/killerIcons/Good Guy.png"
+   "name": "НЕМЕЗИС",
+   "img": "../assets/dbd/killerIcons/Nemesis.png"
+  },
+  {
+   "name": "СЕНОБИТ",
+   "img": "../assets/dbd/killerIcons/Cenobite.png"
   },
   {
    "name": "ХУДОЖНИЦА",
    "img": "../assets/dbd/killerIcons/Artist.png"
   },
   {
-   "name": "ЧУМА",
-   "img": "../assets/dbd/killerIcons/Plague.png"
+   "name": "ОНРЁ",
+   "img": "../assets/dbd/killerIcons/Onryo.png"
+  },
+  {
+   "name": "ГРЯЗЬ",
+   "img": "../assets/dbd/killerIcons/Dredge.png"
+  },
+  {
+   "name": "КУКЛОВОД",
+   "img": "../assets/dbd/killerIcons/Mastermind.png"
+  },
+  {
+   "name": "РЫЦАРЬ",
+   "img": "../assets/dbd/killerIcons/Knight.png"
+  },
+  {
+   "name": "ТОРГОВКА ЧЕРЕПАМИ",
+   "img": "../assets/dbd/killerIcons/Skull Merchant.png"
+  },
+  {
+   "name": "СИНГУЛЯРНОСТЬ",
+   "img": "../assets/dbd/killerIcons/Singularity.png"
+  },
+  {
+   "name": "КСЕНОМОРФ",
+   "img": "../assets/dbd/killerIcons/Xenomorph.png"
+  },
+  {
+   "name": "ХОРОШИЙ ПАРЕНЬ",
+   "img": "../assets/dbd/killerIcons/Good Guy.png"
+  },
+  {
+   "name": "НЕВЕДОМОЕ",
+   "img": "../assets/dbd/killerIcons/Unknown.png"
+  },
+  {
+   "name": "ЛИЧ",
+   "img": "../assets/dbd/killerIcons/Lich.png"
+  },
+  {
+   "name": "ТЕМНЫЙ ВЛАСТЕЛИН",
+   "img": "../assets/dbd/killerIcons/Dark Lord.png"
+  },
+  {
+   "name": "ЕГЕРЬ",
+   "img": "../assets/dbd/killerIcons/Houndmaster.png"
+  },
+  {
+   "name": "ГУЛЬ",
+   "img": "../assets/dbd/killerIcons/Ghoul.png"
+  },
+  {
+   "name": "АНИМАТРОНИК",
+   "img": "../assets/dbd/killerIcons/Animatronic.png"
+  },
+  {
+   "name": "КРАСУ",
+   "img": "../assets/dbd/killerIcons/Krasue.png"
+  },
+  {
+   "name": "ПЕРВЫЙ",
+   "img": "../assets/dbd/killerIcons/T_UI_K42_TheFirst_Portrait.png"
+  },
+  {
+   "name": "СЛЭШЕР",
+   "img": "../assets/dbd/killerIcons/Slasher.png"
   }
  ]
 };

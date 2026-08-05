@@ -660,22 +660,23 @@ function mergeDo(upgrade) {
 }
 
 /* ---------- items ---------- */
-/* каждый дубликат предмета у других выживших режет выплату убийце вдвое */
-function itemDups(row, gi) {
-  return S.survItems.filter((v, si) => si !== row && v === gi).length;
+/* каждый купленный предмет категории удваивает цену всей этой категории */
+function catCount(row, cat) {
+  return S.survItems.filter((v, si) => si !== row && v != null && D.items[v].cat === cat).length;
 }
 function itemPay(row, gi) {
-  return Math.max(1, Math.floor(D.items[gi].price / Math.pow(2, itemDups(row, gi))));
+  return D.items[gi].price * Math.pow(2, catCount(row, D.items[gi].cat));
 }
+const RARITY_SND = { "Обычный": 1, "Необычный": 1, "Редкий": 2, "Очень редкий": 3, "Ультраредкий": 3, "Событие": 1 };
 function buyItem(row, gi) {
   const it = D.items[gi];
-  const dup = itemDups(row, gi);
   const pay = itemPay(row, gi);
   S.survItems[row] = gi; S.itemPick = null; S.cells += pay;
+  sndTier(RARITY_SND[it.rarity] || 1);
   floater("+" + pay, "#55d44a");
   fx("rgba(85,212,74,.25)", false);
   renderCells(); renderSurvivors(); renderOverlay();
-  toast(surv(row).name + " купил(а): " + it.name + (dup ? " (дубликат ×½)" : ""));
+  toast(surv(row).name + " купил(а): " + it.name);
 }
 
 /* ---------- killer panel ---------- */
@@ -770,12 +771,14 @@ function removePerk(i) {
   renderKiller(); renderControls(); renderResult();
   toast("Перк выброшен");
 }
+const KAQ_SND = [1, 1, 2, 3, 3]; // звук по качеству, как у предметов: коричневый/зеленый - I, синий - II, фиолетовый+ - III
 function upAddon(i) {
   const lvl = S.kaLvl[i];
   if (lvl >= KAQ.length) { toast("Максимальное качество"); return; }
   const cost = KAQ[lvl].cost;
   if (S.cells < cost) { toast("Недостаточно клеток - нужно " + cost); return; }
   S.kaLvl[i] = lvl + 1; S.cells -= cost;
+  sndTier(KAQ_SND[lvl]);
   floater("−" + cost, "#d3222a");
   hover(null);
   renderCells(); renderControls(); renderKiller();
@@ -842,15 +845,13 @@ function itemPickHTML() {
     '<div class="item-groups">' +
     cats.map(cat =>
       '<div class="item-group"><div class="item-group-title">' + esc(cat) + '</div><div class="item-cards">' +
-      byCat[cat].map(([it, gi]) => {
-        const dup = itemDups(S.itemPick, gi);
-        return '<div class="item-card ' + RARITY_CLS[it.rarity] + '" data-gi="' + gi + '">' +
+      byCat[cat].map(([it, gi]) =>
+        '<div class="item-card ' + RARITY_CLS[it.rarity] + '" data-gi="' + gi + '">' +
           '<div class="ic-img"><img src="' + esc(it.img) + '" alt=""></div>' +
           '<div class="ic-name">' + esc(it.name) + "</div>" +
           '<div class="ic-rar">' + it.rarity + "</div>" +
-          '<div class="ic-price">+' + itemPay(S.itemPick, gi) + " ⬧" + (dup ? " · дубль" : "") + "</div>" +
-        "</div>";
-      }).join("") +
+          '<div class="ic-price">+' + itemPay(S.itemPick, gi) + " ⬧</div>" +
+        "</div>").join("") +
       "</div></div>").join("") +
     "</div>" +
     '<div class="ov-hint">Нажмите вне карточек, чтобы закрыть</div></div>';

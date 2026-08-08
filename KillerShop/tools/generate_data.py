@@ -9,7 +9,7 @@ Scans:
 
 Russian names come from Roulette/data/perk_map.json, killer_perk_map.json,
 survivor_map.json, killer_map.json and descriptions from
-assets/dbd/survivorPerks/SurvivorPerks.json.
+assets/dbd/survivorPerks/SurvivorPerks.json and Roulette/data/KillerPerks.json.
 
 Run:  python -X utf8 tools/generate_data.py   (from KillerShop/)
 """
@@ -61,6 +61,10 @@ desc_by_ru = {
     p["perk_name"]: p["description"]
     for p in load(os.path.join(DBD, "survivorPerks", "SurvivorPerks.json"))
 }
+kdesc_by_ru = {
+    p["perk_name"]: p["description"]
+    for p in load(os.path.join(RDATA, "KillerPerks.json"))
+}
 
 unmatched = []
 
@@ -75,8 +79,12 @@ for t in "SABCD":
         ru = kperk_ru.get(key)
         if not ru:
             unmatched.append(("killer perk", st))
+        name = ru or pretty_en(st)
+        if name not in kdesc_by_ru:
+            unmatched.append(("killer perk desc", name))
         pool.append({
-            "name": ru or pretty_en(st),
+            "name": name,
+            "desc": kdesc_by_ru.get(name, ""),
             "img": f"killerShopSpecificKillerPerks/{t} tier/{fn}",
         })
     killer_perks[t] = pool

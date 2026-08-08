@@ -812,6 +812,7 @@ function pickerHTML() {
       '<div class="picker-card t' + t + '" data-i="' + i + '" style="animation-delay:' + (i * .12) + 's">' +
         pkHTML("t" + t, p.img) +
         '<div class="picker-name">' + esc(p.name) + "</div>" +
+        (p.desc ? '<div class="picker-desc">' + esc(p.desc) + "</div>" : "") +
       "</div>").join("") +
     "</div></div>";
 }

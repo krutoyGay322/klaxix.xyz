@@ -2,7 +2,7 @@
 """Generates ../js/data.js for the Killer Shop.
 
 Scans:
-  - KillerShop/killerShopSpecificKillerPerks/<X> tier/*.png  -> killer perk pools S..F
+  - KillerShop/killerShopSpecificKillerPerks/<X> tier/*.png  -> killer perk pools S..D
   - assets/dbd/survivorPerks/Tier0..3/*.png                  -> survivor perk pools 0..3
   - assets/dbd/items/<Category>/*.png                        -> item shop
   - assets/dbd/survivorIcons, killerIcons                    -> character rosters
@@ -51,7 +51,6 @@ for _killer, perks in load(os.path.join(RDATA, "killer_perk_map.json")).items():
         kperk_ru[en] = ru
 
 # names missing from the Roulette maps
-kperk_ru.setdefault("No Holds Barred", "НИКАКИХ ЗАПРЕТОВ")
 kperk_ru.setdefault("Scourge Hook Weeping Wounds", "СЕКУЩИЙ КРЮК: ПЛАЧУЩИЕ РАНЫ")
 kperk_ru.setdefault("Hex Fortune_s Fool", "ПОРЧА: ШУТ ФОРТУНЫ")
 surv_ru.setdefault("Shane Wiigwaas", "Шейн Виигваас")
@@ -67,7 +66,7 @@ unmatched = []
 
 # ---------- killer perks (shop-specific tier folders) ----------
 killer_perks = {}
-for t in "SABCDF":
+for t in "SABCD":
     folder = os.path.join(SHOP, "killerShopSpecificKillerPerks", f"{t} tier")
     pool = []
     for fn in pngs(folder):
@@ -250,7 +249,7 @@ with open(out_path, "w", encoding="utf-8") as f:
     f.write(";\n")
 
 print(f"written {out_path}")
-print(f"killer perks: " + ", ".join(f"{t}={len(killer_perks[t])}" for t in "SABCDF"))
+print(f"killer perks: " + ", ".join(f"{t}={len(killer_perks[t])}" for t in "SABCD"))
 print(f"survivor perks: " + ", ".join(f"T{t}={len(survivor_perks[str(t)])}" for t in range(4)))
 print(f"items: {len(items)}, survivors: {len(survivors)}, killers: {len(killers)}")
 if unmatched:

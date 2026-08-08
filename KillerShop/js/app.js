@@ -6,22 +6,22 @@
 const D = window.SHOP_DATA;
 const CONFIG = { startCells: 200, unlockNeed: 3 };
 
-const ORDER = ["S", "A", "B", "C", "D", "F"];
+const ORDER = ["S", "A", "B", "C", "D"];
 // one canonical reel strip - every column is this exact sequence, only the stop position differs
-const STRIP = ["S","D","C","F","B","D","F","C","A","D","F","B","C","D","F","C","B","D"];
+const STRIP = ["S","D","C","B","D","C","A","B","C","D","B","C","A","D","C","B","D","C"];
 // how many strip steps a spin travels: iOS Safari drops composited layers that
 // grow past its texture limit (blank reels), so touch devices get a short run
 const STOP = window.matchMedia("(pointer: coarse)").matches ? 20 : 68;
 const BTNS = [
-  { name: "Ржавое колесо", cost: 100, hit: .3, odds: { S: 1, A: 5, B: 12, C: 22, D: 32, F: 28 } },
-  { name: "Кровавое колесо", cost: 250, hit: .4, odds: { S: 5, A: 12, B: 22, C: 28, D: 21, F: 12 } },
-  { name: "Проклятое колесо", cost: 500, hit: .5, odds: { S: 14, A: 24, B: 30, C: 19, D: 9, F: 4 } }
+  { name: "Ржавое колесо", cost: 100, hit: .3, odds: { S: 1, A: 5, B: 14, C: 35, D: 45 } },
+  { name: "Кровавое колесо", cost: 250, hit: .4, odds: { S: 5, A: 13, B: 26, C: 36, D: 20 } },
+  { name: "Проклятое колесо", cost: 500, hit: .5, odds: { S: 15, A: 25, B: 33, C: 21, D: 6 } }
 ];
 const REWARD = { 1: 250, 2: 300, 3: 550 };
 const CHOICE_REWARD = 5000;
 const ST_LABEL = { 0: "0", 1: "I", 2: "II", 3: "III" };
 const ST_COLOR = { 0: "#aeb6c0", 1: "#ffd75e", 2: "#55d44a", 3: "#c650ff" };
-const TIER_COLOR = { S: "#ff6b74", A: "#c650ff", B: "#3d7bff", C: "#55d44a", D: "#a87f54", F: "#aeb6c0" };
+const TIER_COLOR = { S: "#ff6b74", A: "#c650ff", B: "#3d7bff", C: "#55d44a", D: "#a87f54" };
 const RARITY_CLS = { "Обычный": "rar0", "Необычный": "rar1", "Редкий": "rar2", "Очень редкий": "rar3", "Ультраредкий": "rar4", "Событие": "rarE" };
 const KADDONS = [
   { name: "Ржавые шестерни" },
@@ -46,7 +46,7 @@ function initialState() {
     survivors: [[null,null,null,null],[null,null,null,null],[null,null,null,null],[null,null,null,null]],
     killerPerks: [],
     reel: null, spinning: false, resultTier: null, missed: false,
-    pickerTier: null, pickerChoices: null, confirmDel: null, debugOpen: false,
+    pickerTier: null, pickerChoices: null, confirmDel: null, debugOpen: false, perkListOpen: false,
     sel: null, ksel: null
   };
 }
@@ -302,7 +302,7 @@ function compactReel() {
 function pickWeighted(odds) {
   let r = Math.random() * 100;
   for (const t of ORDER) { r -= odds[t]; if (r <= 0) return t; }
-  return "F";
+  return "D";
 }
 function spin(btn) {
   if (S.spinning || S.pickerTier) return;
@@ -667,9 +667,12 @@ function catCount(row, cat) {
 function itemPay(row, gi) {
   return D.items[gi].price * Math.pow(2, catCount(row, D.items[gi].cat));
 }
+/* не больше двух предметов одной категории на всех выживших */
+const ITEM_CAT_MAX = 2;
 const RARITY_SND = { "Обычный": 1, "Необычный": 1, "Редкий": 2, "Очень редкий": 3, "Ультраредкий": 3, "Событие": 1 };
 function buyItem(row, gi) {
   const it = D.items[gi];
+  if (catCount(row, it.cat) >= ITEM_CAT_MAX) { toast("Максимум " + ITEM_CAT_MAX + " предмета одной категории"); return; }
   const pay = itemPay(row, gi);
   S.survItems[row] = gi; S.itemPick = null; S.cells += pay;
   sndTier(RARITY_SND[it.rarity] || 1);
@@ -794,6 +797,7 @@ function renderOverlay() {
   else if (S.mergeAsk) html = mergeHTML();
   else if (S.itemPick != null) html = itemPickHTML();
   else if (S.rosterPick) html = rosterHTML();
+  else if (S.perkListOpen) html = perkListHTML();
   else if (S.debugOpen) html = debugHTML();
   ov.innerHTML = html;
   ov.classList.toggle("on", !!html);
@@ -845,13 +849,16 @@ function itemPickHTML() {
     '<div class="item-groups">' +
     cats.map(cat =>
       '<div class="item-group"><div class="item-group-title">' + esc(cat) + '</div><div class="item-cards">' +
-      byCat[cat].map(([it, gi]) =>
-        '<div class="item-card ' + RARITY_CLS[it.rarity] + '" data-gi="' + gi + '">' +
+      byCat[cat].map(([it, gi]) => {
+        const maxed = catCount(S.itemPick, it.cat) >= ITEM_CAT_MAX;
+        return '<div class="item-card ' + RARITY_CLS[it.rarity] + (maxed ? " maxed" : "") + '" data-gi="' + gi + '"' +
+          (maxed ? ' title="Максимум ' + ITEM_CAT_MAX + ' предмета одной категории"' : "") + ">" +
           '<div class="ic-img"><img src="' + esc(it.img) + '" alt=""></div>' +
           '<div class="ic-name">' + esc(it.name) + "</div>" +
           '<div class="ic-rar">' + it.rarity + "</div>" +
-          '<div class="ic-price">+' + itemPay(S.itemPick, gi) + " ⬧</div>" +
-        "</div>").join("") +
+          '<div class="ic-price">' + (maxed ? "Распродано" : "+" + itemPay(S.itemPick, gi) + " ⬧") + "</div>" +
+        "</div>";
+      }).join("") +
       "</div></div>").join("") +
     "</div>" +
     '<div class="ov-hint">Нажмите вне карточек, чтобы закрыть</div></div>';
@@ -862,6 +869,7 @@ function rosterHTML() {
   const list = isK ? D.killers : D.survivors;
   return '<div class="ov" data-close="roster">' +
     '<div class="ov-title">' + (isK ? "Выберите убийцу" : "Выберите выжившего") + "</div>" +
+    '<input class="roster-search" id="roster-search" type="text" placeholder="Поиск по имени (рус / англ)" autocomplete="off" spellcheck="false">' +
     '<div class="roster-cards">' +
     list.map((c, i) => {
       let cls = "", tag = "", tagCls = "";
@@ -872,7 +880,9 @@ function rosterHTML() {
         if (at === rp.row) { cls = "cur"; tag = "Выбран"; tagCls = "cur"; }
         else if (at !== -1) { cls = "taken"; tag = "В игре"; }
       }
-      return '<div class="roster-card ' + cls + '" data-i="' + i + '">' +
+      // английское имя живёт в имени файла иконки (Dwight Fairfield.png)
+      const eng = decodeURIComponent(c.img).split("/").pop().replace(/\.\w+$/, "");
+      return '<div class="roster-card ' + cls + '" data-i="' + i + '" data-search="' + esc((c.name + " " + eng).toLowerCase()) + '">' +
         '<div class="roster-av"><img src="' + esc(c.img) + '" alt="" loading="lazy"></div>' +
         '<div class="roster-name">' + esc(c.name) + "</div>" +
         '<div class="roster-tag ' + tagCls + '">' + tag + "</div>" +
@@ -889,8 +899,29 @@ function debugHTML() {
     '<div class="debug-cash">' +
     [0, 1000, 10000, 99999].map(v => '<button data-cash="' + v + '" type="button">' + v + "</button>").join("") +
     "</div></div>" +
+    '<button class="debug-perks" data-act="debug-perks" type="button">Список перков</button>' +
     '<button class="debug-reset" data-act="debug-reset" type="button">Полный сброс</button>' +
   "</div></div>";
+}
+function perkListHTML() {
+  const col = (title, tiers) =>
+    '<div class="pl-col"><div class="pl-col-title">' + title + "</div>" +
+    tiers.map(([label, color, pool]) =>
+      '<div class="pl-tier"><div class="pl-tier-title" style="color:' + color + '">Тир ' + label +
+      ' <span class="pl-count">' + pool.length + "</span></div>" +
+      '<div class="pl-perks">' +
+      pool.map(p => '<div class="pl-perk"><img src="' + esc(p.img) + '" alt="" loading="lazy">' + esc(p.name) + "</div>").join("") +
+      "</div></div>").join("") +
+    "</div>";
+  return '<div class="ov" data-close="perklist">' +
+    '<div class="pl-box" data-stop="1">' +
+      '<div class="debug-head"><div class="debug-title">Все перки</div>' +
+      '<button class="debug-close" data-act="perklist-close" type="button">✕</button></div>' +
+      '<div class="pl-cols">' +
+        col("Перки убийцы", ORDER.map(t => [t, TIER_COLOR[t], D.killerPerks[t]])) +
+        col("Перки выживших", [0, 1, 2, 3].map(t => [ST_LABEL[t], ST_COLOR[t], D.survivorPerks[t]])) +
+      "</div>" +
+    "</div></div>";
 }
 function bindOverlay() {
   const ov = $("overlay");
@@ -905,10 +936,23 @@ function bindOverlay() {
     else if (act === "merge-swap") mergeDo(false);
     else if (act === "merge-cancel") { S.mergeAsk = null; renderOverlay(); }
     else if (act === "debug-close") { S.debugOpen = false; renderOverlay(); }
+    else if (act === "debug-perks") { S.debugOpen = false; S.perkListOpen = true; renderOverlay(); }
+    else if (act === "perklist-close") { S.perkListOpen = false; S.debugOpen = true; renderOverlay(); }
     else if (act === "debug-reset") debugReset();
   }));
   ov.querySelectorAll(".item-card").forEach(el =>
     el.addEventListener("click", e => { e.stopPropagation(); buyItem(S.itemPick, +el.dataset.gi); }));
+  const rs = ov.querySelector("#roster-search");
+  if (rs) {
+    // фильтруем готовые карточки в DOM - перерисовка оверлея сбросила бы фокус ввода
+    rs.addEventListener("input", () => {
+      const q = rs.value.trim().toLowerCase();
+      ov.querySelectorAll(".roster-card").forEach(el =>
+        el.classList.toggle("hide", !!q && el.dataset.search.indexOf(q) === -1));
+    });
+    rs.addEventListener("click", e => e.stopPropagation());
+    if (!TOUCH) rs.focus(); // на тачах авто-фокус выбрасывает клавиатуру поверх ростера
+  }
   ov.querySelectorAll(".roster-card").forEach(el =>
     el.addEventListener("click", e => {
       e.stopPropagation();
@@ -935,6 +979,7 @@ function bindOverlay() {
     if (w === "item") S.itemPick = null;
     else if (w === "roster") S.rosterPick = null;
     else if (w === "debug") S.debugOpen = false;
+    else if (w === "perklist") { S.perkListOpen = false; S.debugOpen = true; }
     renderOverlay();
   }));
 }

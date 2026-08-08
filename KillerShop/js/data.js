@@ -3,8 +3,24 @@ window.SHOP_DATA = {
  "killerPerks": {
   "S": [
    {
-    "name": "ИМ НЕ УКРЫТЬСЯ",
-    "img": "killerShopSpecificKillerPerks/S tier/Nowhere to Hide.png"
+    "name": "ВМЕШАТЕЛЬСТВО СКВЕРНЫ",
+    "img": "killerShopSpecificKillerPerks/S tier/Corrupt Intervention.png"
+   },
+   {
+    "name": "АВАРИЙНАЯ КНОПКА",
+    "img": "killerShopSpecificKillerPerks/S tier/Dead Man_s Switch.png"
+   },
+   {
+    "name": "ПОДРЫВ",
+    "img": "killerShopSpecificKillerPerks/S tier/Eruption.png"
+   },
+   {
+    "name": "ПОРЧА: ПОГИБЕЛЬ",
+    "img": "killerShopSpecificKillerPerks/S tier/Hex Ruin.png"
+   },
+   {
+    "name": "ПОРЧА: РАДОСТЬ ОХОТЫ",
+    "img": "killerShopSpecificKillerPerks/S tier/Hex Thrill of the Hunt.png"
    },
    {
     "name": "ЧЕРТИК ИЗ ТАБАКЕРКИ",
@@ -13,112 +29,388 @@ window.SHOP_DATA = {
    {
     "name": "СЕКУЩИЙ КРЮК: РЕЗОНАНС БОЛИ",
     "img": "killerShopSpecificKillerPerks/S tier/Scourge Hook Pain Resonance.png"
+   },
+   {
+    "name": "ПЕРЕВЕСТИ ЧАСЫ НАЗАД",
+    "img": "killerShopSpecificKillerPerks/S tier/Turn Back the Clock.png"
    }
   ],
   "A": [
    {
+    "name": "ЗОВ МЕДСЕСТРЫ",
+    "img": "killerShopSpecificKillerPerks/A tier/A Nurse_s Calling.png"
+   },
+   {
     "name": "НЕТЕРПИМОСТЬ",
     "img": "killerShopSpecificKillerPerks/A tier/Agitation.png"
+   },
+   {
+    "name": "БАРБЕКЮ И ЧИЛИ",
+    "img": "killerShopSpecificKillerPerks/A tier/BBQ and Chili.png"
+   },
+   {
+    "name": "МЕРТВАЯ ХВАТКА",
+    "img": "killerShopSpecificKillerPerks/A tier/Deadlock.png"
+   },
+   {
+    "name": "МРАЧНЫЕ ОБЪЯТЬЯ",
+    "img": "killerShopSpecificKillerPerks/A tier/Grim Embrace.png"
+   },
+   {
+    "name": "ПОРЧА: БЛАГОВОЛЕНИЕ КРОВИ",
+    "img": "killerShopSpecificKillerPerks/A tier/Hex Blood Favor.png"
+   },
+   {
+    "name": "ПОРЧА: РАЗУМ УЛЬЯ",
+    "img": "killerShopSpecificKillerPerks/A tier/Hex Hive Mind.png"
+   },
+   {
+    "name": "ПОРЧА: НИКОМУ НЕ СКРЫТЬСЯ ОТ СМЕРТИ",
+    "img": "killerShopSpecificKillerPerks/A tier/Hex No One Escapes Death.png"
+   },
+   {
+    "name": "ПОРЧА: ПЕНТИМЕНТО",
+    "img": "killerShopSpecificKillerPerks/A tier/Hex Pentimento.png"
+   },
+   {
+    "name": "ПОРЧА: НЕ-СМЕРТЬ",
+    "img": "killerShopSpecificKillerPerks/A tier/Hex Undying.png"
    },
    {
     "name": "ПРЕСЛЕДОВАТЕЛЬ-УБИЙЦА",
     "img": "killerShopSpecificKillerPerks/A tier/Lethal Pursuer.png"
    },
    {
-    "name": "СЕКУЩИЙ КРЮК: «ПУЧИНА ЯРОСТИ»",
-    "img": "killerShopSpecificKillerPerks/A tier/Scourge Hook Floods of Rage.png"
+    "name": "ВЫХОДА НЕТ",
+    "img": "killerShopSpecificKillerPerks/A tier/No Way Out.png"
    },
    {
-    "name": "ПЕРЕВЕСТИ ЧАСЫ НАЗАД",
-    "img": "killerShopSpecificKillerPerks/A tier/Turn Back the Clock.png"
+    "name": "ИМ НЕ УКРЫТЬСЯ",
+    "img": "killerShopSpecificKillerPerks/A tier/Nowhere to Hide.png"
+   },
+   {
+    "name": "СЕКРЕТНЫЙ ПРОЕКТ",
+    "img": "killerShopSpecificKillerPerks/A tier/Secret Project.png"
+   },
+   {
+    "name": "НЕБРЕЖНЫЙ МЯСНИК",
+    "img": "killerShopSpecificKillerPerks/A tier/Sloppy Butcher.png"
+   },
+   {
+    "name": "ВЫБРОС",
+    "img": "killerShopSpecificKillerPerks/A tier/Surge.png"
+   },
+   {
+    "name": "УМЕЛЕЦ",
+    "img": "killerShopSpecificKillerPerks/A tier/Tinkerer.png"
    }
   ],
   "B": [
    {
-    "name": "БАРБЕКЮ И ЧИЛИ",
-    "img": "killerShopSpecificKillerPerks/B tier/BBQ and Chili.png"
+    "name": "ИНСТИНКТ ЧУЖОГО",
+    "img": "killerShopSpecificKillerPerks/B tier/Alien Instinct.png"
+   },
+   {
+    "name": "РОЗЫГРЫШ",
+    "img": "killerShopSpecificKillerPerks/B tier/Bamboozle.png"
+   },
+   {
+    "name": "ЗВЕРСКАЯ СИЛА",
+    "img": "killerShopSpecificKillerPerks/B tier/Brutal Strength.png"
    },
    {
     "name": "СОЛЕНОЕ МОРЕ",
     "img": "killerShopSpecificKillerPerks/B tier/Call of Brine.png"
    },
    {
-    "name": "ВМЕШАТЕЛЬСТВО СКВЕРНЫ",
-    "img": "killerShopSpecificKillerPerks/B tier/Corrupt Intervention.png"
+    "name": "КЛОУНОФОБИЯ",
+    "img": "killerShopSpecificKillerPerks/B tier/Coulrophobia.png"
    },
    {
-    "name": "АВАРИЙНАЯ КНОПКА",
-    "img": "killerShopSpecificKillerPerks/B tier/Dead Man_s Switch.png"
+    "name": "ДОБИВАНИЕ",
+    "img": "killerShopSpecificKillerPerks/B tier/Coup de Grace.png"
    },
    {
-    "name": "ПОДРЫВ",
-    "img": "killerShopSpecificKillerPerks/B tier/Eruption.png"
+    "name": "РАЗЛАД",
+    "img": "killerShopSpecificKillerPerks/B tier/Discordance.png"
    },
    {
-    "name": "МРАЧНЫЕ ОБЪЯТЬЯ",
-    "img": "killerShopSpecificKillerPerks/B tier/Grim Embrace.png"
+    "name": "РАСТВОРЕНИЕ",
+    "img": "killerShopSpecificKillerPerks/B tier/Dissolution.png"
    },
    {
-    "name": "НИКАКИХ ЗАПРЕТОВ",
-    "img": "killerShopSpecificKillerPerks/B tier/No Holds Barred.png"
+    "name": "ДРАКОНЬЯ ХВАТКА",
+    "img": "killerShopSpecificKillerPerks/B tier/Dragon_s Grip.png"
+   },
+   {
+    "name": "СТОЙКИЙ",
+    "img": "killerShopSpecificKillerPerks/B tier/Enduring.png"
+   },
+   {
+    "name": "ЯРКОЕ ПЛАМЯ",
+    "img": "killerShopSpecificKillerPerks/B tier/Fire Up.png"
+   },
+   {
+    "name": "ПЕРЕПЛЕТЕННЫЕ НАВСЕГДА",
+    "img": "killerShopSpecificKillerPerks/B tier/Forever Entwined.png"
+   },
+   {
+    "name": "ГИБЕЛЬ ФРАНКЛИНА",
+    "img": "killerShopSpecificKillerPerks/B tier/Franklin_s Demise.png"
+   },
+   {
+    "name": "ДРУЗЬЯ ДО ГРОБА",
+    "img": "killerShopSpecificKillerPerks/B tier/Friends Til the End.png"
+   },
+   {
+    "name": "СКРЫТНАЯ ПОГОНЯ",
+    "img": "killerShopSpecificKillerPerks/B tier/Furtive Chase.png"
+   },
+   {
+    "name": "ГЕНЕТИЧЕСКИЕ ОГРАНИЧЕНИЯ",
+    "img": "killerShopSpecificKillerPerks/B tier/Genetic Limits.png"
+   },
+   {
+    "name": "СЕКУЩИЙ КРЮК: СЕКРЕТ ПАЛАЧА",
+    "img": "killerShopSpecificKillerPerks/B tier/Hangman_s Trick.png"
+   },
+   {
+    "name": "ПОРЧА: КОНТРОЛЬ ТОЛПЫ",
+    "img": "killerShopSpecificKillerPerks/B tier/Hex Crowd Control.png"
+   },
+   {
+    "name": "ПОРЧА: ПОЖИРАНИЕ НАДЕЖДЫ",
+    "img": "killerShopSpecificKillerPerks/B tier/Hex Devour Hope.png"
+   },
+   {
+    "name": "ПОРЧА: ПРОКЛЯТАЯ ЗЕМЛЯ",
+    "img": "killerShopSpecificKillerPerks/B tier/Hex Haunted Ground.png"
+   },
+   {
+    "name": "ПОРЧА: ИГРУШКА",
+    "img": "killerShopSpecificKillerPerks/B tier/Hex Plaything.png"
+   },
+   {
+    "name": "ПОРЧА: КАРА",
+    "img": "killerShopSpecificKillerPerks/B tier/Hex Retribution.png"
+   },
+   {
+    "name": "ПОРЧА: ТРЕТЬЯ ПЕЧАТЬ",
+    "img": "killerShopSpecificKillerPerks/B tier/Hex Third Seal.png"
+   },
+   {
+    "name": "ПОРЧА: ГОРЬКАЯ УЧАСТЬ",
+    "img": "killerShopSpecificKillerPerks/B tier/Hex Wretched Fate.png"
+   },
+   {
+    "name": "ЗАРАЗИТЕЛЬНЫЙ УЖАС",
+    "img": "killerShopSpecificKillerPerks/B tier/Infectious Fright.png"
+   },
+   {
+    "name": "БЕЗЖИЗНЕННОЕ КАСАНИЕ",
+    "img": "killerShopSpecificKillerPerks/B tier/Languid Touch.png"
+   },
+   {
+    "name": "РЫЧАГ ВЛИЯНИЯ",
+    "img": "killerShopSpecificKillerPerks/B tier/Leverage.png"
+   },
+   {
+    "name": "БЕЗЖАЛОСТНЫЙ ШТОРМ",
+    "img": "killerShopSpecificKillerPerks/B tier/Merciless Storm.png"
+   },
+   {
+    "name": "РАЗРУШИТЕЛЬ РАЗУМА",
+    "img": "killerShopSpecificKillerPerks/B tier/Mindbreaker.png"
+   },
+   {
+    "name": "ПРИТЕСНЕНИЕ",
+    "img": "killerShopSpecificKillerPerks/B tier/Oppression.png"
+   },
+   {
+    "name": "НЕВЫНОСИМОЕ ПРИСУТСТВИЕ",
+    "img": "killerShopSpecificKillerPerks/B tier/Overwhelming Presence.png"
+   },
+   {
+    "name": "ФАНТОМНЫЙ СТРАХ",
+    "img": "killerShopSpecificKillerPerks/B tier/Phantom Fear.png"
    },
    {
     "name": "ХИЩНИК",
     "img": "killerShopSpecificKillerPerks/B tier/Predator.png"
+   },
+   {
+    "name": "НЕНАВИСТЬ",
+    "img": "killerShopSpecificKillerPerks/B tier/Rancor.png"
+   },
+   {
+    "name": "БЫСТРАЯ ЖЕСТОКОСТЬ",
+    "img": "killerShopSpecificKillerPerks/B tier/Rapid Brutality.png"
+   },
+   {
+    "name": "ПОМНИ МЕНЯ",
+    "img": "killerShopSpecificKillerPerks/B tier/Remember Me.png"
+   },
+   {
+    "name": "ОСТАВЬТЕ ЛУЧШЕЕ НАПОСЛЕДОК",
+    "img": "killerShopSpecificKillerPerks/B tier/Save the Best for Last.png"
+   },
+   {
+    "name": "СЕКУЩИЙ КРЮК: «ПУЧИНА ЯРОСТИ»",
+    "img": "killerShopSpecificKillerPerks/B tier/Scourge Hook Floods of Rage.png"
+   },
+   {
+    "name": "СЕКУЩИЙ КРЮК: ДАР БОЛИ",
+    "img": "killerShopSpecificKillerPerks/B tier/Scourge Hook Gift of Pain.png"
+   },
+   {
+    "name": "СЕКУЩИЙ КРЮК: ЩЕРБАТЫЙ КОМПАС",
+    "img": "killerShopSpecificKillerPerks/B tier/Scourge Hook Jagged Compass.png"
+   },
+   {
+    "name": "ФАНАТЕНИЕ",
+    "img": "killerShopSpecificKillerPerks/B tier/Starstruck.png"
+   },
+   {
+    "name": "ПОСЛЕДНИЙ ЭТАП",
+    "img": "killerShopSpecificKillerPerks/B tier/Terminus.png"
+   },
+   {
+    "name": "ПУГАЮЩАЯ ТРЯСКА",
+    "img": "killerShopSpecificKillerPerks/B tier/Thrilling Tremors.png"
+   },
+   {
+    "name": "СОВЕРШЕННОЕ ОРУЖИЕ",
+    "img": "killerShopSpecificKillerPerks/B tier/Ultimate Weapon.png"
+   },
+   {
+    "name": "НЕПРЕДВИДЕННОЕ",
+    "img": "killerShopSpecificKillerPerks/B tier/Unforeseen.png"
+   },
+   {
+    "name": "ТАКТИКА ЗАНСИН",
+    "img": "killerShopSpecificKillerPerks/B tier/Zanshin Tactics.png"
    }
   ],
   "C": [
    {
-    "name": "ИНСТИНКТ ЧУЖОГО",
-    "img": "killerShopSpecificKillerPerks/C tier/Alien Instinct.png"
+    "name": "ОГЛУШИТЕЛЬНЫЙ ГРОМ",
+    "img": "killerShopSpecificKillerPerks/C tier/All-Shaking Thunder.png"
+   },
+   {
+    "name": "РАЗВИТАЯ ВНИМАТЕЛЬНОСТЬ",
+    "img": "killerShopSpecificKillerPerks/C tier/Awakened Awareness.png"
+   },
+   {
+    "name": "БАТАРЕЙКИ В КОМПЛЕКТЕ",
+    "img": "killerShopSpecificKillerPerks/C tier/Batteries Included.png"
+   },
+   {
+    "name": "ХИЩНЫЙ ЗВЕРЬ",
+    "img": "killerShopSpecificKillerPerks/C tier/Beast of Prey.png"
    },
    {
     "name": "ТИХИЙ ШОРОХ",
     "img": "killerShopSpecificKillerPerks/C tier/Bitter Murmur.png"
    },
    {
+    "name": "ОТЗВУК КРОВИ",
+    "img": "killerShopSpecificKillerPerks/C tier/Blood Echo.png"
+   },
+   {
+    "name": "КРОВАВЫЙ СМОТРИТЕЛЬ",
+    "img": "killerShopSpecificKillerPerks/C tier/Blood Warden.png"
+   },
+   {
+    "name": "ИЩЕЙКА",
+    "img": "killerShopSpecificKillerPerks/C tier/Bloodhound.png"
+   },
+   {
+    "name": "ЖЕСТОКАЯ ИЗОЛЯЦИЯ",
+    "img": "killerShopSpecificKillerPerks/C tier/Cruel Limits.png"
+   },
+   {
+    "name": "ТЕМНОЕ ВЫСОКОМЕРИЕ",
+    "img": "killerShopSpecificKillerPerks/C tier/Dark Arrogance.png"
+   },
+   {
+    "name": "ТЕМНАЯ ПРЕДАННОСТЬ",
+    "img": "killerShopSpecificKillerPerks/C tier/Dark Devotion.png"
+   },
+   {
     "name": "ЯВЛЕНИЕ МРАКА",
     "img": "killerShopSpecificKillerPerks/C tier/Darkness Revealed.png"
+   },
+   {
+    "name": "СМЕРТЕЛЬНЫЕ УЗЫ",
+    "img": "killerShopSpecificKillerPerks/C tier/Deathbound.png"
    },
    {
     "name": "ОХОТНИК НА ОЛЕНЕЙ",
     "img": "killerShopSpecificKillerPerks/C tier/Deerstalker.png"
    },
    {
-    "name": "РАЗЛАД",
-    "img": "killerShopSpecificKillerPerks/C tier/Discordance.png"
-   },
-   {
-    "name": "ДРАКОНЬЯ ХВАТКА",
-    "img": "killerShopSpecificKillerPerks/C tier/Dragon_s Grip.png"
+    "name": "ВЛАДЫЧЕСТВО",
+    "img": "killerShopSpecificKillerPerks/C tier/Dominance.png"
    },
    {
     "name": "УГАСАЮЩИЙ СВЕТ",
     "img": "killerShopSpecificKillerPerks/C tier/Dying Light.png"
    },
    {
-    "name": "ДРУЗЬЯ ДО ГРОБА",
-    "img": "killerShopSpecificKillerPerks/C tier/Friends Til the End.png"
+    "name": "ВЫНУЖДЕННАЯ НЕРЕШИТЕЛЬНОСТЬ",
+    "img": "killerShopSpecificKillerPerks/C tier/Forced Hesitation.png"
+   },
+   {
+    "name": "ПРИНУДИТЕЛЬНАЯ МЕРА",
+    "img": "killerShopSpecificKillerPerks/C tier/Forced Penance.png"
+   },
+   {
+    "name": "ДОГОНЯЛКИ",
+    "img": "killerShopSpecificKillerPerks/C tier/Game Afoot.png"
    },
    {
     "name": "ЗНАТОК ТЕХНИКИ",
     "img": "killerShopSpecificKillerPerks/C tier/Gearhead.png"
    },
    {
-    "name": "СЕКУЩИЙ КРЮК: СЕКРЕТ ПАЛАЧА",
-    "img": "killerShopSpecificKillerPerks/C tier/Hangman_s Trick.png"
+    "name": "ТРЕБУЮТСЯ РАБОТНИКИ",
+    "img": "killerShopSpecificKillerPerks/C tier/Help Wanted.png"
    },
    {
     "name": "ПОРЧА: ЛИК МРАКА",
     "img": "killerShopSpecificKillerPerks/C tier/Hex Face the Darkness.png"
    },
    {
-    "name": "ПОРЧА: РАЗУМ УЛЬЯ",
-    "img": "killerShopSpecificKillerPerks/C tier/Hex Hive Mind.png"
-   },
-   {
     "name": "ПОРЧА: КОЛЫБЕЛЬНАЯ ОХОТНИЦЫ",
     "img": "killerShopSpecificKillerPerks/C tier/Hex Huntress Lullaby.png"
+   },
+   {
+    "name": "ПОРЧА: ТОЛЬКО ОТЧАЯНИЕ",
+    "img": "killerShopSpecificKillerPerks/C tier/Hex Nothing But Misery.png"
+   },
+   {
+    "name": "ПОРЧА: ПРЕДВЕСТИЕ РОКА",
+    "img": "killerShopSpecificKillerPerks/C tier/Hex Overture of Doom.png"
+   },
+   {
+    "name": "ПОРЧА: ИГРА ДЛЯ ДВОИХ",
+    "img": "killerShopSpecificKillerPerks/C tier/Hex Two Can Play.png"
+   },
+   {
+    "name": "СКОПИДОМ",
+    "img": "killerShopSpecificKillerPerks/C tier/Hoarder.png"
+   },
+   {
+    "name": "СВИРЕПАЯ ГОРДЫНЯ",
+    "img": "killerShopSpecificKillerPerks/C tier/Hubris.png"
+   },
+   {
+    "name": "АЛЧНОСТЬ",
+    "img": "killerShopSpecificKillerPerks/C tier/Human Greed.png"
+   },
+   {
+    "name": "ИСТЕРИЯ",
+    "img": "killerShopSpecificKillerPerks/C tier/Hysteria.png"
    },
    {
     "name": "ЧУТКИЙ СЛУХ",
@@ -129,456 +421,150 @@ window.SHOP_DATA = {
     "img": "killerShopSpecificKillerPerks/C tier/Iron Grasp.png"
    },
    {
+    "name": "ЖЕЛЕЗНАЯ ДЕВА",
+    "img": "killerShopSpecificKillerPerks/C tier/Iron Maiden.png"
+   },
+   {
+    "name": "НОКАУТ",
+    "img": "killerShopSpecificKillerPerks/C tier/Knock Out.png"
+   },
+   {
+    "name": "ДЕТИЩЕ СВЕТА",
+    "img": "killerShopSpecificKillerPerks/C tier/Lightborn.png"
+   },
+   {
+    "name": "МАШИННОЕ ОБУЧЕНИЕ",
+    "img": "killerShopSpecificKillerPerks/C tier/Machine Learning.png"
+   },
+   {
+    "name": "БЕЗУМНОЕ УПОРСТВО",
+    "img": "killerShopSpecificKillerPerks/C tier/Mad Grit.png"
+   },
+   {
     "name": "ВЫБОР ЗА ТОБОЙ",
     "img": "killerShopSpecificKillerPerks/C tier/Make Your Choice.png"
    },
    {
-    "name": "НЕВЫНОСИМОЕ ПРИСУТСТВИЕ",
-    "img": "killerShopSpecificKillerPerks/C tier/Overwhelming Presence.png"
+    "name": "СЛЕЖКА И НАКАЗАНИЕ",
+    "img": "killerShopSpecificKillerPerks/C tier/Monitor and Abuse.png"
    },
    {
-    "name": "ФАНТОМНЫЙ СТРАХ",
-    "img": "killerShopSpecificKillerPerks/C tier/Phantom Fear.png"
+    "name": "ВОЗМЕЗДИЕ",
+    "img": "killerShopSpecificKillerPerks/C tier/Nemesis.png"
    },
    {
-    "name": "ВЫБРОС",
-    "img": "killerShopSpecificKillerPerks/C tier/Surge.png"
+    "name": "ВСЕ НЕСВОБОДНЫ",
+    "img": "killerShopSpecificKillerPerks/C tier/None Are Free.png"
+   },
+   {
+    "name": "ПЕРЕГРУЗКА",
+    "img": "killerShopSpecificKillerPerks/C tier/Overcharge.png"
+   },
+   {
+    "name": "ПОИГРАТЬ СО СВОЕЙ ЖЕРТВОЙ",
+    "img": "killerShopSpecificKillerPerks/C tier/Play With Your Food.png"
+   },
+   {
+    "name": "ГОЛОД",
+    "img": "killerShopSpecificKillerPerks/C tier/Ravenous.png"
+   },
+   {
+    "name": "СЕКУЩИЙ КРЮК: ЧУДОВИЩНЫЙ ХРАМ",
+    "img": "killerShopSpecificKillerPerks/C tier/Scourge Hook Monstrous Shrine.png"
+   },
+   {
+    "name": "ТЛЕТВОРНОЕ КАСАНИЕ",
+    "img": "killerShopSpecificKillerPerks/C tier/Septic Touch.png"
+   },
+   {
+    "name": "ДЕТИЩЕ ТЬМЫ",
+    "img": "killerShopSpecificKillerPerks/C tier/Shadowborn.png"
+   },
+   {
+    "name": "СУМЕРЕЧНЫЕ ШПИОНЫ",
+    "img": "killerShopSpecificKillerPerks/C tier/Spies from the Shadows.png"
+   },
+   {
+    "name": "ЯРОСТЬ ДУХА",
+    "img": "killerShopSpecificKillerPerks/C tier/Spirit Fury.png"
+   },
+   {
+    "name": "СТРИДОР",
+    "img": "killerShopSpecificKillerPerks/C tier/Stridor.png"
+   },
+   {
+    "name": "ЛУЧШАЯ АНАТОМИЯ",
+    "img": "killerShopSpecificKillerPerks/C tier/Superior Anatomy.png"
+   },
+   {
+    "name": "НАБЛЮДЕНИЕ",
+    "img": "killerShopSpecificKillerPerks/C tier/Surveillance.png"
+   },
+   {
+    "name": "БАЦ!",
+    "img": "killerShopSpecificKillerPerks/C tier/THWACK.png"
+   },
+   {
+    "name": "ТЕРРИТОРИАЛЬНЫЙ ИМПЕРАТИВ",
+    "img": "killerShopSpecificKillerPerks/C tier/Territorial Imperative.png"
    },
    {
     "name": "ТАНАТОФОБИЯ",
     "img": "killerShopSpecificKillerPerks/C tier/Thanatophobia.png"
    },
    {
-    "name": "ПУГАЮЩАЯ ТРЯСКА",
-    "img": "killerShopSpecificKillerPerks/C tier/Thrilling Tremors.png"
+    "name": "ТРОПА ТЕРЗАНИЙ",
+    "img": "killerShopSpecificKillerPerks/C tier/Trail of Torment.png"
    },
    {
-    "name": "СОВЕРШЕННОЕ ОРУЖИЕ",
-    "img": "killerShopSpecificKillerPerks/C tier/Ultimate Weapon.png"
+    "name": "СВОБОДНОЕ",
+    "img": "killerShopSpecificKillerPerks/C tier/Unbound.png"
+   },
+   {
+    "name": "ПУГАЮЩЕЕ ПРИСУТСТВИЕ",
+    "img": "killerShopSpecificKillerPerks/C tier/Unnerving Presence.png"
+   },
+   {
+    "name": "БЕЗЖАЛОСТНЫЙ",
+    "img": "killerShopSpecificKillerPerks/C tier/Unrelenting.png"
    },
    {
     "name": "БЛУЖДАЮЩИЙ ВЗГЛЯД",
     "img": "killerShopSpecificKillerPerks/C tier/Wandering Eye.png"
    },
    {
-    "name": "ТАКТИКА ЗАНСИН",
-    "img": "killerShopSpecificKillerPerks/C tier/Zanshin Tactics.png"
+    "name": "СВЯЗЬ С ПЛЕТЕНИЕМ",
+    "img": "killerShopSpecificKillerPerks/C tier/Weave Attunement.png"
+   },
+   {
+    "name": "ШЕПОТЫ",
+    "img": "killerShopSpecificKillerPerks/C tier/Whispers.png"
    }
   ],
   "D": [
    {
-    "name": "ЗОВ МЕДСЕСТРЫ",
-    "img": "killerShopSpecificKillerPerks/D tier/A Nurse_s Calling.png"
-   },
-   {
-    "name": "ОГЛУШИТЕЛЬНЫЙ ГРОМ",
-    "img": "killerShopSpecificKillerPerks/D tier/All-Shaking Thunder.png"
-   },
-   {
-    "name": "РАЗВИТАЯ ВНИМАТЕЛЬНОСТЬ",
-    "img": "killerShopSpecificKillerPerks/D tier/Awakened Awareness.png"
-   },
-   {
-    "name": "ОТЗВУК КРОВИ",
-    "img": "killerShopSpecificKillerPerks/D tier/Blood Echo.png"
-   },
-   {
-    "name": "КРОВАВЫЙ СМОТРИТЕЛЬ",
-    "img": "killerShopSpecificKillerPerks/D tier/Blood Warden.png"
-   },
-   {
-    "name": "КЛОУНОФОБИЯ",
-    "img": "killerShopSpecificKillerPerks/D tier/Coulrophobia.png"
-   },
-   {
-    "name": "ЯРКОЕ ПЛАМЯ",
-    "img": "killerShopSpecificKillerPerks/D tier/Fire Up.png"
-   },
-   {
-    "name": "ПРИНУДИТЕЛЬНАЯ МЕРА",
-    "img": "killerShopSpecificKillerPerks/D tier/Forced Penance.png"
-   },
-   {
-    "name": "ПЕРЕПЛЕТЕННЫЕ НАВСЕГДА",
-    "img": "killerShopSpecificKillerPerks/D tier/Forever Entwined.png"
-   },
-   {
-    "name": "ГЕНЕТИЧЕСКИЕ ОГРАНИЧЕНИЯ",
-    "img": "killerShopSpecificKillerPerks/D tier/Genetic Limits.png"
+    "name": "СЕЮЩИЙ СТРАХ",
+    "img": "killerShopSpecificKillerPerks/D tier/Distressing.png"
    },
    {
     "name": "НЕПОЛАДКИ",
     "img": "killerShopSpecificKillerPerks/D tier/Haywire.png"
    },
    {
-    "name": "ПОРЧА: ПОЖИРАНИЕ НАДЕЖДЫ",
-    "img": "killerShopSpecificKillerPerks/D tier/Hex Devour Hope.png"
-   },
-   {
-    "name": "ПОРЧА: КАРА",
-    "img": "killerShopSpecificKillerPerks/D tier/Hex Retribution.png"
-   },
-   {
-    "name": "ПОРЧА: ПОГИБЕЛЬ",
-    "img": "killerShopSpecificKillerPerks/D tier/Hex Ruin.png"
-   },
-   {
-    "name": "ПОРЧА: НЕ-СМЕРТЬ",
-    "img": "killerShopSpecificKillerPerks/D tier/Hex Undying.png"
-   },
-   {
-    "name": "АЛЧНОСТЬ",
-    "img": "killerShopSpecificKillerPerks/D tier/Human Greed.png"
-   },
-   {
-    "name": "ЗАРАЗИТЕЛЬНЫЙ УЖАС",
-    "img": "killerShopSpecificKillerPerks/D tier/Infectious Fright.png"
-   },
-   {
-    "name": "ЖЕЛЕЗНАЯ ДЕВА",
-    "img": "killerShopSpecificKillerPerks/D tier/Iron Maiden.png"
-   },
-   {
-    "name": "БЕЗУМНОЕ УПОРСТВО",
-    "img": "killerShopSpecificKillerPerks/D tier/Mad Grit.png"
-   },
-   {
-    "name": "БЕЗЖАЛОСТНЫЙ ШТОРМ",
-    "img": "killerShopSpecificKillerPerks/D tier/Merciless Storm.png"
+    "name": "КОВАРСТВО",
+    "img": "killerShopSpecificKillerPerks/D tier/Insidious.png"
    },
    {
     "name": "БЕЗ ПОЩАДЫ",
     "img": "killerShopSpecificKillerPerks/D tier/No Quarter.png"
    },
    {
-    "name": "ВЫХОДА НЕТ",
-    "img": "killerShopSpecificKillerPerks/D tier/No Way Out.png"
-   },
-   {
-    "name": "ПРИТЕСНЕНИЕ",
-    "img": "killerShopSpecificKillerPerks/D tier/Oppression.png"
-   },
-   {
-    "name": "ПЕРЕГРУЗКА",
-    "img": "killerShopSpecificKillerPerks/D tier/Overcharge.png"
-   },
-   {
-    "name": "НЕНАВИСТЬ",
-    "img": "killerShopSpecificKillerPerks/D tier/Rancor.png"
-   },
-   {
-    "name": "ГОЛОД",
-    "img": "killerShopSpecificKillerPerks/D tier/Ravenous.png"
-   },
-   {
-    "name": "ПОМНИ МЕНЯ",
-    "img": "killerShopSpecificKillerPerks/D tier/Remember Me.png"
-   },
-   {
-    "name": "СЕКУЩИЙ КРЮК: ЧУДОВИЩНЫЙ ХРАМ",
-    "img": "killerShopSpecificKillerPerks/D tier/Scourge Hook Monstrous Shrine.png"
-   },
-   {
-    "name": "СЕКУЩИЙ КРЮК: ПЛАЧУЩИЕ РАНЫ",
-    "img": "killerShopSpecificKillerPerks/D tier/Scourge Hook Weeping Wounds.png"
-   },
-   {
-    "name": "ТЛЕТВОРНОЕ КАСАНИЕ",
-    "img": "killerShopSpecificKillerPerks/D tier/Septic Touch.png"
-   },
-   {
-    "name": "ДЕТИЩЕ ТЬМЫ",
-    "img": "killerShopSpecificKillerPerks/D tier/Shadowborn.png"
-   },
-   {
     "name": "РАЗБИТЫЕ НАДЕЖДЫ",
     "img": "killerShopSpecificKillerPerks/D tier/Shattered Hope.png"
    },
    {
-    "name": "БЕЗМОЛВНАЯ ТЕНЬ",
-    "img": "killerShopSpecificKillerPerks/D tier/Silent Shadow.png"
-   },
-   {
-    "name": "СУМЕРЕЧНЫЕ ШПИОНЫ",
-    "img": "killerShopSpecificKillerPerks/D tier/Spies from the Shadows.png"
-   },
-   {
-    "name": "ФАНАТЕНИЕ",
-    "img": "killerShopSpecificKillerPerks/D tier/Starstruck.png"
-   },
-   {
-    "name": "НАБЛЮДЕНИЕ",
-    "img": "killerShopSpecificKillerPerks/D tier/Surveillance.png"
-   },
-   {
-    "name": "БАЦ!",
-    "img": "killerShopSpecificKillerPerks/D tier/THWACK.png"
-   },
-   {
-    "name": "ПОСЛЕДНИЙ ЭТАП",
-    "img": "killerShopSpecificKillerPerks/D tier/Terminus.png"
-   },
-   {
-    "name": "УМЕЛЕЦ",
-    "img": "killerShopSpecificKillerPerks/D tier/Tinkerer.png"
-   },
-   {
     "name": "НЕЗАВЕРШЕННОЕ",
     "img": "killerShopSpecificKillerPerks/D tier/Undone.png"
-   }
-  ],
-  "F": [
-   {
-    "name": "РОЗЫГРЫШ",
-    "img": "killerShopSpecificKillerPerks/F tier/Bamboozle.png"
-   },
-   {
-    "name": "БАТАРЕЙКИ В КОМПЛЕКТЕ",
-    "img": "killerShopSpecificKillerPerks/F tier/Batteries Included.png"
-   },
-   {
-    "name": "ХИЩНЫЙ ЗВЕРЬ",
-    "img": "killerShopSpecificKillerPerks/F tier/Beast of Prey.png"
-   },
-   {
-    "name": "ИЩЕЙКА",
-    "img": "killerShopSpecificKillerPerks/F tier/Bloodhound.png"
-   },
-   {
-    "name": "ЗВЕРСКАЯ СИЛА",
-    "img": "killerShopSpecificKillerPerks/F tier/Brutal Strength.png"
-   },
-   {
-    "name": "ДОБИВАНИЕ",
-    "img": "killerShopSpecificKillerPerks/F tier/Coup de Grace.png"
-   },
-   {
-    "name": "ЖЕСТОКАЯ ИЗОЛЯЦИЯ",
-    "img": "killerShopSpecificKillerPerks/F tier/Cruel Limits.png"
-   },
-   {
-    "name": "ТЕМНОЕ ВЫСОКОМЕРИЕ",
-    "img": "killerShopSpecificKillerPerks/F tier/Dark Arrogance.png"
-   },
-   {
-    "name": "ТЕМНАЯ ПРЕДАННОСТЬ",
-    "img": "killerShopSpecificKillerPerks/F tier/Dark Devotion.png"
-   },
-   {
-    "name": "СМЕРТЕЛЬНЫЕ УЗЫ",
-    "img": "killerShopSpecificKillerPerks/F tier/Deathbound.png"
-   },
-   {
-    "name": "РАСТВОРЕНИЕ",
-    "img": "killerShopSpecificKillerPerks/F tier/Dissolution.png"
-   },
-   {
-    "name": "СЕЮЩИЙ СТРАХ",
-    "img": "killerShopSpecificKillerPerks/F tier/Distressing.png"
-   },
-   {
-    "name": "ВЛАДЫЧЕСТВО",
-    "img": "killerShopSpecificKillerPerks/F tier/Dominance.png"
-   },
-   {
-    "name": "СТОЙКИЙ",
-    "img": "killerShopSpecificKillerPerks/F tier/Enduring.png"
-   },
-   {
-    "name": "ВЫНУЖДЕННАЯ НЕРЕШИТЕЛЬНОСТЬ",
-    "img": "killerShopSpecificKillerPerks/F tier/Forced Hesitation.png"
-   },
-   {
-    "name": "ГИБЕЛЬ ФРАНКЛИНА",
-    "img": "killerShopSpecificKillerPerks/F tier/Franklin_s Demise.png"
-   },
-   {
-    "name": "СКРЫТНАЯ ПОГОНЯ",
-    "img": "killerShopSpecificKillerPerks/F tier/Furtive Chase.png"
-   },
-   {
-    "name": "ДОГОНЯЛКИ",
-    "img": "killerShopSpecificKillerPerks/F tier/Game Afoot.png"
-   },
-   {
-    "name": "ТРЕБУЮТСЯ РАБОТНИКИ",
-    "img": "killerShopSpecificKillerPerks/F tier/Help Wanted.png"
-   },
-   {
-    "name": "ПОРЧА: БЛАГОВОЛЕНИЕ КРОВИ",
-    "img": "killerShopSpecificKillerPerks/F tier/Hex Blood Favor.png"
-   },
-   {
-    "name": "ПОРЧА: КОНТРОЛЬ ТОЛПЫ",
-    "img": "killerShopSpecificKillerPerks/F tier/Hex Crowd Control.png"
-   },
-   {
-    "name": "ПОРЧА: ШУТ ФОРТУНЫ",
-    "img": "killerShopSpecificKillerPerks/F tier/Hex Fortune_s Fool.png"
-   },
-   {
-    "name": "ПОРЧА: ПРОКЛЯТАЯ ЗЕМЛЯ",
-    "img": "killerShopSpecificKillerPerks/F tier/Hex Haunted Ground.png"
-   },
-   {
-    "name": "ПОРЧА: НИКОМУ НЕ СКРЫТЬСЯ ОТ СМЕРТИ",
-    "img": "killerShopSpecificKillerPerks/F tier/Hex No One Escapes Death.png"
-   },
-   {
-    "name": "ПОРЧА: ТОЛЬКО ОТЧАЯНИЕ",
-    "img": "killerShopSpecificKillerPerks/F tier/Hex Nothing But Misery.png"
-   },
-   {
-    "name": "ПОРЧА: ПРЕДВЕСТИЕ РОКА",
-    "img": "killerShopSpecificKillerPerks/F tier/Hex Overture of Doom.png"
-   },
-   {
-    "name": "ПОРЧА: ПЕНТИМЕНТО",
-    "img": "killerShopSpecificKillerPerks/F tier/Hex Pentimento.png"
-   },
-   {
-    "name": "ПОРЧА: СМЕРТЕЛЬНЫЙ ИСПУГ",
-    "img": "killerShopSpecificKillerPerks/F tier/Hex Scared to Death.png"
-   },
-   {
-    "name": "ПОРЧА: ТРЕТЬЯ ПЕЧАТЬ",
-    "img": "killerShopSpecificKillerPerks/F tier/Hex Third Seal.png"
-   },
-   {
-    "name": "ПОРЧА: РАДОСТЬ ОХОТЫ",
-    "img": "killerShopSpecificKillerPerks/F tier/Hex Thrill of the Hunt.png"
-   },
-   {
-    "name": "ПОРЧА: ИГРА ДЛЯ ДВОИХ",
-    "img": "killerShopSpecificKillerPerks/F tier/Hex Two Can Play.png"
-   },
-   {
-    "name": "ПОРЧА: ГОРЬКАЯ УЧАСТЬ",
-    "img": "killerShopSpecificKillerPerks/F tier/Hex Wretched Fate.png"
-   },
-   {
-    "name": "СКОПИДОМ",
-    "img": "killerShopSpecificKillerPerks/F tier/Hoarder.png"
-   },
-   {
-    "name": "СВИРЕПАЯ ГОРДЫНЯ",
-    "img": "killerShopSpecificKillerPerks/F tier/Hubris.png"
-   },
-   {
-    "name": "ИСТЕРИЯ",
-    "img": "killerShopSpecificKillerPerks/F tier/Hysteria.png"
-   },
-   {
-    "name": "КОВАРСТВО",
-    "img": "killerShopSpecificKillerPerks/F tier/Insidious.png"
-   },
-   {
-    "name": "НОКАУТ",
-    "img": "killerShopSpecificKillerPerks/F tier/Knock Out.png"
-   },
-   {
-    "name": "БЕЗЖИЗНЕННОЕ КАСАНИЕ",
-    "img": "killerShopSpecificKillerPerks/F tier/Languid Touch.png"
-   },
-   {
-    "name": "РЫЧАГ ВЛИЯНИЯ",
-    "img": "killerShopSpecificKillerPerks/F tier/Leverage.png"
-   },
-   {
-    "name": "ДЕТИЩЕ СВЕТА",
-    "img": "killerShopSpecificKillerPerks/F tier/Lightborn.png"
-   },
-   {
-    "name": "МАШИННОЕ ОБУЧЕНИЕ",
-    "img": "killerShopSpecificKillerPerks/F tier/Machine Learning.png"
-   },
-   {
-    "name": "РАЗРУШИТЕЛЬ РАЗУМА",
-    "img": "killerShopSpecificKillerPerks/F tier/Mindbreaker.png"
-   },
-   {
-    "name": "СЛЕЖКА И НАКАЗАНИЕ",
-    "img": "killerShopSpecificKillerPerks/F tier/Monitor and Abuse.png"
-   },
-   {
-    "name": "ВОЗМЕЗДИЕ",
-    "img": "killerShopSpecificKillerPerks/F tier/Nemesis (1).png"
-   },
-   {
-    "name": "ВСЕ НЕСВОБОДНЫ",
-    "img": "killerShopSpecificKillerPerks/F tier/None Are Free.png"
-   },
-   {
-    "name": "ПОИГРАТЬ СО СВОЕЙ ЖЕРТВОЙ",
-    "img": "killerShopSpecificKillerPerks/F tier/Play With Your Food.png"
-   },
-   {
-    "name": "НЕИСТОВСТВО",
-    "img": "killerShopSpecificKillerPerks/F tier/Rampage.png"
-   },
-   {
-    "name": "БЫСТРАЯ ЖЕСТОКОСТЬ",
-    "img": "killerShopSpecificKillerPerks/F tier/Rapid Brutality.png"
-   },
-   {
-    "name": "ОСТАВЬТЕ ЛУЧШЕЕ НАПОСЛЕДОК",
-    "img": "killerShopSpecificKillerPerks/F tier/Save the Best for Last.png"
-   },
-   {
-    "name": "СЕКУЩИЙ КРЮК: ЩЕРБАТЫЙ КОМПАС",
-    "img": "killerShopSpecificKillerPerks/F tier/Scourge Hook Jagged Compass.png"
-   },
-   {
-    "name": "СЕКРЕТНЫЙ ПРОЕКТ",
-    "img": "killerShopSpecificKillerPerks/F tier/Secret Project.png"
-   },
-   {
-    "name": "НЕБРЕЖНЫЙ МЯСНИК",
-    "img": "killerShopSpecificKillerPerks/F tier/Sloppy Butcher.png"
-   },
-   {
-    "name": "ЯРОСТЬ ДУХА",
-    "img": "killerShopSpecificKillerPerks/F tier/Spirit Fury.png"
-   },
-   {
-    "name": "СТРИДОР",
-    "img": "killerShopSpecificKillerPerks/F tier/Stridor.png"
-   },
-   {
-    "name": "ЛУЧШАЯ АНАТОМИЯ",
-    "img": "killerShopSpecificKillerPerks/F tier/Superior Anatomy.png"
-   },
-   {
-    "name": "ТЕРРИТОРИАЛЬНЫЙ ИМПЕРАТИВ",
-    "img": "killerShopSpecificKillerPerks/F tier/Territorial Imperative.png"
-   },
-   {
-    "name": "ТРОПА ТЕРЗАНИЙ",
-    "img": "killerShopSpecificKillerPerks/F tier/Trail of Torment.png"
-   },
-   {
-    "name": "СВОБОДНОЕ",
-    "img": "killerShopSpecificKillerPerks/F tier/Unbound.png"
-   },
-   {
-    "name": "НЕПРЕДВИДЕННОЕ",
-    "img": "killerShopSpecificKillerPerks/F tier/Unforeseen.png"
-   },
-   {
-    "name": "ПУГАЮЩЕЕ ПРИСУТСТВИЕ",
-    "img": "killerShopSpecificKillerPerks/F tier/Unnerving Presence.png"
-   },
-   {
-    "name": "БЕЗЖАЛОСТНЫЙ",
-    "img": "killerShopSpecificKillerPerks/F tier/Unrelenting.png"
-   },
-   {
-    "name": "СВЯЗЬ С ПЛЕТЕНИЕМ",
-    "img": "killerShopSpecificKillerPerks/F tier/Weave Attunement.png"
-   },
-   {
-    "name": "ШЕПОТЫ",
-    "img": "killerShopSpecificKillerPerks/F tier/Whispers.png"
    }
   ]
  },

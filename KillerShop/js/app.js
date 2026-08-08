@@ -15,7 +15,7 @@ const STOP = window.matchMedia("(pointer: coarse)").matches ? 20 : 68;
 const BTNS = [
   { name: "Ржавое колесо", cost: 100, hit: .3, odds: { S: 1, A: 5, B: 14, C: 35, D: 45 } },
   { name: "Кровавое колесо", cost: 250, hit: .4, odds: { S: 5, A: 13, B: 26, C: 36, D: 20 } },
-  { name: "Проклятое колесо", cost: 500, hit: .5, odds: { S: 15, A: 25, B: 33, C: 21, D: 6 } }
+  { name: "Проклятое колесо", cost: 500, hit: .5, odds: { S: 10, A: 20, B: 38, C: 26, D: 6 } }
 ];
 const REWARD = { 1: 250, 2: 300, 3: 550 };
 const CHOICE_REWARD = 5000;
@@ -672,6 +672,7 @@ const ITEM_CAT_MAX = 2;
 const RARITY_SND = { "Обычный": 1, "Необычный": 1, "Редкий": 2, "Очень редкий": 3, "Ультраредкий": 3, "Событие": 1 };
 function buyItem(row, gi) {
   const it = D.items[gi];
+  if (S.survItems[row] === gi) { toast("Этот предмет уже в руках"); return; }
   if (catCount(row, it.cat) >= ITEM_CAT_MAX) { toast("Максимум " + ITEM_CAT_MAX + " предмета одной категории"); return; }
   const pay = itemPay(row, gi);
   S.survItems[row] = gi; S.itemPick = null; S.cells += pay;
@@ -851,13 +852,14 @@ function itemPickHTML() {
     cats.map(cat =>
       '<div class="item-group"><div class="item-group-title">' + esc(cat) + '</div><div class="item-cards">' +
       byCat[cat].map(([it, gi]) => {
-        const maxed = catCount(S.itemPick, it.cat) >= ITEM_CAT_MAX;
-        return '<div class="item-card ' + RARITY_CLS[it.rarity] + (maxed ? " maxed" : "") + '" data-gi="' + gi + '"' +
-          (maxed ? ' title="Максимум ' + ITEM_CAT_MAX + ' предмета одной категории"' : "") + ">" +
+        const owned = S.survItems[S.itemPick] === gi; // нельзя перекупить предмет, который уже в руках
+        const maxed = !owned && catCount(S.itemPick, it.cat) >= ITEM_CAT_MAX;
+        return '<div class="item-card ' + RARITY_CLS[it.rarity] + (maxed || owned ? " maxed" : "") + '" data-gi="' + gi + '"' +
+          (owned ? ' title="Этот предмет уже в руках"' : maxed ? ' title="Максимум ' + ITEM_CAT_MAX + ' предмета одной категории"' : "") + ">" +
           '<div class="ic-img"><img src="' + esc(it.img) + '" alt=""></div>' +
           '<div class="ic-name">' + esc(it.name) + "</div>" +
           '<div class="ic-rar">' + it.rarity + "</div>" +
-          '<div class="ic-price">' + (maxed ? "Распродано" : "+" + itemPay(S.itemPick, gi) + " ⬧") + "</div>" +
+          '<div class="ic-price">' + (owned ? "В руках" : maxed ? "Распродано" : "+" + itemPay(S.itemPick, gi) + " ⬧") + "</div>" +
         "</div>";
       }).join("") +
       "</div></div>").join("") +

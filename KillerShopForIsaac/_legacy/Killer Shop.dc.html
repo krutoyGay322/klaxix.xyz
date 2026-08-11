@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=PT+Sans:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#07080b;overflow:hidden;}
+a{color:#c9d2dc;text-decoration:none;}a:hover{color:#ffffff;}
+@keyframes kPulse{0%,100%{filter:brightness(1) saturate(1);}50%{filter:brightness(1.35) saturate(1.3);}}
+@keyframes kShake{0%,100%{transform:translate(0,0);}10%{transform:translate(-16px,8px);}25%{transform:translate(14px,-10px);}40%{transform:translate(-12px,-7px);}55%{transform:translate(10px,8px);}70%{transform:translate(-7px,4px);}85%{transform:translate(4px,-3px);}}
+@keyframes kFlash{0%{opacity:.95;}100%{opacity:0;}}
+@keyframes kPopW{0%{transform:scale(0);}55%{transform:scale(1.3);}100%{transform:scale(1);}}
+@keyframes kMergeW{0%{transform:scale(.3);filter:brightness(3.5);}45%{transform:scale(1.45);}100%{transform:scale(1);filter:brightness(1);}}
+@keyframes kBurst{0%{transform:translate(0,0) scale(1) rotate(45deg);opacity:1;}100%{transform:translate(var(--dx),var(--dy)) scale(.15) rotate(405deg);opacity:0;}}
+@keyframes kFloatUp{0%{transform:translateY(0);opacity:1;}100%{transform:translateY(-80px);opacity:0;}}
+@keyframes kFlipIn{0%{transform:rotateY(95deg) scale(.4);opacity:0;filter:brightness(3);}55%{transform:rotateY(0deg) scale(1.22);opacity:1;}100%{transform:rotateY(0deg) scale(1);filter:brightness(1);}}
+@keyframes kMarker{0%,100%{opacity:1;}50%{opacity:.35;}}
+@keyframes kJackpot{0%,100%{text-shadow:0 0 18px rgba(255,60,70,.9),0 0 50px rgba(255,40,60,.6);transform:scale(1);}50%{text-shadow:0 0 34px rgba(255,90,100,1),0 0 90px rgba(255,60,80,.8);transform:scale(1.06);}}
+@keyframes kRejectSh{0%,100%{transform:translateX(0);}25%{transform:translateX(-9px);}50%{transform:translateX(8px);}75%{transform:translateX(-5px);}}
+@keyframes kLampSweep{0%{background-position:0 0;}100%{background-position:44px 0;}}
+</style>
+</helmet>
+<div style="width:100vw;height:100vh;overflow:hidden;background:#07080b;position:relative;font-family:'PT Sans',sans-serif;color:#d8dde3;">
+<div style="position:absolute;width:1920px;height:1080px;transform:scale({{ scale }});transform-origin:0 0;left:{{ offX }}px;top:{{ offY }}px;background:radial-gradient(120% 90% at 50% 0%,#141824 0%,#0a0c12 45%,#07080b 100%);overflow:hidden;">
+<div style="position:absolute;inset:0;padding:24px 36px 28px;box-sizing:border-box;display:flex;flex-direction:column;gap:16px;animation:{{ shakeAnim }};">
+
+  <!-- HEADER -->
+  <div style="display:flex;justify-content:space-between;align-items:center;height:64px;flex-shrink:0;">
+    <div style="font-family:'Oswald';font-weight:600;font-size:36px;letter-spacing:5px;color:#f2f4f6;text-transform:uppercase;text-shadow:0 3px 10px rgba(0,0,0,.8),0 0 40px rgba(210,34,42,.25);">Магазин убийцы</div>
+    <div style="display:flex;align-items:center;gap:14px;margin-left:auto;margin-right:16px;">
+      <div style="padding:9px 16px;background:rgba(14,12,18,.85);border:1px solid #2a2230;cursor:pointer;font-family:'Oswald';font-weight:500;font-size:12px;letter-spacing:2px;color:#7d8794;text-transform:uppercase;" style-hover="filter:brightness(1.6);" onClick="{{ toggleDebug }}">⚙ Debug</div>
+    </div>
+    <div style="position:relative;display:flex;align-items:center;gap:14px;padding:8px 26px;background:linear-gradient(120deg,#1a1408,#0d0a05);border:2px solid #7a5c14;box-shadow:0 0 24px rgba(219,156,20,.25),inset 0 0 18px rgba(0,0,0,.7);">
+      <img src="./uploads/Auric_Cell.png" style="width:36px;height:40px;filter:drop-shadow(0 0 10px rgba(255,200,60,.7));" alt="cell">
+      <div style="font-family:'Oswald';font-weight:700;font-size:29px;color:{{ cellsColor }};text-shadow:0 0 14px {{ cellsGlow }};transition:color .15s;">{{ cellsShown }}</div>
+      <sc-if value="{{ previewOn }}" hint-placeholder-val="{{ false }}">
+        <div style="font-family:'Oswald';font-weight:600;font-size:16px;color:{{ cellsColor }};">{{ previewDelta }}</div>
+      </sc-if>
+      <sc-for list="{{ floaters }}" as="fl" hint-placeholder-count="0">
+        <div style="position:absolute;right:18px;top:-6px;font-family:'Oswald';font-weight:700;font-size:22px;color:{{ fl.c }};text-shadow:0 0 12px currentColor;animation:kFloatUp 1.4s ease-out forwards;pointer-events:none;">{{ fl.t }}</div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="flex:1;display:grid;grid-template-columns:860px 1fr;gap:26px;min-height:0;">
+
+    <!-- ===== LEFT: ROULETTE ===== -->
+    <div style="display:flex;flex-direction:column;gap:14px;min-height:0;">
+      <!-- roulette machine -->
+      <div style="position:relative;flex:1;display:flex;flex-direction:column;background:linear-gradient(180deg,#1c121a 0%,#120a10 55%,#0a060a 100%);box-shadow:0 24px 70px rgba(0,0,0,.8),inset 0 0 90px rgba(0,0,0,.65),0 0 50px rgba(210,34,42,.12);border:2px solid #2a1420;min-height:0;">
+        <div style="position:absolute;inset:0;background:url(data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='160'%20height='160'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.9'%20numOctaves='3'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='160'%20height='160'%20filter='url(%23n)'%20opacity='0.5'/%3E%3C/svg%3E);mix-blend-mode:overlay;pointer-events:none;"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;height:12px;padding:0 10px;flex-shrink:0;">
+          <sc-for list="{{ lamps }}" as="lp" hint-placeholder-count="40">
+            <div style="width:7px;height:7px;background:{{ lp.bg }};box-shadow:{{ lp.sh }};"></div>
+          </sc-for>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 26px 4px;flex-shrink:0;">
+          <div style="font-family:'Oswald';font-weight:600;font-size:23px;letter-spacing:4px;color:#f0e6e8;text-transform:uppercase;text-shadow:0 0 18px rgba(210,34,42,.5);">Дьявольская рулетка</div>
+          <div style="font-family:'Oswald';font-weight:500;font-size:15px;letter-spacing:2px;color:{{ resultColor }};text-transform:uppercase;animation:{{ resultAnim }};">{{ resultText }}</div>
+        </div>
+
+        <!-- vertical reels (4 columns) -->
+        <div style="position:relative;flex:1;min-height:460px;margin:10px 30px 16px;">
+          <div ref="{{ reelRef }}" style="position:absolute;left:0;right:0;top:calc(50% - 225px);height:450px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+            <sc-for list="{{ reelCols }}" as="col" hint-placeholder-count="4">
+              <div style="position:relative;overflow:hidden;background:radial-gradient(140% 120% at 50% 50%,#191420 0%,#0c0a10 75%);border:2px solid #241826;box-shadow:inset 0 0 40px rgba(0,0,0,.9);">
+                <div style="display:flex;flex-direction:column;transform:translateY({{ col.y }}px);transition:{{ col.trans }};will-change:transform;">
+                  <sc-for list="{{ col.items }}" as="ri" hint-placeholder-count="4">
+                    <div style="box-sizing:border-box;height:150px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(255,255,255,.05);">
+                      <div style="position:relative;width:78px;height:78px;transform:rotate(45deg);background:{{ ri.g }};border:6px solid #0c0d10;box-shadow:0 0 0 2px rgba(0,0,0,.85),inset 0 0 20px rgba(0,0,0,.55),{{ ri.glow }};">
+                        <div style="position:absolute;inset:0;background:radial-gradient(100% 100% at 50% 50%,rgba(0,0,0,0) 38%,rgba(0,0,0,.5) 100%);"></div>
+                        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform:rotate(-45deg);"><div style="font-family:'Oswald';font-weight:700;font-size:27px;color:#f4f6f8;text-shadow:0 2px 8px rgba(0,0,0,.85);">{{ ri.l }}</div></div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,6,10,.9) 0%,rgba(10,6,10,0) 9%,rgba(10,6,10,0) 91%,rgba(10,6,10,.9) 100%);pointer-events:none;"></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="position:absolute;left:-18px;right:-18px;top:50%;height:2px;margin-top:-1px;background:linear-gradient(90deg,rgba(211,34,42,0),#d3222a 12%,#d3222a 88%,rgba(211,34,42,0));box-shadow:0 0 14px rgba(211,34,42,.8);animation:kMarker 1s ease-in-out infinite;pointer-events:none;z-index:2;"></div>
+          <div style="position:absolute;left:-24px;top:50%;margin-top:-11px;width:0;height:0;border-top:11px solid transparent;border-bottom:11px solid transparent;border-left:16px solid #d3222a;filter:drop-shadow(0 0 8px rgba(211,34,42,.9));pointer-events:none;z-index:2;"></div>
+          <div style="position:absolute;right:-24px;top:50%;margin-top:-11px;width:0;height:0;border-top:11px solid transparent;border-bottom:11px solid transparent;border-right:16px solid #d3222a;filter:drop-shadow(0 0 8px rgba(211,34,42,.9));pointer-events:none;z-index:2;"></div>
+          <sc-if value="{{ locked }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;inset:0;z-index:3;background:rgba(5,4,7,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;">
+              <div style="font-family:'Oswald';font-weight:600;font-size:21px;letter-spacing:3px;color:#c9d1dc;text-transform:uppercase;">⚷ Рулетка запечатана</div>
+              <div style="font-size:15px;color:#8d95a1;">Продайте перки выжившим, чтобы снять печать · {{ soldTotal }} / {{ unlockNeed }}</div>
+              <div style="width:320px;height:10px;background:#1a1520;box-shadow:inset 0 1px 4px rgba(0,0,0,.8);"><div style="height:10px;width:{{ unlockPct }};background:linear-gradient(90deg,#7e1418,#d3222a);box-shadow:0 0 14px rgba(211,34,42,.7);"></div></div>
+            </div>
+          </sc-if>
+        </div>
+
+        <!-- roll buttons -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 22px 18px;flex-shrink:0;">
+          <sc-for list="{{ rollBtns }}" as="rb" hint-placeholder-count="3">
+            <div style="display:flex;flex-direction:column;gap:8px;padding:12px 14px 12px;background:{{ rb.bg }};border:2px solid {{ rb.bd }};box-shadow:{{ rb.sh }};cursor:{{ rb.cur }};opacity:{{ rb.op }};" style-hover="filter:brightness(1.3);" onClick="{{ rb.onSpin }}" onMouseEnter="{{ rb.onHov }}" onMouseLeave="{{ hovOff }}">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <div style="font-family:'Oswald';font-weight:600;font-size:15px;letter-spacing:1.5px;color:#f0f3f6;text-transform:uppercase;">{{ rb.name }}</div>
+                <div style="display:flex;align-items:center;gap:5px;">
+                  <img src="./uploads/Auric_Cell.png" style="width:16px;height:18px;" alt="">
+                  <div style="font-family:'Oswald';font-weight:700;font-size:17px;color:#ffd75e;">{{ rb.cost }}</div>
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <sc-for list="{{ rb.rows }}" as="rr" hint-placeholder-count="6">
+                  <div style="text-align:center;">
+                    <div style="font-family:'Oswald';font-weight:700;font-size:14px;color:{{ rr.c }};text-shadow:0 0 8px {{ rr.c }};">{{ rr.l }}</div>
+                    <div style="font-size:11.5px;color:#b7c0cb;">{{ rr.p }}</div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="text-align:center;padding:6px 0;background:rgba(211,34,42,.14);border:1px solid rgba(211,34,42,.35);font-family:'Oswald';font-weight:600;font-size:13px;letter-spacing:3px;color:#f0d8da;text-transform:uppercase;">Крутить</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- sell section -->
+        <div style="flex-shrink:0;margin:0 22px 18px;padding:14px 18px 16px;background:linear-gradient(160deg,rgba(44,18,22,.55),rgba(16,6,8,.7));border:2px solid #3a1418;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;">
+            <div style="font-family:'Oswald';font-weight:600;font-size:16px;letter-spacing:2.5px;color:#dfc9cb;text-transform:uppercase;">Продажа перков</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+              <sc-for list="{{ sellBtns }}" as="sb" hint-placeholder-count="3">
+                <div style="padding:8px 8px;text-align:center;background:rgba(12,8,10,.8);border-bottom:3px solid {{ sb.c }};cursor:pointer;" style-hover="filter:brightness(1.4);" onClick="{{ sb.onAdd }}" onMouseEnter="{{ sb.onHov }}" onMouseLeave="{{ hovOff }}">
+                  <div style="font-family:'Oswald';font-weight:600;font-size:13.5px;letter-spacing:2px;color:#eef1f5;text-transform:uppercase;">Тир {{ sb.l }}</div>
+                  <div style="font-family:'Oswald';font-weight:700;font-size:15px;color:#ffd75e;">+{{ sb.reward }} ⬧</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="width:300px;padding:10px 8px;text-align:center;background:{{ scBg }};border:2px solid {{ scBd }};box-shadow:{{ scSh }};cursor:{{ scCur }};opacity:{{ scOp }};" style-hover="filter:brightness(1.3);" onClick="{{ sellChoice }}" onMouseEnter="{{ scHov }}" onMouseLeave="{{ hovOff }}">
+              <div style="font-family:'Oswald';font-weight:700;font-size:14px;letter-spacing:2px;color:#f6eaea;text-transform:uppercase;">{{ scLabel }}</div>
+              <div style="font-family:'Oswald';font-weight:700;font-size:16px;color:#ffd75e;">{{ scReward }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== RIGHT: SURVIVORS + KILLER ===== -->
+    <div style="display:flex;flex-direction:column;gap:14px;min-height:0;">
+
+      <!-- survivors -->
+      <div style="flex:1;display:flex;flex-direction:column;padding:16px 20px 12px;background:radial-gradient(140% 120% at 50% 0%,#1d2432 0%,#12161f 55%,#0b0d13 100%);box-shadow:inset 0 0 70px rgba(0,0,0,.7),0 18px 50px rgba(0,0,0,.6);min-height:0;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;flex-shrink:0;">
+          <div style="font-family:'Oswald';font-weight:600;font-size:20px;letter-spacing:3px;color:#dfe5ec;text-transform:uppercase;">Выжившие</div>
+          <div style="font-size:12.5px;color:#7d8794;">Тащите перк на такой же тир — объединение</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:8px;min-height:0;">
+          <sc-for list="{{ survRows }}" as="sv" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:14px;padding:6px 16px;background:radial-gradient(120% 160% at 0% 50%,rgba(38,46,64,.55) 0%,rgba(16,20,29,.75) 45%,rgba(9,11,16,.85) 100%);border:1px solid rgba(120,140,180,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.04),inset 0 0 46px rgba(0,0,0,.5),0 6px 18px rgba(0,0,0,.35);">
+              <div style="flex-shrink:0;width:68px;height:68px;border-radius:50%;background:{{ sv.av }};border:3px solid #23262e;display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:700;font-size:27px;color:#f0f3f6;text-shadow:0 2px 4px rgba(0,0,0,.7);cursor:pointer;" style-hover="filter:brightness(1.35);border-color:#3d7bff;" onClick="{{ sv.onPick }}" title="Сменить выжившего">{{ sv.ini }}</div>
+              <div style="flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+                <sc-for list="{{ sv.slots }}" as="s" hint-placeholder-count="4">
+                  <div style="height:132px;display:flex;align-items:center;justify-content:center;" onDragOver="{{ s.onDragOver }}" onDrop="{{ s.onDrop }}">
+                    <sc-if value="{{ s.has }}" hint-placeholder-val="{{ false }}">
+                      <div draggable="true" onDragStart="{{ s.onDragStart }}" title="{{ s.name }}" style="animation:{{ s.anim }};cursor:grab;">
+                        <div style="position:relative;width:62px;height:62px;margin:16px auto 0;transform:rotate(45deg);background:{{ s.g }};border:5px solid #0c0d10;box-shadow:0 0 0 2px rgba(0,0,0,.85),inset 0 0 16px rgba(0,0,0,.6),{{ s.glow }};overflow:hidden;">
+                          <div style="position:absolute;inset:0;background:radial-gradient(100% 100% at 50% 50%,rgba(0,0,0,0) 38%,rgba(0,0,0,.55) 100%);"></div>
+                          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform:rotate(-45deg);"><div style="font-size:26px;color:#f2f4f6;text-shadow:0 2px 6px rgba(0,0,0,.7);">{{ s.icon }}</div></div>
+                        </div>
+                        <div style="margin-top:16px;max-width:112px;text-align:center;font-family:'Oswald';font-weight:500;font-size:11px;letter-spacing:.5px;line-height:1.2;color:{{ s.tc }};text-transform:uppercase;">{{ s.name }}</div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ s.empty }}" hint-placeholder-val="{{ true }}">
+                      <div style="width:62px;height:62px;transform:rotate(45deg);background:#12151d;border:5px solid #0c0d10;box-shadow:0 0 0 2px rgba(0,0,0,.8),inset 0 0 16px rgba(0,0,0,.85);"></div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="flex-shrink:0;display:flex;align-items:center;gap:8px;margin-left:4px;">
+                <div title="{{ sv.itemName }}" style="box-sizing:border-box;width:76px;height:76px;background:{{ sv.itemG }};border:4px solid #0c0d10;box-shadow:0 0 0 2px rgba(0,0,0,.85),inset 0 0 14px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;font-size:31px;color:{{ sv.itemIc }};text-shadow:0 2px 6px rgba(0,0,0,.7);cursor:pointer;" style-hover="filter:brightness(1.4);" onClick="{{ sv.onItemPick }}">{{ sv.itemIcon }}</div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                  <div title="{{ sv.ad1 }}" style="box-sizing:border-box;width:35px;height:35px;background:{{ sv.adG }};border:3px solid #0c0d10;box-shadow:0 0 0 2px rgba(0,0,0,.85),inset 0 0 8px rgba(0,0,0,.5);"></div>
+                  <div title="{{ sv.ad2 }}" style="box-sizing:border-box;width:35px;height:35px;background:{{ sv.adG }};border:3px solid #0c0d10;box-shadow:0 0 0 2px rgba(0,0,0,.85),inset 0 0 8px rgba(0,0,0,.5);"></div>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- killer panel -->
+      <div style="position:relative;flex-shrink:0;padding:16px 20px;background:linear-gradient(160deg,#2c1216 0%,#1a0b0e 55%,#100608 100%);border:2px solid #3a1418;box-shadow:inset 0 0 70px rgba(0,0,0,.7),0 0 40px rgba(211,34,42,.15);">
+        <div style="display:flex;gap:14px;justify-content:space-around;align-items:center;">
+          <div style="flex-shrink:0;width:92px;height:92px;border-radius:50%;background:{{ killerAv }};border:4px solid #4a1a20;box-shadow:0 0 24px rgba(211,34,42,.3),0 6px 18px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:700;font-size:36px;color:#f0f3f6;text-shadow:0 2px 6px rgba(0,0,0,.7);cursor:pointer;" style-hover="filter:brightness(1.35);border-color:#a3232c;" onClick="{{ openKillerPick }}" title="{{ killerName }} — сменить убийцу">{{ killerIni }}</div>
+          <div style="width:2px;align-self:stretch;margin:14px 0;background:rgba(255,255,255,.08);"></div>
+          <sc-for list="{{ killerSlots }}" as="kp" hint-placeholder-count="4">
+            <div style="width:126px;height:152px;display:flex;align-items:center;justify-content:center;" title="{{ kp.name }}" onDragOver="{{ kp.onDragOver }}" onDrop="{{ kp.onDrop }}">
+              <sc-if value="{{ kp.has }}" hint-placeholder-val="{{ false }}">
+                <div draggable="true" onDragStart="{{ kp.onDragStart }}" style="animation:kPopW .5s ease;cursor:grab;" style-hover="filter:brightness(1.35);" onClick="{{ kp.onAsk }}">
+                  <div style="position:relative;width:62px;height:62px;margin:14px auto 0;transform:rotate(45deg);background:{{ kp.g }};border:5px solid #0c0d10;box-shadow:0 0 0 2px rgba(0,0,0,.85),inset 0 0 16px rgba(0,0,0,.6),{{ kp.glow }};animation:{{ kp.anim }};overflow:hidden;">
+                    <div style="position:absolute;inset:0;background:radial-gradient(100% 100% at 50% 50%,rgba(0,0,0,0) 38%,rgba(0,0,0,.55) 100%);"></div>
+                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform:rotate(-45deg);"><div style="font-size:25px;color:#f2f4f6;text-shadow:0 2px 6px rgba(0,0,0,.7);">{{ kp.icon }}</div></div>
+                  </div>
+                  <div style="margin-top:26px;max-width:120px;text-align:center;font-family:'Oswald';font-weight:500;font-size:11px;letter-spacing:.5px;line-height:1.2;color:{{ kp.c }};text-transform:uppercase;text-shadow:0 0 10px {{ kp.c }};">{{ kp.name }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ kp.empty }}" hint-placeholder-val="{{ true }}">
+                <div style="width:58px;height:58px;transform:rotate(45deg);background:#170d0f;border:5px solid #0c0d10;box-shadow:0 0 0 2px rgba(0,0,0,.8),inset 0 0 16px rgba(0,0,0,.85);"></div>
+              </sc-if>
+            </div>
+          </sc-for>
+          <div style="width:2px;align-self:stretch;margin:14px 0;background:rgba(255,255,255,.08);"></div>
+          <div style="display:flex;gap:12px;align-items:center;">
+            <sc-for list="{{ killerAddons }}" as="ka" hint-placeholder-count="2">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <div title="{{ ka.name }}" style="box-sizing:border-box;width:72px;height:72px;background:{{ ka.g }};border:4px solid #0c0d10;box-shadow:0 0 0 2px rgba(0,0,0,.85),inset 0 0 14px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;font-size:29px;color:#f2f4f6;text-shadow:0 2px 6px rgba(0,0,0,.7);cursor:pointer;" style-hover="filter:brightness(1.4);" onClick="{{ ka.onUp }}" onMouseEnter="{{ ka.onHov }}" onMouseLeave="{{ hovOff }}">{{ ka.icon }}</div>
+                <div style="font-family:'Oswald';font-weight:600;font-size:10px;letter-spacing:1px;color:{{ ka.lc }};text-transform:uppercase;">{{ ka.label }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DEBUG POPUP -->
+<sc-if value="{{ debugOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:80;background:rgba(3,4,6,.85);display:flex;align-items:center;justify-content:center;" onClick="{{ toggleDebug }}">
+    <div style="width:420px;padding:26px 30px 28px;background:linear-gradient(160deg,#1a1420 0%,#100a12 60%);border:2px solid #3a2a44;box-shadow:0 0 50px rgba(120,80,180,.2),0 30px 80px rgba(0,0,0,.8);display:flex;flex-direction:column;gap:18px;" onClick="{{ debugStop }}">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-family:'Oswald';font-weight:600;font-size:20px;letter-spacing:3px;color:#f0e6e8;text-transform:uppercase;">⚙ Отладка</div>
+        <div style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:#1c0e10;border:1px solid #3a1418;cursor:pointer;font-size:14px;color:#d3222a;" style-hover="filter:brightness(1.5);" onClick="{{ toggleDebug }}">✕</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="font-family:'Oswald';font-weight:600;font-size:12px;letter-spacing:2px;color:#8d95a1;text-transform:uppercase;">Установить баланс</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+          <sc-for list="{{ debugCash }}" as="db" hint-placeholder-count="4">
+            <div style="padding:9px 0;text-align:center;background:#1a1408;border:1px solid #7a5c14;cursor:pointer;font-family:'Oswald';font-weight:600;font-size:14px;color:#ffd75e;" style-hover="filter:brightness(1.4);" onClick="{{ db.onSet }}">{{ db.l }}</div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="padding:11px 0;text-align:center;background:#2a1214;border:1px solid #a3232c;cursor:pointer;font-family:'Oswald';font-weight:600;font-size:14px;letter-spacing:2px;color:#f0d8da;text-transform:uppercase;" style-hover="filter:brightness(1.4);" onClick="{{ debugReset }}">Полный сброс</div>
+    </div>
+  </div>
+</sc-if>
+
+<!-- MERGE OR MOVE POPUP -->
+<sc-if value="{{ mergeOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:66;background:rgba(3,4,6,.88);display:flex;align-items:center;justify-content:center;">
+    <div style="padding:34px 46px;background:linear-gradient(160deg,#16202c 0%,#0c1118 60%);border:2px solid #2c4a68;box-shadow:0 0 60px rgba(61,123,255,.25),0 30px 80px rgba(0,0,0,.8);display:flex;flex-direction:column;align-items:center;gap:22px;">
+      <div style="font-family:'Oswald';font-weight:600;font-size:24px;letter-spacing:3px;color:#f0f3f6;text-transform:uppercase;">Два перка тира {{ mergeTierL }}</div>
+      <div style="font-size:14px;color:#8d95a1;">Что сделать с перками?</div>
+      <div style="display:flex;gap:16px;">
+        <div style="padding:12px 34px;background:linear-gradient(120deg,#1e9c28,#0c5216);box-shadow:0 4px 16px rgba(0,0,0,.6),0 0 24px rgba(80,220,90,.3);cursor:pointer;font-family:'Oswald';font-weight:600;font-size:16px;letter-spacing:2px;color:#f0f3f6;text-transform:uppercase;" style-hover="filter:brightness(1.3);" onClick="{{ mergeUpgrade }}">Улучшить</div>
+        <div style="padding:12px 34px;background:linear-gradient(120deg,#2c4a68,#16283c);box-shadow:0 4px 16px rgba(0,0,0,.6);cursor:pointer;font-family:'Oswald';font-weight:600;font-size:16px;letter-spacing:2px;color:#f0f3f6;text-transform:uppercase;" style-hover="filter:brightness(1.3);" onClick="{{ mergeSwap }}">Поменять местами</div>
+        <div style="padding:12px 26px;background:#1c1e24;border:1px solid #2a2d36;cursor:pointer;font-family:'Oswald';font-weight:600;font-size:16px;letter-spacing:2px;color:#8d95a1;text-transform:uppercase;" style-hover="filter:brightness(1.4);" onClick="{{ mergeCancel }}">Отмена</div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ITEM SHOP OVERLAY -->
+<sc-if value="{{ itemPickOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:70;background:rgba(3,4,6,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;" onClick="{{ closeItemPick }}">
+    <div style="text-align:center;">
+      <div style="font-family:'Oswald';font-weight:600;font-size:28px;letter-spacing:5px;color:#f0e6e8;text-transform:uppercase;">{{ itemPickTitle }}</div>
+      <div style="margin-top:6px;font-size:14px;color:#8d95a1;">Оплата поступает в магазин убийцы</div>
+    </div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center;max-width:1100px;">
+      <sc-for list="{{ itemOpts }}" as="io" hint-placeholder-count="6">
+        <div style="width:160px;padding:18px 12px 14px;display:flex;flex-direction:column;align-items:center;gap:10px;background:rgba(14,12,16,.85);border:2px solid #23262e;cursor:pointer;" style-hover="filter:brightness(1.35);border-color:#7a5c14;" onClick="{{ io.onPick }}">
+          <div style="box-sizing:border-box;width:64px;height:64px;background:{{ io.g }};border:4px solid #0c0d10;box-shadow:0 0 0 2px rgba(0,0,0,.85),inset 0 0 14px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;font-size:27px;color:#f2f4f6;text-shadow:0 2px 6px rgba(0,0,0,.7);">{{ io.icon }}</div>
+          <div style="font-family:'Oswald';font-weight:500;font-size:14px;letter-spacing:1px;color:#dfe5ec;text-transform:uppercase;text-align:center;">{{ io.name }}</div>
+          <div style="font-size:11px;color:#7d8794;text-align:center;line-height:1.4;">{{ io.adText }}</div>
+          <div style="font-family:'Oswald';font-weight:700;font-size:16px;color:#55d44a;">+{{ io.price }} ⬧</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="font-size:13px;color:#7d8794;">Нажмите вне карточек, чтобы закрыть</div>
+  </div>
+</sc-if>
+
+<!-- ROSTER PICK OVERLAY -->
+<sc-if value="{{ rosterOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:70;background:rgba(3,4,6,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;" onClick="{{ closeRoster }}">
+    <div style="font-family:'Oswald';font-weight:600;font-size:28px;letter-spacing:5px;color:#f0e6e8;text-transform:uppercase;">{{ rosterTitle }}</div>
+    <div style="display:flex;gap:22px;flex-wrap:wrap;justify-content:center;max-width:1100px;">
+      <sc-for list="{{ rosterOpts }}" as="ro" hint-placeholder-count="6">
+        <div style="width:150px;padding:18px 10px 12px;display:flex;flex-direction:column;align-items:center;gap:10px;background:rgba(14,12,16,.85);border:2px solid {{ ro.bd }};cursor:{{ ro.cur }};opacity:{{ ro.op }};" style-hover="filter:brightness(1.35);" onClick="{{ ro.onPick }}">
+          <div style="width:72px;height:72px;border-radius:50%;background:{{ ro.av }};border:3px solid #23262e;display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:700;font-size:28px;color:#f0f3f6;text-shadow:0 2px 4px rgba(0,0,0,.7);">{{ ro.ini }}</div>
+          <div style="font-family:'Oswald';font-weight:500;font-size:14px;letter-spacing:1.5px;color:#dfe5ec;text-transform:uppercase;text-align:center;">{{ ro.name }}</div>
+          <div style="min-height:14px;font-size:11px;letter-spacing:1px;color:{{ ro.tagC }};text-transform:uppercase;">{{ ro.tag }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="font-size:13px;color:#7d8794;">Нажмите вне карточек, чтобы закрыть</div>
+  </div>
+</sc-if>
+
+<!-- REVEAL OVERLAY -->
+<sc-if value="{{ revealOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:60;background:radial-gradient(80% 80% at 50% 40%,rgba(30,8,12,.94),rgba(3,4,6,.97));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;">
+    <div style="font-family:'Oswald';font-weight:600;font-size:32px;letter-spacing:6px;color:#f2f4f6;text-transform:uppercase;text-shadow:0 0 30px rgba(211,34,42,.6);">Жертвоприношение принято</div>
+    <div style="display:flex;gap:44px;flex-wrap:wrap;justify-content:center;max-width:1200px;">
+      <sc-for list="{{ revealCards }}" as="rc" hint-placeholder-count="2">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:16px;animation:kFlipIn .9s cubic-bezier(.2,1.4,.4,1) both;animation-delay:{{ rc.delay }};">
+          <div style="width:150px;height:150px;display:flex;align-items:center;justify-content:center;">
+            <div style="position:relative;width:100px;height:100px;transform:rotate(45deg);background:{{ rc.g }};border:6px solid #0c0d10;box-shadow:0 0 0 2px rgba(0,0,0,.85),inset 0 0 20px rgba(0,0,0,.6),{{ rc.glow }};animation:kPulse 2s ease-in-out infinite;overflow:hidden;">
+              <div style="position:absolute;inset:0;background:radial-gradient(100% 100% at 50% 50%,rgba(0,0,0,0) 38%,rgba(0,0,0,.55) 100%);"></div>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform:rotate(-45deg);"><div style="font-size:40px;color:#f2f4f6;text-shadow:0 2px 6px rgba(0,0,0,.7),0 0 20px rgba(255,255,255,.4);">{{ rc.icon }}</div></div>
+            </div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'Oswald';font-weight:600;font-size:14px;letter-spacing:2px;color:{{ rc.tc }};text-transform:uppercase;">Тир {{ rc.tl }}</div>
+            <div style="font-family:'Oswald';font-weight:500;font-size:17px;letter-spacing:1px;color:#eef1f5;text-transform:uppercase;">{{ rc.name }}</div>
+            <div style="font-size:14px;color:#8d95a1;">→ {{ rc.who }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+      <div style="display:flex;align-items:center;gap:10px;font-family:'Oswald';font-weight:700;font-size:26px;color:#ffd75e;text-shadow:0 0 18px rgba(255,215,94,.7);"><img src="./uploads/Auric_Cell.png" style="width:32px;height:36px;" alt="">+{{ revealGain }}</div>
+      <div style="padding:14px 70px;background:linear-gradient(120deg,#5a4460,#3a2a44 70%,#241a2e);box-shadow:0 4px 20px rgba(0,0,0,.7),0 0 30px rgba(198,80,255,.25);cursor:pointer;font-family:'Oswald';font-weight:600;font-size:20px;letter-spacing:4px;color:#f0f3f6;text-transform:uppercase;" style-hover="filter:brightness(1.35);" onClick="{{ claimReveal }}">Забрать</div>
+    </div>
+  </div>
+</sc-if>
+
+<!-- PICKER OVERLAY -->
+<sc-if value="{{ pickerOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:60;background:rgba(3,4,6,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;">
+    <div style="text-align:center;">
+      <div style="font-family:'Oswald';font-weight:700;font-size:44px;letter-spacing:6px;color:{{ pickerColor }};text-transform:uppercase;animation:kJackpot 1.6s ease-in-out infinite;">Тир {{ pickerTierL }}</div>
+      <div style="font-family:'Oswald';font-weight:500;font-size:17px;letter-spacing:3px;color:#b7c0cb;text-transform:uppercase;margin-top:6px;">Выберите свой перк</div>
+    </div>
+    <div style="display:flex;gap:36px;flex-wrap:wrap;justify-content:center;max-width:1100px;">
+      <sc-for list="{{ pickerPerks }}" as="pp" hint-placeholder-count="4">
+        <div style="width:180px;display:flex;flex-direction:column;align-items:center;gap:14px;padding:20px 10px 16px;background:rgba(14,16,22,.8);border:2px solid rgba(70,60,80,.4);cursor:pointer;animation:kFlipIn .7s cubic-bezier(.2,1.4,.4,1) both;animation-delay:{{ pp.delay }};" style-hover="border-color:#f2f4f6;box-shadow:0 0 34px {{ pp.hc }};transform:translateY(-6px);" onClick="{{ pp.onPick }}">
+          <div style="width:130px;height:130px;display:flex;align-items:center;justify-content:center;">
+            <div style="position:relative;width:88px;height:88px;transform:rotate(45deg);background:{{ pp.g }};border:6px solid #0c0d10;box-shadow:0 0 0 2px rgba(0,0,0,.85),inset 0 0 18px rgba(0,0,0,.6),{{ pp.glow }};overflow:hidden;">
+              <div style="position:absolute;inset:0;background:radial-gradient(100% 100% at 50% 50%,rgba(0,0,0,0) 38%,rgba(0,0,0,.55) 100%);"></div>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform:rotate(-45deg);"><div style="font-size:36px;color:#f2f4f6;text-shadow:0 2px 6px rgba(0,0,0,.7),0 0 18px rgba(255,255,255,.35);">{{ pp.icon }}</div></div>
+            </div>
+          </div>
+          <div style="text-align:center;font-family:'Oswald';font-weight:500;font-size:15px;letter-spacing:1.5px;color:#e6eaf0;text-transform:uppercase;line-height:1.3;">{{ pp.name }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</sc-if>
+
+<!-- CONFIRM DELETE -->
+<sc-if value="{{ confirmOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:65;background:rgba(3,4,6,.88);display:flex;align-items:center;justify-content:center;">
+    <div style="padding:36px 50px;background:linear-gradient(160deg,#2c1216 0%,#160a0d 60%);border:2px solid #a3232c;box-shadow:0 0 60px rgba(211,34,42,.35),0 30px 80px rgba(0,0,0,.8);display:flex;flex-direction:column;align-items:center;gap:22px;">
+      <div style="font-family:'Oswald';font-weight:600;font-size:24px;letter-spacing:3px;color:#f0e6e8;text-transform:uppercase;">Выбросить перк?</div>
+      <div style="font-family:'Oswald';font-weight:500;font-size:18px;letter-spacing:1.5px;color:{{ confirmColor }};text-transform:uppercase;text-shadow:0 0 14px {{ confirmColor }};">{{ confirmName }}</div>
+      <div style="display:flex;gap:16px;">
+        <div style="padding:12px 40px;background:linear-gradient(120deg,#6e1218,#3a0a0e);border:2px solid #a3232c;cursor:pointer;font-family:'Oswald';font-weight:600;font-size:16px;letter-spacing:3px;color:#f6eaea;text-transform:uppercase;" style-hover="filter:brightness(1.4);" onClick="{{ confirmYes }}">Выбросить</div>
+        <div style="padding:12px 40px;background:rgba(255,255,255,.05);border:2px solid #4a505a;cursor:pointer;font-family:'Oswald';font-weight:600;font-size:16px;letter-spacing:3px;color:#dbe0e6;text-transform:uppercase;" style-hover="background:rgba(255,255,255,.12);" onClick="{{ confirmNo }}">Отмена</div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<!-- FLASH -->
+<sc-if value="{{ flashOn }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:70;background:{{ flashBg }};animation:kFlash .8s ease-out forwards;pointer-events:none;"></div>
+</sc-if>
+
+{{ particles }}
+
+<!-- NOTE TOAST -->
+<sc-if value="{{ note }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;left:50%;bottom:36px;transform:translateX(-50%);z-index:80;padding:12px 30px;background:rgba(12,8,10,.95);border:2px solid #d3222a;box-shadow:0 0 26px rgba(211,34,42,.5);font-family:'Oswald';font-weight:500;font-size:16px;letter-spacing:2px;color:#f0e6e8;text-transform:uppercase;animation:kRejectSh .4s ease;">{{ note }}</div>
+</sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;startCells&quot;: {&quot;editor&quot;: &quot;int&quot;, &quot;default&quot;: 200, &quot;min&quot;: 0, &quot;max&quot;: 99999, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Экономика&quot;},
+  &quot;unlockNeed&quot;: {&quot;editor&quot;: &quot;int&quot;, &quot;default&quot;: 3, &quot;min&quot;: 1, &quot;max&quot;: 20, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Экономика&quot;}
+}">
+class Component extends DCLogic {
+  state = {
+    cells: null, soldTotal: 0, choiceSold: false,
+    killerSel: 0, survSel: [0,1,2,3], rosterPick: null,
+    hoverDelta: null, kaLvl: [0, 0], kdrag: null, debugOpen: false,
+    survItems: [null, null, null, null], itemPick: null, mergeAsk: null,
+    survivors: [[null,null,null,null],[null,null,null,null],[null,null,null,null],[null,null,null,null]],
+    killerPerks: [],
+    reel: null, spinning: false, resultTier: null, pickerTier: null,
+    reveal: null, flashOn: false, flashBg: "", shakeOn: false,
+    burst: 0, burstColor: "#d3222a", floaters: [], note: null, drag: null, confirmDel: null,
+    win: { w: 1920, h: 1080 }
+  };
+  componentDidMount() {
+    this._onR = () => this.setState({ win: { w: window.innerWidth, h: window.innerHeight } });
+    window.addEventListener("resize", this._onR);
+    this._onR();
+    this._lampLast = performance.now();
+    const beat = () => {
+      const step = this.state.spinning ? 110 : 650;
+      const now = performance.now();
+      if (now - this._lampLast >= step) { this._lampLast = now; this.setState(s => ({ lampPhase: s.lampPhase ? 0 : 1 })); }
+      this._lampT = setTimeout(beat, 40);
+    };
+    this._lampT = setTimeout(beat, 40);
+  }
+  componentWillUnmount() { window.removeEventListener("resize", this._onR); clearTimeout(this._lampT); }
+
+  TIERS = {
+    S: { g: "linear-gradient(160deg,#ff5560,#c2101f 50%,#5c0410)", c: "#ff6b74", glow: "0 0 26px rgba(255,60,70,.9),0 0 60px rgba(255,40,60,.5)", anim: "kPulse 1.6s ease-in-out infinite" },
+    A: { g: "linear-gradient(160deg,#c650ff,#8a17e8 45%,#3c0575)", c: "#c650ff", glow: "0 0 22px rgba(190,80,255,.8),0 0 50px rgba(150,40,255,.4)", anim: "kPulse 2.2s ease-in-out infinite" },
+    B: { g: "linear-gradient(160deg,#ffd75e,#db9c14 50%,#7a4e06)", c: "#ffd75e", glow: "0 0 16px rgba(255,215,94,.55)", anim: "none" },
+    C: { g: "linear-gradient(160deg,#55d44a,#1e9c28 55%,#0c5216)", c: "#55d44a", glow: "0 0 14px rgba(80,220,90,.45)", anim: "none" },
+    D: { g: "linear-gradient(160deg,#3d7bff,#1c45cc 55%,#0a1e78)", c: "#3d7bff", glow: "0 0 14px rgba(80,130,255,.45)", anim: "none" },
+    F: { g: "linear-gradient(160deg,#a87f54,#71492a 55%,#3a2412)", c: "#a87f54", glow: "0 0 12px rgba(168,127,84,.35)", anim: "none" }
+  };
+  ST = {
+    1: { g: "linear-gradient(160deg,#ffd75e,#db9c14 50%,#7a4e06)", c: "#ffd75e", glow: "0 0 14px rgba(255,215,94,.5)", l: "I" },
+    2: { g: "linear-gradient(160deg,#55d44a,#1e9c28 55%,#0c5216)", c: "#55d44a", glow: "0 0 14px rgba(80,220,90,.5)", l: "II" },
+    3: { g: "linear-gradient(160deg,#c650ff,#8a17e8 45%,#3c0575)", c: "#c650ff", glow: "0 0 22px rgba(190,80,255,.8)", l: "III" }
+  };
+  KP = {
+    S: [["Глас Бездны","❖"],["Пожиратель Надежды","☠"],["Последняя Жатва","✠"],["Корона Червей","✺"]],
+    A: [["Кровавый Прилив","✦"],["Шёпот Костей","❂"],["Гниющий Взгляд","◉"],["Танец Мясника","⚔"]],
+    B: [["Ржавые Крюки","⚷"],["Смрад Страха","❋"],["Ловец Теней","☽"],["Хруст Позвонков","▤"]],
+    C: [["Тяжёлая Поступь","✜"],["Мутный След","⌁"],["Скрип Половиц","⚒"],["Голодные Псы","♞"]],
+    D: [["Сломанный Фонарь","✚"],["Прогорклая Кровь","❈"],["Тусклый Нюх","◍"],["Вялый Замах","⚑"]],
+    F: [["Косолапость","⌀"],["Дырявая Память","▢"],["Ржавый Тесак","⚀"],["Одышка","〜"]]
+  };
+  SP = {
+    1: [["Быстрые Пальцы","✚"],["Тихое Дыхание","〜"],["Осторожный Шаг","⌁"],["Цепкий Взгляд","◉"],["Запас Бинтов","▤"]],
+    2: [["Второе Дыхание","❂"],["Инстинкт Жертвы","✦"],["Стальные Нервы","⚒"],["Кровь Не Водица","❈"]],
+    3: [["Воля к Жизни","❖"],["Призрачная Тень","☽"],["Сердце Стаи","❋"],["Последний Шанс","✺"]]
+  };
+  ROSTER_S = [
+    { name: "Аня", ini: "А", av: "radial-gradient(circle at 38% 32%,#c2a173,#8a6c45 60%,#5c4529)" },
+    { name: "Витя", ini: "В", av: "radial-gradient(circle at 38% 32%,#8fa6c2,#5c7290 60%,#33445c)" },
+    { name: "Мира", ini: "М", av: "radial-gradient(circle at 38% 32%,#c28f9a,#905c68 60%,#5c333c)" },
+    { name: "Олег", ini: "О", av: "radial-gradient(circle at 38% 32%,#9ac28f,#68905c 60%,#3c5c33)" },
+    { name: "Даша", ini: "Д", av: "radial-gradient(circle at 38% 32%,#c2b98f,#90885c 60%,#5c5533)" },
+    { name: "Костя", ini: "К", av: "radial-gradient(circle at 38% 32%,#8fc2bb,#5c9089 60%,#335c56)" },
+    { name: "Лена", ini: "Л", av: "radial-gradient(circle at 38% 32%,#b08fc2,#7d5c90 60%,#4a335c)" },
+    { name: "Паша", ini: "П", av: "radial-gradient(circle at 38% 32%,#c29e8f,#90695c 60%,#5c3d33)" }
+  ];
+  ROSTER_K = [
+    { name: "Мясник", ini: "М", av: "radial-gradient(circle at 38% 32%,#c25a5a,#8a2e2e 60%,#571414)" },
+    { name: "Тень", ini: "Т", av: "radial-gradient(circle at 38% 32%,#7a6f9c,#4a4166 60%,#262038)" },
+    { name: "Кукловод", ini: "К", av: "radial-gradient(circle at 38% 32%,#b07ac2,#7a4a90 60%,#47265c)" },
+    { name: "Пугало", ini: "П", av: "radial-gradient(circle at 38% 32%,#a3915c,#6e5f33 60%,#3d3418)" },
+    { name: "Часовщик", ini: "Ч", av: "radial-gradient(circle at 38% 32%,#5c8aa3,#33586e 60%,#18323d)" },
+    { name: "Вдова", ini: "В", av: "radial-gradient(circle at 38% 32%,#527d5c,#2e5236 60%,#142e1a)" }
+  ];
+  getSurv(i) { return this.ROSTER_S[this.state.survSel[i]]; }
+  ITEMS = [
+    { name: "Аптечка", icon: "✚", price: 300, g: "linear-gradient(160deg,#3d7bff,#1c45cc 55%,#0a1e78)", glow: "rgba(80,130,255,.45)", a: ["Стерильные бинты", "Кривая игла"] },
+    { name: "Ящик инструментов", icon: "⚒", price: 250, g: "linear-gradient(160deg,#a87f54,#71492a 55%,#3a2412)", glow: "rgba(168,127,84,.45)", a: ["Смазка", "Ржавая пружина"] },
+    { name: "Фонарик", icon: "⌁", price: 350, g: "linear-gradient(160deg,#55d44a,#1e9c28 55%,#0c5216)", glow: "rgba(80,220,90,.45)", a: ["Широкая линза", "Тяжёлая батарея"] },
+    { name: "Карта", icon: "▤", price: 300, g: "linear-gradient(160deg,#ffd75e,#db9c14 50%,#7a4e06)", glow: "rgba(255,215,94,.45)", a: ["Компас", "Красная нить"] },
+    { name: "Ключ", icon: "⚷", price: 600, g: "linear-gradient(160deg,#c650ff,#8a17e8 45%,#3c0575)", glow: "rgba(190,80,255,.45)", a: ["Обломок кольца", "Молочный опал"] },
+    { name: "Фальшфейер", icon: "❋", price: 450, g: "linear-gradient(160deg,#ff5560,#c2101f 50%,#5c0410)", glow: "rgba(255,60,70,.45)", a: ["Длинный запал", "Яркая смесь"] }
+  ];
+  buyItem(row, i) {
+    const it = this.ITEMS[i];
+    const survItems = this.state.survItems.slice();
+    survItems[row] = i;
+    this.setState({ survItems, itemPick: null, cells: this.getCells() + it.price });
+    this.floater("+" + it.price, "#55d44a");
+    this.fx("rgba(85,212,74,.25)", false);
+    this.toast(this.getSurv(row).name + " купил(а): " + it.name);
+  }
+  KADDONS = [
+    { name: "Ржавые шестерни", icon: "⚙" },
+    { name: "Чёрное перо", icon: "❋" }
+  ];
+  KAQ = [
+    { l: "Обычный", cost: 150, g: "linear-gradient(160deg,#a87f54,#71492a 55%,#3a2412)", c: "#a87f54", glow: "rgba(168,127,84,.45)" },
+    { l: "Необычный", cost: 300, g: "linear-gradient(160deg,#ffd75e,#db9c14 50%,#7a4e06)", c: "#ffd75e", glow: "rgba(255,215,94,.45)" },
+    { l: "Редкий", cost: 600, g: "linear-gradient(160deg,#55d44a,#1e9c28 55%,#0c5216)", c: "#55d44a", glow: "rgba(80,220,90,.45)" },
+    { l: "Оч. редкий", cost: 1200, g: "linear-gradient(160deg,#3d7bff,#1c45cc 55%,#0a1e78)", c: "#3d7bff", glow: "rgba(80,130,255,.45)" },
+    { l: "Ультраредкий", cost: 2400, g: "linear-gradient(160deg,#c650ff,#8a17e8 45%,#3c0575)", c: "#c650ff", glow: "rgba(190,80,255,.55)" }
+  ];
+  upAddon(i) {
+    const lvl = this.state.kaLvl[i];
+    if (lvl >= this.KAQ.length) { this.toast("Максимальное качество"); return; }
+    const cost = this.KAQ[lvl].cost;
+    if (this.getCells() < cost) { this.toast("Недостаточно клеток — нужно " + cost); return; }
+    const kaLvl = this.state.kaLvl.slice();
+    kaLvl[i] = lvl + 1;
+    this.setState({ kaLvl, cells: this.getCells() - cost });
+    this.floater("−" + cost, "#d3222a");
+    this.toast(this.KADDONS[i].name + " — " + this.KAQ[lvl].l);
+  }
+  BTNS = [
+    { name: "Ржавое колесо", cost: 100, hit: .3, odds: { S: 1, A: 5, B: 12, C: 22, D: 32, F: 28 } },
+    { name: "Кровавое колесо", cost: 250, hit: .4, odds: { S: 5, A: 12, B: 22, C: 28, D: 21, F: 12 } },
+    { name: "Проклятое колесо", cost: 500, hit: .5, odds: { S: 14, A: 24, B: 30, C: 19, D: 9, F: 4 } }
+  ];
+  ORDER = ["S","A","B","C","D","F"];
+  // one canonical reel strip — every column is this exact sequence, only the stop position differs
+  STRIP = ["S","D","C","F","B","D","F","C","A","D","F","B","C","D","F","C","B","D"];
+  ITEMW = 150;
+  VIEWC = 400;
+  REWARD = { 1: 250, 2: 400, 3: 550 };
+  CHOICE_REWARD = 25000;
+
+  getCells() { return this.state.cells ?? (this.props.startCells ?? 200); }
+  floater(t, c) {
+    const id = Math.random();
+    this.setState(s => ({ floaters: [...s.floaters, { id, t, c }] }));
+    setTimeout(() => this.setState(s => ({ floaters: s.floaters.filter(f => f.id !== id) })), 1400);
+  }
+  toast(t) {
+    this.setState({ note: t });
+    clearTimeout(this._nt);
+    this._nt = setTimeout(() => this.setState({ note: null }), 2200);
+  }
+  stagePt(e) {
+    const { w, h } = this.state.win;
+    const sc = Math.min(w / 1920, h / 1080);
+    return { x: (e.clientX - Math.max(0, (w - 1920 * sc) / 2)) / sc, y: (e.clientY - Math.max(0, (h - 1080 * sc) / 2)) / sc };
+  }
+  fx(color, big) {
+    this.setState({ flashOn: true, flashBg: color, shakeOn: true, burst: big ? this.state.burst + 1 : this.state.burst, burstColor: color });
+    setTimeout(() => this.setState({ flashOn: false, shakeOn: false }), 850);
+  }
+  pickWeighted(odds) {
+    let r = Math.random() * 100;
+    for (const t of this.ORDER) { r -= odds[t]; if (r <= 0) return t; }
+    return "F";
+  }
+  spin(btn) {
+    const unlockNeed = this.props.unlockNeed ?? 3;
+    if (this.state.spinning || this.state.pickerTier || this.state.reveal) return;
+    if (this.state.soldTotal < unlockNeed) { this.toast("Рулетка запечатана — продайте перки"); return; }
+    if (this.state.killerPerks.length >= 4) { this.toast("Все слоты убийцы заняты"); return; }
+    if (this.getCells() < btn.cost) { this.toast("Недостаточно клеток"); return; }
+    const win = Math.random() < btn.hit;
+    const tier = win ? this.pickWeighted(btn.odds) : null;
+    let finals;
+    if (win) finals = [tier, tier, tier, tier];
+    else {
+      do { finals = [0,1,2,3].map(() => this.pickWeighted(btn.odds)); } while (finals.every(t => t === finals[0]));
+    }
+    const H = this._reelEl ? this._reelEl.clientHeight : 500;
+    const vis = Math.ceil(H / 300) + 2;
+    // seed each new strip with the currently visible items so nothing changes on screen before motion starts
+    const cur = i => {
+      if (this.state.reel) {
+        const c = this.state.reel.cols[i];
+        const fi = c.items.length - 8;
+        const from = Math.max(0, fi - vis);
+        const items = c.items.slice(from, fi + 3);
+        return { items, y: H / 2 - ((fi - from) * 150 + 75 + 2) };
+      }
+      const kk = Math.max(0, Math.round((H / 2 - 75) / 150));
+      return { items: Array.from({ length: 10 }, (_, k) => this.STRIP[(k + i * 7) % this.STRIP.length]), y: H / 2 - (kk * 150 + 75) };
+    };
+    const L = this.STRIP.length;
+    // on a win all reels stop at the SAME strip position, so neighbors match perfectly — like synced physical reels
+    const rotFor = t => { const o = []; for (let r = 0; r < L; r++) if (this.STRIP[(r + 68) % L] === t) o.push(r); return o[Math.floor(Math.random() * o.length)]; };
+    const winRot = win ? rotFor(tier) : null;
+    const cols = [0,1,2,3].map(i => {
+      const c = cur(i);
+      const rot = win ? winRot : rotFor(finals[i]);
+      const tail = Array.from({ length: 76 }, (_, k) => this.STRIP[(rot + k) % L]);
+      const fy = H / 2 - ((c.items.length + 68) * 150 + 75 + 2);
+      return { items: c.items.concat(tail), y: c.y, fy, trans: "none", dur: 3.0 + i * 0.85 };
+    });
+    this.setState({ cells: this.getCells() - btn.cost, spinning: true, resultTier: null, missed: false, reel: { cols } });
+    this.floater("−" + btn.cost, "#d3222a");
+    // phase 1: each column overshoots slightly past its stop, staggered durations
+    setTimeout(() => this.setState(s => ({ reel: { cols: s.reel.cols.map(c => ({ ...c, y: c.fy - 48, trans: "transform " + c.dur + "s cubic-bezier(.08,.82,.1,1)" })) } })), 60);
+    // phase 2: each column settles back with a clunk, one by one
+    cols.forEach((c, i) => setTimeout(() => {
+      this.setState(s => {
+        if (!s.reel || !s.spinning) return null;
+        const nc = s.reel.cols.slice();
+        nc[i] = { ...nc[i], y: nc[i].fy, trans: "transform .22s cubic-bezier(.5,1.35,.6,1)" };
+        return { reel: { cols: nc } };
+      });
+    }, 60 + c.dur * 1000 + 320));
+    setTimeout(() => {
+      if (!win) {
+        this.setState({ spinning: false, missed: true });
+        this.toast("Мимо — линии не совпали");
+        return;
+      }
+      this.setState({ resultTier: tier, spinning: false, burstAt: null });
+      this.fx(tier === "S" ? "rgba(255,60,70,.55)" : tier === "A" ? "rgba(190,80,255,.45)" : "rgba(255,255,255,.25)", tier === "S" || tier === "A");
+      setTimeout(() => {
+        if (this.state.choiceSold) { this.choose(tier, Math.floor(Math.random() * this.KP[tier].length)); this.toast("Карта выбрана за вас"); }
+        else this.setState({ pickerTier: tier });
+      }, 900);
+    }, 6600);
+  }
+  choose(tier, idx) {
+    const [name, icon] = this.KP[tier][idx];
+    this.setState(s => ({ killerPerks: [...s.killerPerks, { tier, name, icon }], pickerTier: null, resultTier: null }));
+    this.fx("rgba(255,255,255,.2)", false);
+  }
+  killerDrop(i, e) {
+    const d = this.state.kdrag;
+    this.setState({ kdrag: null });
+    if (d == null || d === i) return;
+    const arr = this.state.killerPerks.slice();
+    const src = arr[d], tgt = arr[i];
+    if (!src || !tgt) return;
+    if (src.tier !== tgt.tier) { this.toast("Только два одинаковых тира"); return; }
+    const oi = this.ORDER.indexOf(src.tier);
+    if (oi === 0) { this.toast("Тир S нельзя объединить"); return; }
+    const nt = this.ORDER[oi - 1];
+    // consume both perks, then let the player pick the upgraded card — same picker as a roll win
+    arr.splice(Math.max(d, i), 1);
+    arr.splice(Math.min(d, i), 1);
+    this.setState({ killerPerks: arr, pickerTier: nt, burst: this.state.burst + 1, burstColor: this.TIERS[nt].c, burstAt: e ? this.stagePt(e) : null });
+    this.fx(nt === "S" ? "rgba(255,60,70,.55)" : nt === "A" ? "rgba(190,80,255,.45)" : "rgba(255,255,255,.25)", nt === "S" || nt === "A");
+    this.toast("Объединение! Тир " + nt);
+  }
+  removePerk(i) {
+    this.setState(s => ({ killerPerks: s.killerPerks.filter((_, j) => j !== i) }));
+    this.toast("Перк выброшен");
+  }
+  sellPerk(t) {
+    if (this.state.spinning) return;
+    const empties = [];
+    this.state.survivors.forEach((row, si) => row.forEach((p, idx) => { if (!p) empties.push([si, idx]); }));
+    if (!empties.length) { this.toast("У выживших нет места"); return; }
+    const [si, idx] = empties[Math.floor(Math.random() * empties.length)];
+    const pool = this.SP[t];
+    const [name, icon] = pool[Math.floor(Math.random() * pool.length)];
+    const survivors = this.state.survivors.map(r => r.slice());
+    survivors[si][idx] = { t, name, icon, anim: "kPopW .6s cubic-bezier(.2,1.5,.4,1)" };
+    this.setState(s => ({ survivors, soldTotal: s.soldTotal + 1, cells: this.getCells() + this.REWARD[t] }));
+    this.floater("+" + this.REWARD[t], "#ffd75e");
+    this.toast(name + " → " + this.getSurv(si).name);
+  }
+  sellChoice() {
+    if (this.state.choiceSold) { this.toast("Право уже продано"); return; }
+    this.setState({ choiceSold: true, cells: this.getCells() + this.CHOICE_REWARD, burstAt: null });
+    this.floater("+" + this.CHOICE_REWARD, "#ffd75e");
+    this.fx("rgba(255,215,94,.45)", true);
+    this.toast("Право на выбор карты продано");
+  }
+  claim() {
+    const rv = this.state.reveal;
+    if (!rv) return;
+    const survivors = this.state.survivors.map(r => r.slice());
+    rv.cards.forEach(c => { if (c.spot) survivors[c.spot[0]][c.spot[1]] = { t: c.st, name: c.name, icon: c.icon, anim: "kPopW .6s cubic-bezier(.2,1.5,.4,1)" }; });
+    this.setState(s => ({ survivors, reveal: null, soldTotal: s.soldTotal + rv.cards.length, cells: this.getCells() + rv.gain }));
+    this.floater("+" + rv.gain, "#ffd75e");
+  }
+  drop(si, idx, e) {
+    const d = this.state.drag;
+    this.setState({ drag: null });
+    if (!d) return;
+    if (d.si === si && d.idx === idx) return;
+    const survivors = this.state.survivors.map(r => r.slice());
+    const src = survivors[d.si][d.idx];
+    if (!src) return;
+    const tgt = survivors[si][idx];
+    if (!tgt) {
+      survivors[si][idx] = { ...src, anim: "kPopW .3s ease" };
+      survivors[d.si][d.idx] = null;
+      this.setState({ survivors });
+    } else if (tgt.t === src.t && src.t < 3) {
+      this.setState({ mergeAsk: { from: [d.si, d.idx], to: [si, idx], t: src.t, at: e ? this.stagePt(e) : null } });
+    } else {
+      survivors[si][idx] = { ...src, anim: "kPopW .3s ease" };
+      survivors[d.si][d.idx] = { ...tgt, anim: "kPopW .3s ease" };
+      this.setState({ survivors });
+      if (tgt.t === src.t) this.toast("Тир III — только перемещение");
+    }
+  }
+  mergeDo(upgrade) {
+    const m = this.state.mergeAsk;
+    this.setState({ mergeAsk: null });
+    if (!m) return;
+    const survivors = this.state.survivors.map(r => r.slice());
+    const src = survivors[m.from[0]][m.from[1]], tgt = survivors[m.to[0]][m.to[1]];
+    if (!src || !tgt || src.t !== tgt.t) return;
+    if (upgrade) {
+      const nt = src.t + 1;
+      const pool = this.SP[nt];
+      const [name, icon] = pool[Math.floor(Math.random() * pool.length)];
+      survivors[m.to[0]][m.to[1]] = { t: nt, name, icon, anim: "kMergeW .8s cubic-bezier(.2,1.5,.4,1)" };
+      survivors[m.from[0]][m.from[1]] = null;
+      this.setState({ survivors, burst: this.state.burst + 1, burstColor: this.ST[nt].c, burstAt: m.at || null });
+      this.fx(nt === 3 ? "rgba(190,80,255,.45)" : "rgba(80,220,90,.35)", false);
+      this.toast("Объединение! Тир " + this.ST[nt].l);
+    } else {
+      survivors[m.to[0]][m.to[1]] = { ...src, anim: "kPopW .3s ease" };
+      survivors[m.from[0]][m.from[1]] = { ...tgt, anim: "kPopW .3s ease" };
+      this.setState({ survivors });
+    }
+  }
+  renderVals() {
+    const { w, h } = this.state.win;
+    const scale = Math.min(w / 1920, h / 1080);
+    const unlockNeed = this.props.unlockNeed ?? 3;
+    const cells = this.getCells();
+    const locked = this.state.soldTotal < unlockNeed;
+    const killerFull = this.state.killerPerks.length >= 4;
+    const idleCol = ci => { const arr = []; for (let i = 0; i < 10; i++) arr.push(this.STRIP[(i + ci * 7) % this.STRIP.length]); return arr; };
+    const H = this._reelEl ? this._reelEl.clientHeight : 600;
+    const idleK = Math.max(0, Math.round((H / 2 - 75) / 150));
+    const idleY = H / 2 - (idleK * 150 + 75);
+    const finalY = H / 2 - (68 * 150 + 75 + 2);
+    const colsSrc = this.state.reel
+      ? (this.state.spinning ? this.state.reel.cols : this.state.reel.cols.map(c => ({ ...c, y: c.fy ?? finalY, trans: "none" })))
+      : [0,1,2,3].map(ci => ({ items: idleCol(ci), y: idleY, trans: "none" }));
+    const reelCols = colsSrc.map(c => ({ y: c.y, trans: c.trans, items: c.items.map(t => ({ g: this.TIERS[t].g, glow: this.TIERS[t].glow, l: t })) }));
+    const rollBtns = this.BTNS.map(b => {
+      const dis = locked || this.state.spinning || killerFull || cells < b.cost;
+      return {
+        name: b.name, cost: b.cost,
+        bg: dis ? "rgba(12,10,14,.9)" : "linear-gradient(160deg,#2a1a24,#160d14)",
+        bd: dis ? "#241c22" : "#4a2438",
+        sh: dis ? "none" : "0 6px 20px rgba(0,0,0,.6),0 0 24px rgba(211,34,42,.12)",
+        cur: dis ? "default" : "pointer", op: dis ? .45 : 1,
+        onSpin: () => this.spin(b),
+        onHov: () => this.setState({ hoverDelta: dis ? null : -b.cost }),
+        rows: this.ORDER.map(t => ({ l: t, c: this.TIERS[t].c, p: b.odds[t] + "%", w: (b.odds[t] * 2.6) + "%" })).concat([{ l: "Хит", c: "#f0d8da", p: Math.round(b.hit * 100) + "%", w: "0%" }])
+      };
+    });
+    const survRows = this.state.survivors.map((row, si) => ({
+      ini: this.getSurv(si).ini, av: this.getSurv(si).av,
+      onPick: () => this.setState({ rosterPick: { type: "surv", row: si } }),
+      ...(() => {
+        const ii = this.state.survItems[si];
+        const it = ii != null ? this.ITEMS[ii] : null;
+        return {
+          itemName: it ? it.name + " — нажмите, чтобы сменить" : "Купить предмет",
+          itemIcon: it ? it.icon : "＋", itemIc: it ? "#f2f4f6" : "#4a4452",
+          itemG: it ? it.g : "rgba(14,12,16,.85)",
+          itemBd: it ? "rgba(0,0,0,.65)" : "#2a2230",
+          itemSh: it ? "0 0 14px " + it.glow + ",inset 0 0 14px rgba(0,0,0,.45)" : "inset 0 0 14px rgba(0,0,0,.8)",
+          adG: it ? it.g : "rgba(14,12,16,.85)",
+          ad1: it ? "Аддон: " + it.a[0] : "Пусто", ad2: it ? "Аддон: " + it.a[1] : "Пусто",
+          onItemPick: () => this.setState({ itemPick: si })
+        };
+      })(),
+      slots: row.map((p, idx) => ({
+        has: !!p, empty: !p,
+        g: p ? this.ST[p.t].g : "", glow: p ? this.ST[p.t].glow : "none",
+        icon: p ? p.icon : "", name: p ? p.name : "", tl: p ? this.ST[p.t].l : "", tc: p ? this.ST[p.t].c : "",
+        anim: p ? (p.anim || "none") : "none",
+        onDragStart: () => this.setState({ drag: { si, idx } }),
+        onDragOver: e => e.preventDefault(),
+        onDrop: e => this.drop(si, idx, e)
+      }))
+    }));
+    const killerSlots = [0,1,2,3].map(i => {
+      const p = this.state.killerPerks[i];
+      const dnd = {
+        onDragStart: () => this.setState({ kdrag: i }),
+        onDragOver: e => e.preventDefault(),
+        onDrop: e => this.killerDrop(i, e)
+      };
+      return p ? { has: true, empty: false, g: this.TIERS[p.tier].g, glow: this.TIERS[p.tier].glow, anim: this.TIERS[p.tier].anim, icon: p.icon, name: p.name, l: p.tier, c: this.TIERS[p.tier].c, onAsk: () => this.setState({ confirmDel: i }), ...dnd }
+               : { has: false, empty: true, name: "Пустой слот", ...dnd };
+    });
+    const sellBtns = [1,2,3].map(t => ({
+      l: this.ST[t].l, c: this.ST[t].c, reward: this.REWARD[t],
+      onAdd: () => this.sellPerk(t),
+      onHov: () => this.setState({ hoverDelta: this.REWARD[t] })
+    }));
+    const hd = this.state.hoverDelta;
+    const rv = this.state.reveal;
+    const pt = this.state.pickerTier;
+    const rt = this.state.resultTier;
+    const bAt = this.state.burstAt;
+    const particles = this.state.burst ? React.createElement("div", { key: this.state.burst, style: { position: "absolute", left: bAt ? bAt.x + "px" : "50%", top: bAt ? bAt.y + "px" : "42%", zIndex: 75, pointerEvents: "none" } },
+      Array.from({ length: 26 }, (_, i) => {
+        const a = (i / 26) * Math.PI * 2, d = 160 + Math.random() * 320;
+        return React.createElement("div", { key: i, style: { position: "absolute", width: 14 + Math.random() * 14, height: 14 + Math.random() * 14, background: this.state.burstColor, boxShadow: "0 0 14px " + this.state.burstColor, "--dx": Math.cos(a) * d + "px", "--dy": Math.sin(a) * d + "px", animation: "kBurst " + (0.7 + Math.random() * 0.8) + "s ease-out forwards" } });
+      })) : null;
+    return {
+      scale, offX: Math.max(0, (w - 1920 * scale) / 2), offY: Math.max(0, (h - 1080 * scale) / 2),
+      cells, floaters: this.state.floaters, soldTotal: this.state.soldTotal, unlockNeed,
+      cellsShown: hd != null ? cells + hd : cells,
+      cellsColor: hd == null ? "#ffd75e" : hd < 0 ? "#ff5560" : "#55d44a",
+      cellsGlow: hd == null ? "rgba(255,215,94,.6)" : hd < 0 ? "rgba(255,85,96,.6)" : "rgba(85,212,74,.6)",
+      previewOn: hd != null,
+      previewDelta: hd != null ? (hd > 0 ? "+" + hd : String(hd)) : "",
+      hovOff: () => this.setState({ hoverDelta: null }),
+      scHov: () => this.setState({ hoverDelta: this.state.choiceSold ? null : this.CHOICE_REWARD }),
+      unlockPct: Math.min(100, this.state.soldTotal / unlockNeed * 100) + "%",
+      locked, reelCols,
+      reelRef: el => { this._reelEl = el; },
+      lamps: Array.from({ length: 40 }, (_, i) => {
+        const red = i % 2 === 0;
+        const lit = i % 2 === (this.state.lampPhase || 0);
+        return {
+          bg: lit ? (red ? "#e8323b" : "#ffd75e") : (red ? "#4a1216" : "#4a3a10"),
+          sh: lit ? (red ? "0 0 8px rgba(232,50,59,.9)" : "0 0 8px rgba(255,215,94,.9)") : "none"
+        };
+      }),
+      resultText: this.state.spinning ? "Вращение…" : rt ? "Выпал тир " + rt + "!" : this.state.missed ? "Мимо — линии не совпали" : killerFull ? "Слоты заполнены" : "Испытайте судьбу",
+      resultColor: rt ? this.TIERS[rt].c : this.state.missed ? "#d3222a" : "#8d95a1",
+      resultAnim: rt ? "kJackpot 1.4s ease-in-out infinite" : "none",
+      rollBtns, survRows, killerSlots, killerCount: this.state.killerPerks.length,
+      killerAddons: this.KADDONS.map((a, i) => {
+        const lvl = this.state.kaLvl[i];
+        const q = lvl ? this.KAQ[lvl - 1] : null;
+        return {
+          icon: lvl ? a.icon : "",
+          name: lvl ? a.name + " (" + q.l + ") — нажмите для улучшения" : "Пустой слот аддона — нажмите, чтобы открыть",
+          g: q ? q.g : "rgba(14,10,12,.85)",
+          bd: q ? "rgba(0,0,0,.65)" : "#2a1c20",
+          sh: q ? "0 0 16px " + q.glow + ",inset 0 0 14px rgba(0,0,0,.45)" : "inset 0 0 14px rgba(0,0,0,.8)",
+          label: lvl >= this.KAQ.length ? "Макс" : this.KAQ[lvl].cost + " ⬧",
+          lc: q ? q.c : "#5c4a4e",
+          onUp: () => this.upAddon(i),
+          onHov: () => this.setState({ hoverDelta: lvl >= this.KAQ.length ? null : -this.KAQ[lvl].cost })
+        };
+      }),
+      killerName: this.ROSTER_K[this.state.killerSel].name,
+      killerAv: this.ROSTER_K[this.state.killerSel].av,
+      killerIni: this.ROSTER_K[this.state.killerSel].ini,
+      openKillerPick: () => this.setState({ rosterPick: { type: "killer" } }),
+      closeRoster: () => this.setState({ rosterPick: null }),
+      rosterOpen: !!this.state.rosterPick,
+      rosterTitle: this.state.rosterPick ? (this.state.rosterPick.type === "killer" ? "Выберите убийцу" : "Выберите выжившего") : "",
+      rosterOpts: !this.state.rosterPick ? [] : this.state.rosterPick.type === "killer"
+        ? this.ROSTER_K.map((k, i) => {
+            const cur = i === this.state.killerSel;
+            return { av: k.av, ini: k.ini, name: k.name, bd: cur ? "#a3232c" : "#241c22", cur: "pointer", op: 1,
+              tag: cur ? "Выбран" : "", tagC: "#d3222a",
+              onPick: e => { e.stopPropagation(); this.setState({ killerSel: i, rosterPick: null }); } };
+          })
+        : this.ROSTER_S.map((s, i) => {
+            const row = this.state.rosterPick.row;
+            const at = this.state.survSel.indexOf(i);
+            const cur = at === row, taken = at !== -1 && !cur;
+            return { av: s.av, ini: s.ini, name: s.name, bd: cur ? "#3d7bff" : "#23262e", cur: taken ? "default" : "pointer", op: taken ? .4 : 1,
+              tag: cur ? "Выбран" : taken ? "В игре" : "", tagC: cur ? "#3d7bff" : "#7d8794",
+              onPick: e => { e.stopPropagation(); if (taken) return; const survSel = this.state.survSel.slice(); survSel[row] = i; this.setState({ survSel, rosterPick: null }); } };
+          }),
+      sellBtns,
+      sellChoice: () => this.sellChoice(),
+      scLabel: this.state.choiceSold ? "Право продано" : "Продать право на выбор карты",
+      scReward: this.state.choiceSold ? "перк выпадает случайно" : "+" + this.CHOICE_REWARD + " ⬧",
+      scBg: this.state.choiceSold ? "rgba(14,10,12,.8)" : "linear-gradient(120deg,#6e4a12,#3a2a0a 70%,#241806)",
+      scBd: this.state.choiceSold ? "#241c1e" : "#c29a2c",
+      scSh: this.state.choiceSold ? "none" : "0 0 30px rgba(255,215,94,.35),0 6px 20px rgba(0,0,0,.6)",
+      scCur: this.state.choiceSold ? "default" : "pointer",
+      scOp: this.state.choiceSold ? .55 : 1,
+      revealOpen: !!rv,
+      revealCards: rv ? rv.cards.map(c => ({ g: this.ST[c.st].g, glow: this.ST[c.st].glow, tc: this.ST[c.st].c, tl: this.ST[c.st].l, icon: c.icon, name: c.name, who: c.who, delay: c.delay })) : [],
+      revealGain: rv ? rv.gain : 0,
+      claimReveal: () => this.claim(),
+      pickerOpen: !!pt,
+      pickerTierL: pt || "",
+      pickerColor: pt ? this.TIERS[pt].c : "#fff",
+      pickerPerks: pt ? this.KP[pt].map(([name, icon], i) => ({
+        name, icon, g: this.TIERS[pt].g, glow: this.TIERS[pt].glow, hc: this.TIERS[pt].c,
+        delay: (i * .12) + "s", onPick: () => this.choose(pt, i)
+      })) : [],
+      flashOn: this.state.flashOn, flashBg: this.state.flashBg,
+      shakeAnim: this.state.shakeOn ? "kShake .6s ease" : "none",
+      note: this.state.note, particles,
+      confirmOpen: this.state.confirmDel !== null,
+      confirmName: this.state.confirmDel !== null && this.state.killerPerks[this.state.confirmDel] ? this.state.killerPerks[this.state.confirmDel].name : "",
+      confirmColor: this.state.confirmDel !== null && this.state.killerPerks[this.state.confirmDel] ? this.TIERS[this.state.killerPerks[this.state.confirmDel].tier].c : "#fff",
+      confirmYes: () => { const i = this.state.confirmDel; this.setState({ confirmDel: null }); if (i !== null) this.removePerk(i); },
+      confirmNo: () => this.setState({ confirmDel: null }),
+      mergeOpen: !!this.state.mergeAsk,
+      mergeTierL: this.state.mergeAsk ? this.ST[this.state.mergeAsk.t].l : "",
+      mergeUpgrade: () => this.mergeDo(true),
+      mergeSwap: () => this.mergeDo(false),
+      mergeCancel: () => this.setState({ mergeAsk: null }),
+      itemPickOpen: this.state.itemPick !== null,
+      itemPickTitle: this.state.itemPick !== null ? this.getSurv(this.state.itemPick).name + " выбирает предмет" : "",
+      closeItemPick: () => this.setState({ itemPick: null }),
+      itemOpts: this.state.itemPick === null ? [] : this.ITEMS.map((it, i) => ({
+        name: it.name, icon: it.icon, g: it.g, glow: it.glow, price: it.price,
+        adText: it.a[0] + " · " + it.a[1],
+        onPick: e => { e.stopPropagation(); this.buyItem(this.state.itemPick, i); }
+      })),
+      debugOpen: this.state.debugOpen,
+      toggleDebug: () => this.setState(s => ({ debugOpen: !s.debugOpen })),
+      debugStop: e => e.stopPropagation(),
+      debugCash: [0, 1000, 10000, 99999].map(v => ({ l: String(v), onSet: () => { this.setState({ cells: v }); this.toast("Баланс: " + v); } })),
+      debugReset: () => {
+        this.setState({
+          cells: null, soldTotal: 0, choiceSold: false, killerSel: 0, survSel: [0,1,2,3], rosterPick: null,
+          hoverDelta: null, kaLvl: [0, 0], kdrag: null,
+          survivors: [[null,null,null,null],[null,null,null,null],[null,null,null,null],[null,null,null,null]],
+          killerPerks: [], reel: null, spinning: false, resultTier: null, missed: false, pickerTier: null,
+          reveal: null, drag: null, confirmDel: null, survItems: [null, null, null, null], itemPick: null
+        });
+        this.toast("Полный сброс");
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

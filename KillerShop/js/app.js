@@ -4,7 +4,8 @@
 "use strict";
 
 const D = window.SHOP_DATA;
-const CONFIG = { startCells: 200, unlockNeed: 3 };
+// печать снимается за очки продаж: тир I = 1, тир II = 2, тир III = 3
+const CONFIG = { startCells: 200, unlockNeed: 10 };
 
 const ORDER = ["S", "A", "B", "C", "D"];
 // one canonical reel strip - every column is this exact sequence, only the stop position differs
@@ -13,12 +14,20 @@ const STRIP = ["S","D","C","B","D","C","A","B","C","D","B","C","A","D","C","B","
 // grow past its texture limit (blank reels), so touch devices get a short run
 const STOP = window.matchMedia("(pointer: coarse)").matches ? 20 : 68;
 const BTNS = [
-  { name: "Ржавое колесо", cost: 100, hit: .3, odds: { S: 1, A: 5, B: 14, C: 35, D: 45 } },
-  { name: "Кровавое колесо", cost: 250, hit: .4, odds: { S: 5, A: 13, B: 26, C: 36, D: 20 } },
-  { name: "Проклятое колесо", cost: 500, hit: .5, odds: { S: 10, A: 20, B: 38, C: 26, D: 6 } }
+  // odds must add up to 100 - pickWeighted rolls against a flat 0..100 range
+  { name: "Ржавое колесо", cost: 100, hit: .4, odds: { S: 0, A: 8, B: 22, C: 40, D: 30 } },
+  { name: "Кровавое колесо", cost: 250, hit: .5, odds: { S: 2, A: 17, B: 33, C: 33, D: 15 } },
+  { name: "Проклятое колесо", cost: 500, hit: .6, odds: { S: 5, A: 30, B: 39, C: 20, D: 6 } }
 ];
-const REWARD = { 1: 250, 2: 300, 3: 550 };
-const CHOICE_REWARD = 5000;
+// цена растет быстрее очка (150 / 175 / 233 за очко), чтобы путь через тир III
+// до снятия печати всегда окупался лучше, чем спам дешевыми перками
+const REWARD = { 1: 150, 2: 350, 3: 700 };
+// право на карту продается один раз - либо в рандом, либо выжившим (выбор сурвов
+// хуже для убийцы, поэтому платят больше)
+const CHOICE = [
+  { key: "random", label: "Рандому", reward: 2500, toast: "Карта отдана рандому" },
+  { key: "surv", label: "Сурвам", reward: 5000, toast: "Карту выбирают выжившие" }
+];
 const ST_LABEL = { 0: "0", 1: "I", 2: "II", 3: "III" };
 const ST_COLOR = { 0: "#aeb6c0", 1: "#ffd75e", 2: "#55d44a", 3: "#c650ff" };
 const TIER_COLOR = { S: "#ff6b74", A: "#c650ff", B: "#3d7bff", C: "#55d44a", D: "#a87f54" };
@@ -39,7 +48,7 @@ const PICKER_CHOICES = 4;
 // default lineup: first 4 survivors / first killer of the roster
 function initialState() {
   return {
-    cells: CONFIG.startCells, soldTotal: 0, choiceSold: false,
+    cells: CONFIG.startCells, soldPts: 0, choiceSold: null,
     killerSel: 0, survSel: [0, 1, 2, 3], rosterPick: null,
     hoverDelta: null, kaLvl: [0, 0], kdrag: null, drag: null,
     survItems: [null, null, null, null], itemPick: null, mergeAsk: null,
@@ -260,6 +269,12 @@ function hover(delta) {
   S.hoverDelta = delta;
   renderCells();
 }
+// после покупки кошелек должен показывать реальный остаток, а не превью следующего
+// клика: курсор остается на кнопке, mouseleave не сработает, гасим превью вручную
+function clearHover() {
+  S.hoverDelta = null;
+  renderCells();
+}
 
 /* ---------- perk markup ---------- */
 function pkHTML(cls, img) {
@@ -306,7 +321,7 @@ function pickWeighted(odds) {
 }
 function spin(btn) {
   if (S.spinning || S.pickerTier) return;
-  if (S.soldTotal < CONFIG.unlockNeed) { toast("Рулетка запечатана - продайте перки"); return; }
+  if (S.soldPts < CONFIG.unlockNeed) { toast("Рулетка запечатана - продайте перки"); return; }
   if (S.killerPerks.length >= 4) { toast("Все слоты убийцы заняты"); return; }
   if (S.cells < btn.cost) { toast("Недостаточно клеток"); return; }
   const win = Math.random() < btn.hit;
@@ -343,7 +358,7 @@ function spin(btn) {
   });
   S.cells -= btn.cost; S.spinning = true; S.resultTier = null; S.missed = false; S.reel = { cols };
   floater("−" + btn.cost, "#d3222a");
-  renderCells(); renderControls(); renderResult();
+  clearHover(); renderControls(); renderResult();
   play(SND.reelStart, .55);
   startLoop(.35);
   cols.forEach((c, i) => setCol(i, c.items, c.y, "none"));
@@ -403,32 +418,49 @@ function renderResult() {
   else { el.textContent = "Крути барабан"; el.style.color = "#8d95a1"; }
 }
 function renderControls() {
-  const locked = S.soldTotal < CONFIG.unlockNeed;
+  const locked = S.soldPts < CONFIG.unlockNeed;
   const full = S.killerPerks.length >= 4;
   const lock = $("reel-lock");
   lock.classList.toggle("on", locked);
-  $("lock-count").textContent = S.soldTotal + " / " + CONFIG.unlockNeed;
-  $("lock-fill").style.width = Math.min(100, S.soldTotal / CONFIG.unlockNeed * 100) + "%";
+  $("lock-count").textContent = Math.min(S.soldPts, CONFIG.unlockNeed) + " / " + CONFIG.unlockNeed;
+  $("lock-fill").style.width = Math.min(100, S.soldPts / CONFIG.unlockNeed * 100) + "%";
   document.querySelectorAll(".roll-btn").forEach((b, i) => {
     const dis = locked || S.spinning || full || S.cells < BTNS[i].cost;
     b.classList.toggle("dis", dis);
   });
-  const sc = $("sell-choice");
-  sc.classList.toggle("dis", S.choiceSold);
-  $("sc-label").textContent = S.choiceSold ? "Право продано" : "Продать право на выбор карты";
-  $("sc-reward").textContent = S.choiceSold ? "-" : "+" + CHOICE_REWARD + " ⬧";
+  // очки за продажу нужны только до снятия печати
+  $("sell-btns").classList.toggle("unsealed", !locked);
+  // продавать перк некуда, когда у выживших не осталось свободных слотов
+  const noRoom = !S.survivors.some(row => row.some(p => !p));
+  document.querySelectorAll(".sell-btn").forEach(b => b.classList.toggle("dis", noRoom));
+  const sold = CHOICE.find(c => c.key === S.choiceSold);
+  $("sc-label").parentNode.classList.toggle("dis", !!sold);
+  $("sc-label").textContent = sold ? "Карта продана · " + sold.label : "Продать карту";
+  document.querySelectorAll(".sc-btn").forEach(b => {
+    const c = CHOICE.find(x => x.key === b.dataset.k);
+    b.classList.toggle("dis", !!sold);
+    b.querySelector("i").textContent = sold ? (sold === c ? "продано" : "-") : "+" + c.reward + " ⬧";
+  });
 }
 function buildStaticControls() {
-  $("roll-btns").innerHTML = BTNS.map((b, i) =>
-    '<button class="roll-btn" type="button" data-i="' + i + '">' +
+  // шанс хита - отдельная полоса над тирами: внутри общей сетки его читали
+  // как еще одну редкость, хотя это два независимых броска
+  $("roll-btns").innerHTML = BTNS.map((b, i) => {
+    const hit = Math.round(b.hit * 100);
+    return '<button class="roll-btn" type="button" data-i="' + i + '">' +
       '<div class="rb-top"><span class="rb-name">' + b.name + '</span>' +
       '<span class="rb-cost"><img src="assets/Auric_Cell.png" alt=""><span>' + b.cost + "</span></span></div>" +
+      '<div class="rb-hit" title="Шанс, что линии совпадут и перк выпадет вообще. Не связано с тирами ниже.">' +
+        '<div class="rb-hit-fill" style="width:' + hit + '%"></div>' +
+        "<span>Шанс выигрыша</span><b>" + hit + "%</b>" +
+      "</div>" +
+      '<div class="rb-cap">Если выигрыш - какой тир</div>' +
       '<div class="rb-rows">' +
         ORDER.map(t => '<div class="rb-tier t' + t + '"><b>' + t + "</b><i>" + b.odds[t] + "%</i></div>").join("") +
-        '<div class="rb-tier"><b style="color:#f0d8da;text-shadow:none">Хит</b><i>' + Math.round(b.hit * 100) + "%</i></div>" +
       "</div>" +
       '<div class="rb-go">Крутить</div>' +
-    "</button>").join("");
+    "</button>";
+  }).join("");
   document.querySelectorAll(".roll-btn").forEach(b => {
     const i = +b.dataset.i;
     b.addEventListener("click", () => spin(BTNS[i]));
@@ -436,17 +468,22 @@ function buildStaticControls() {
     b.addEventListener("mouseleave", () => hover(null));
   });
   $("sell-btns").innerHTML = [1, 2, 3].map(t =>
-    '<button class="sell-btn st' + t + '" type="button" data-t="' + t + '"><b>Тир ' + ST_LABEL[t] + "</b><i>+" + REWARD[t] + " ⬧</i></button>").join("");
+    '<button class="sell-btn st' + t + '" type="button" data-t="' + t + '"><b>Тир ' + ST_LABEL[t] + "</b><i>+" + REWARD[t] + " ⬧</i>" +
+      "<u>+" + t + (t === 1 ? " очко" : " очка") + "</u></button>").join("");
   document.querySelectorAll(".sell-btn").forEach(b => {
     const t = +b.dataset.t;
     b.addEventListener("click", () => sellPerk(t));
-    b.addEventListener("mouseenter", () => hover(REWARD[t]));
+    b.addEventListener("mouseenter", () => hover(b.classList.contains("dis") ? null : REWARD[t]));
     b.addEventListener("mouseleave", () => hover(null));
   });
-  const sc = $("sell-choice");
-  sc.addEventListener("click", sellChoice);
-  sc.addEventListener("mouseenter", () => hover(S.choiceSold ? null : CHOICE_REWARD));
-  sc.addEventListener("mouseleave", () => hover(null));
+  $("sc-btns").innerHTML = CHOICE.map(c =>
+    '<button class="sc-btn" type="button" data-k="' + c.key + '"><b>' + c.label + "</b><i></i></button>").join("");
+  document.querySelectorAll(".sc-btn").forEach(b => {
+    const c = CHOICE.find(x => x.key === b.dataset.k);
+    b.addEventListener("click", () => sellChoice(c));
+    b.addEventListener("mouseenter", () => hover(S.choiceSold ? null : c.reward));
+    b.addEventListener("mouseleave", () => hover(null));
+  });
   $("btn-debug").addEventListener("click", () => { S.debugOpen = !S.debugOpen; renderOverlay(); });
   $("btn-sound").addEventListener("click", () => {
     sndCfg.muted = !sndCfg.muted;
@@ -513,20 +550,20 @@ function sellPerk(t) {
   const [si, idx] = rnd(empties);
   const perk = rollSurvPerk(t, si);
   S.survivors[si][idx] = { t, name: perk.name, img: perk.img, desc: perk.desc, anim: "anim-pop" };
-  S.soldTotal += 1; S.cells += REWARD[t];
+  S.soldPts += t; S.cells += REWARD[t];
   sndTier(t);
   floater("+" + REWARD[t], "#ffd75e");
-  renderCells(); renderControls(); renderSurvivors();
+  clearHover(); renderControls(); renderSurvivors();
   toast(perk.name + " → " + surv(si).name);
 }
-function sellChoice() {
-  if (S.choiceSold) { toast("Право уже продано"); return; }
-  S.choiceSold = true; S.cells += CHOICE_REWARD;
+function sellChoice(c) {
+  if (S.choiceSold) { toast("Карта уже продана"); return; }
+  S.choiceSold = c.key; S.cells += c.reward;
   play(SND.bigWin, .45);
-  floater("+" + CHOICE_REWARD, "#ffd75e");
+  floater("+" + c.reward, "#ffd75e");
   fx("rgba(255,215,94,.45)", true);
-  renderCells(); renderControls();
-  toast("Право на выбор карты продано");
+  clearHover(); renderControls();
+  toast(c.toast);
 }
 
 /* ---------- survivors panel ---------- */
@@ -656,6 +693,7 @@ function mergeDo(upgrade) {
     S.survivors[m.to[0]][m.to[1]] = Object.assign({}, src, { anim: "anim-pop-fast" });
     S.survivors[m.from[0]][m.from[1]] = Object.assign({}, tgt, { anim: "anim-pop-fast" });
   }
+  renderControls(); // объединение освобождает слот - кнопки продажи снова активны
   renderSurvivors();
 }
 
@@ -679,7 +717,7 @@ function buyItem(row, gi) {
   sndTier(RARITY_SND[it.rarity] || 1);
   floater("+" + pay, "#55d44a");
   fx("rgba(85,212,74,.25)", false);
-  renderCells(); renderSurvivors(); renderOverlay();
+  clearHover(); renderSurvivors(); renderOverlay();
   toast(surv(row).name + " купил(а): " + it.name);
 }
 
@@ -784,8 +822,7 @@ function upAddon(i) {
   S.kaLvl[i] = lvl + 1; S.cells -= cost;
   sndTier(KAQ_SND[lvl]);
   floater("−" + cost, "#d3222a");
-  hover(null);
-  renderCells(); renderControls(); renderKiller();
+  clearHover(); renderControls(); renderKiller();
   toast(KADDONS[i].name + " - " + KAQ[lvl].l);
 }
 

@@ -188,6 +188,7 @@ button { font: inherit; border: none; background: none; color: inherit; padding:
 .reel-lock.on { display: flex; }
 .lock-title { font-family: 'Oswald'; font-weight: 600; font-size: 21px; letter-spacing: 3px; color: #c9d1dc; text-transform: uppercase; }
 .lock-sub { font-size: 15px; color: #8d95a1; }
+.lock-hint { margin-top: -6px; font-size: 13px; color: #6b7280; }
 .lock-bar { width: 320px; height: 10px; background: #1a1520; box-shadow: inset 0 1px 4px rgba(0,0,0,.8); }
 .lock-fill { height: 10px; width: 0; background: linear-gradient(90deg,#7e1418,#d3222a); box-shadow: 0 0 14px rgba(211,34,42,.7); }
 
@@ -205,6 +206,22 @@ button { font: inherit; border: none; background: none; color: inherit; padding:
 .rb-cost { display: flex; align-items: center; gap: 5px; }
 .rb-cost img { width: 16px; height: 18px; }
 .rb-cost span { font-family: 'Oswald'; font-weight: 700; font-size: 17px; color: #ffd75e; }
+/* шанс хита: своя полоса, никакой связи с сеткой тиров ниже */
+.rb-hit {
+  position: relative; display: flex; justify-content: space-between; align-items: center;
+  padding: 3px 8px; overflow: hidden;
+  background: rgba(8,6,10,.75); border: 1px solid rgba(211,34,42,.35);
+}
+.rb-hit-fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: linear-gradient(90deg, rgba(126,20,24,.85), rgba(211,34,42,.7));
+}
+.rb-hit span, .rb-hit b {
+  position: relative; font-family: 'Oswald'; text-transform: uppercase; letter-spacing: 1.5px;
+}
+.rb-hit span { font-size: 10.5px; font-weight: 600; color: #d8c3c5; }
+.rb-hit b { font-size: 14px; font-weight: 700; color: #fff; text-shadow: 0 0 8px rgba(0,0,0,.9); }
+.rb-cap { margin: -4px 0 -3px; font-size: 10.5px; letter-spacing: .5px; color: #8d95a1; }
 .rb-rows { display: flex; justify-content: space-between; }
 .rb-tier { text-align: center; }
 .rb-tier b { display: block; font-family: 'Oswald'; font-weight: 700; font-size: 14px; color: var(--c, #f0d8da); text-shadow: 0 0 8px var(--c, #f0d8da); }
@@ -223,18 +240,28 @@ button { font: inherit; border: none; background: none; color: inherit; padding:
 .sell-row { display: flex; align-items: center; gap: 16px; }
 .sell-btns { flex: 1; display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
 .sell-btn { padding: 8px; text-align: center; background: rgba(12,8,10,.8); border-bottom: 3px solid var(--c); cursor: pointer; }
-.sell-btn:hover { filter: brightness(1.4); }
+.sell-btn:hover:not(.dis) { filter: brightness(1.4); }
+.sell-btn.dis { border-bottom-color: #241c22; opacity: .45; cursor: default; }
 .sell-btn b { display: block; font-family: 'Oswald'; font-weight: 600; font-size: 13.5px; letter-spacing: 2px; color: #eef1f5; text-transform: uppercase; }
 .sell-btn i { font-style: normal; font-family: 'Oswald'; font-weight: 700; font-size: 15px; color: #ffd75e; }
+.sell-btn u { display: block; text-decoration: none; font-size: 11.5px; letter-spacing: 1px; color: #8d95a1; }
+.sell-btns.unsealed u { display: none; }
 .sell-choice {
-  width: 300px; padding: 10px 8px; text-align: center; cursor: pointer;
+  width: 300px; padding: 8px 8px 10px; text-align: center;
   background: linear-gradient(120deg,#6e4a12,#3a2a0a 70%,#241806); border: 2px solid #c29a2c;
   box-shadow: 0 0 30px rgba(255,215,94,.35), 0 6px 20px rgba(0,0,0,.6);
 }
-.sell-choice:hover:not(.dis) { filter: brightness(1.3); }
-.sell-choice.dis { background: rgba(14,10,12,.8); border-color: #241c1e; box-shadow: none; cursor: default; opacity: .55; }
+.sell-choice.dis { background: rgba(14,10,12,.8); border-color: #241c1e; box-shadow: none; opacity: .55; }
 .sc-label { font-family: 'Oswald'; font-weight: 700; font-size: 14px; letter-spacing: 2px; color: #f6eaea; text-transform: uppercase; }
-.sc-reward { font-family: 'Oswald'; font-weight: 700; font-size: 16px; color: #ffd75e; }
+.sc-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+.sc-btn {
+  padding: 6px 4px; text-align: center; cursor: pointer;
+  background: rgba(12,8,10,.55); border: 1px solid rgba(194,154,44,.55);
+}
+.sc-btn:hover:not(.dis) { filter: brightness(1.5); }
+.sc-btn.dis { cursor: default; opacity: .5; border-color: #241c1e; }
+.sc-btn b { display: block; font-family: 'Oswald'; font-weight: 600; font-size: 13.5px; letter-spacing: 2px; color: #f6eaea; text-transform: uppercase; }
+.sc-btn i { font-style: normal; font-family: 'Oswald'; font-weight: 700; font-size: 15px; color: #ffd75e; }
 
 /* ============ survivors ============ */
 .surv-panel {

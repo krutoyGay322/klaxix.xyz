@@ -29,7 +29,7 @@ const CHOICE = [
   { key: "surv", label: "Сурвам", reward: 5000, toast: "Карту выбирают выжившие" }
 ];
 const ST_LABEL = { 0: "0", 1: "I", 2: "II", 3: "III" };
-const ST_COLOR = { 0: "#aeb6c0", 1: "#ffd75e", 2: "#55d44a", 3: "#c650ff" };
+const ST_COLOR = { 0: "#aeb6c0", 1: "#a87f54", 2: "#3d7bff", 3: "#c650ff" };
 const TIER_COLOR = { S: "#ff6b74", A: "#c650ff", B: "#3d7bff", C: "#55d44a", D: "#a87f54" };
 const RARITY_CLS = { "Обычный": "rar0", "Необычный": "rar1", "Редкий": "rar2", "Очень редкий": "rar3", "Ультраредкий": "rar4", "Событие": "rarE" };
 const KADDONS = [

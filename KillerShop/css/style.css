@@ -44,8 +44,8 @@ button { font: inherit; border: none; background: none; color: inherit; padding:
 
 /* survivor perk tiers 0..III */
 .st0 { --g: linear-gradient(160deg,#8d95a1,#4a505a 55%,#23262e); --c: #aeb6c0; --glow: 0 0 12px rgba(160,170,185,.4); }
-.st1 { --g: linear-gradient(160deg,#ffd75e,#db9c14 50%,#7a4e06); --c: #ffd75e; --glow: 0 0 14px rgba(255,215,94,.5); }
-.st2 { --g: linear-gradient(160deg,#55d44a,#1e9c28 55%,#0c5216); --c: #55d44a; --glow: 0 0 14px rgba(80,220,90,.5); }
+.st1 { --g: linear-gradient(160deg,#a87f54,#71492a 55%,#3a2412); --c: #a87f54; --glow: 0 0 14px rgba(168,127,84,.5); }
+.st2 { --g: linear-gradient(160deg,#3d7bff,#1c45cc 55%,#0a1e78); --c: #3d7bff; --glow: 0 0 14px rgba(80,130,255,.5); }
 .st3 { --g: linear-gradient(160deg,#c650ff,#8a17e8 45%,#3c0575); --c: #c650ff; --glow: 0 0 22px rgba(190,80,255,.8); }
 
 /* item / addon rarities — colours from the randomiser/CaptainShop scheme

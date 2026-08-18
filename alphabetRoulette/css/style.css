@@ -186,6 +186,19 @@ html, body { margin: 0; padding: 0; background: #07080b; }
 }
 .perk .sub { margin-top: 2px; font-size: 12px; color: #6d7682; }
 
+/* выбор 4 навыков после рандома */
+.perk-list.pickable .perk { cursor: pointer; }
+.perk-list.pickable .perk:hover { filter: brightness(1.3); border-color: #4a5260; }
+.perk { position: relative; }
+.perk.sel { border-color: var(--c); box-shadow: var(--glow), inset 0 0 18px rgba(0, 0, 0, .5); cursor: pointer; }
+.perk.sel::after {
+  content: "✓"; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 18px; color: var(--c);
+  text-shadow: 0 0 8px var(--c);
+}
+.perk.sel .txt { padding-right: 22px; }
+.perk.off { display: none; }
+
 /* ---- дизайн скроллбара ---- */
 .perk-list::-webkit-scrollbar, .roster-cards::-webkit-scrollbar { width: 11px; }
 .perk-list::-webkit-scrollbar-track, .roster-cards::-webkit-scrollbar-track {

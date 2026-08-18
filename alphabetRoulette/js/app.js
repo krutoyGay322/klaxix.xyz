@@ -6,6 +6,7 @@
   var D = window.ALPHABET_DATA;
   var MIN_PERKS = clampInt(new URLSearchParams(location.search).get("min"), 1, 10, 4);
   var MAX_LETTERS = 5;
+  var PICK_COUNT = 4; // сколько навыков игрок оставляет себе после рандома
   var PERK_ICON_BASE = "../Roulette/"; // пути иконок в perks.js заданы от Roulette/
 
   // Префиксы не учитываются при определении буквы навыка
@@ -382,8 +383,56 @@
       txt.appendChild(name);
       txt.appendChild(sub);
       row.appendChild(txt);
+      row.addEventListener("click", function () { togglePerk(p, row); });
       p.$perks.appendChild(row);
     });
+  }
+
+  /* ---------- выбор 4 навыков после рандома ---------- */
+  function updatePick(p) {
+    p.$perks.classList.toggle("pickable", p.pickable && !p.locked);
+    p.$perks.querySelectorAll(".perk").forEach(function (row) {
+      var sel = p.sel.has(row);
+      row.classList.toggle("sel", sel);
+      row.classList.toggle("off", p.locked && !sel); // лишние прячем после выбора
+    });
+    if (!p.pickable) return;
+    if (p.locked) setStatus(p, "навыки выбраны");
+    else setStatus(p, "выберите навыки: " + p.sel.size + "/" + PICK_COUNT);
+  }
+
+  function togglePerk(p, row) {
+    if (!p.pickable) return;
+    if (p.locked) {
+      // снятие галочки с выбранного перка возвращает весь список
+      if (p.sel.has(row)) {
+        p.sel.delete(row);
+        p.locked = false;
+        audio("tick");
+        updatePick(p);
+      }
+      return;
+    }
+    if (p.sel.has(row)) {
+      p.sel.delete(row);
+      audio("tick");
+    } else {
+      if (p.sel.size >= PICK_COUNT) return;
+      p.sel.add(row);
+      audio(p.sel.size === PICK_COUNT ? "land" : "tick");
+      if (p.sel.size === PICK_COUNT) p.locked = true;
+    }
+    updatePick(p);
+  }
+
+  function finishPick(p) {
+    p.pickable = true;
+    if (p.perks.length <= PICK_COUNT) {
+      // выпало ровно столько (или меньше) — забираем все автоматически
+      p.$perks.querySelectorAll(".perk").forEach(function (row) { p.sel.add(row); });
+      p.locked = true;
+    }
+    updatePick(p);
   }
 
   function setStatus(p, text) { p.$status.textContent = text; }
@@ -391,8 +440,12 @@
   function resetPlayer(p) {
     p.tiles = [{ ch: "?", mode: "idle" }];
     p.perks = [];
+    p.sel = new Set();
+    p.pickable = false;
+    p.locked = false;
     renderTiles(p);
     p.$perks.innerHTML = "";
+    p.$perks.classList.remove("pickable");
     setStatus(p, "");
   }
 
@@ -463,6 +516,7 @@
       setStatus(p, "навыков: " + p.perks.length);
       await sleep(500);
     }
+    finishPick(p);
   }
 
   async function roll() {

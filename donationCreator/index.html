@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конструктор Доната</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/builder.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- LEFT: Live Preview -->
+    <div class="preview-section">
+        <div class="preview-wrapper" id="preview-wrapper">
+            <div class="preview-container" id="preview-container">
+            <div id="aquarium"></div>
+            <div id="ui-layer">
+                <div id="pos-5" class="pos-container"></div>
+            </div>
+            <!-- VTuber Avatar Layer -->
+            <div id="vtuber-layer"></div>
+            </div>
+        </div>
+        <div class="preview-badge">LIVE PREVIEW</div>
+    </div>
+
+    <!-- RIGHT: Main Dashboard -->
+    <div class="designer-section">
+        <div class="dashboard-header">
+            <h2>Настройки Доната</h2>
+        </div>
+
+        <div class="dashboard-content">
+            <!-- 1. Global Message -->
+            <div class="dash-card" id="card-message">
+                <h3><span class="material-icons">message</span> Сообщение</h3>
+                <textarea id="msg-text" placeholder="Текст сообщения..." rows="2" maxlength="200"></textarea>
+                <div id="char-count"
+                    style="text-align: right; font-size: 16px; font-weight: bold; margin-top: -3px; margin-bottom: 5px; color: #fff;">
+                    0 / 200</div>
+
+            </div>
+
+            <!-- Voice Selection Card -->
+            <div class="dash-card" id="card-voice" style="border-left: 4px solid #b14ff5; padding-left: 12px;">
+                <h3 style="margin-bottom: 12px;"><span class="material-icons"
+                        style="color: #b14ff5;">record_voice_over</span> Персонаж и Голос</h3>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <select id="msg-voice"
+                        style="padding: 10px; font-size: 14px; border-radius: 6px; border: 1px solid #444; background: #111; color: #fff; font-weight: bold; width: 100%; cursor: pointer;">
+                        <option value="10">Бубба</option>
+                        <option value="11">Рин</option>
+                        <option value="9">Сейбл Уорд (Sable)</option>
+                        <option value="8">Вескер</option>
+                        <option value="7" selected>Чаки</option>
+                        <option value="5">Аниматроник (Springtrap)</option>
+                        <option value="6">Сенобит</option>
+                        <option value="12">Ада Вонг</option>
+                        <option value="13">Квон Тхэён</option>
+                        <option value="14">Сущность</option>
+                        <option value="1">Kрасу</option>
+                        <option value="2">Генри Крил</option>
+                        <option value="3">Тиффани Валентайн</option>
+                        <option value="4">Непослушный Медведь</option>
+                    </select>
+
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; background: #1a1a1e; border: 1px solid #333; padding: 8px 12px; border-radius: 6px;">
+                        <button id="btn-play-voice"
+                            style="cursor: pointer; padding: 6px 12px; border-radius: 4px; background: #b14ff5; color: white; border: none; display: flex; align-items: center; gap: 5px; font-weight: bold; font-size: 13px;">
+                            <span class="material-icons" style="font-size: 18px;">play_circle</span> ПРОСЛУШАТЬ
+                        </button>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span class="material-icons" style="color: #ccc; font-size: 20px;">volume_up</span>
+                            <input type="range" id="global-volume" min="0" max="1" step="0.05" value="0.5"
+                                style="width: 80px; cursor: pointer;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Active Lists -->
+            <div class="dash-card" id="card-fish">
+                <div class="card-header-row">
+                    <h3><span class="material-icons">set_meal</span> Рыбка</h3>
+                    <button class="btn-icon-add" id="open-fish-modal"><span class="material-icons">add</span></button>
+                </div>
+                <div id="fish-list-container" class="items-list">
+                    <span class="empty-text">Рыбка не выбрана</span>
+                </div>
+            </div>
+
+                <div class="dash-card" id="card-meme">
+                    <div class="card-header-row">
+                        <h3><span class="material-icons">smart_display</span> Мем</h3>
+                        <button class="btn-icon-add" id="open-meme-modal"><span
+                                class="material-icons">add</span></button>
+                    </div>
+                    <div id="meme-list-container" class="items-list">
+                        <span class="empty-text">Мем не выбран</span>
+                    </div>
+                </div>
+
+                <div class="dash-card" id="card-green">
+                    <div class="card-header-row">
+                        <h3><span class="material-icons">wallpaper</span> Хромокей</h3>
+                        <button class="btn-icon-add" id="open-green-modal"><span
+                                class="material-icons">add</span></button>
+                    </div>
+                    <div id="green-list-container" class="items-list">
+                        <span class="empty-text">Хромокей не выбран</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="dashboard-footer">
+                <div class="code-area">
+                    <textarea id="final-code" readonly></textarea>
+                </div>
+                <div class="footer-actions">
+                    <button id="btn-copy" class="btn-copy-code active-green">
+                        <span class="material-icons">content_copy</span> КОПИРОВАТЬ
+                    </button>
+                    <a href="https://www.donationalerts.com/r/klaxixs" target="_blank" id="btn-send-ru"
+                        class="btn-send-donate dormant-grey">
+                        <span class="flag-icon">🇷🇺</span> ДОНАТ (РФ)
+                    </a>
+                    <a href="https://destream.net/live/klaxix/donate" target="_blank" id="btn-send-eu"
+                        class="btn-send-donate dormant-grey">
+                        <span class="flag-icon">🇪🇺</span> ДОНАТ (ЕВРОПА)
+                    </a>
+                    <button id="btn-how-it-works" class="btn-secondary">
+                        <span class="material-icons">help_outline</span> КАК ЭТО РАБОТАЕТ?
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MODALS ================= -->
+
+        <!-- FISH MODAL -->
+        <div id="modal-fish" class="modal-overlay hidden">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h2>Выберите Рыбку</h2>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body-split" style="display: block;">
+                    <!-- Full Grid -->
+                    <div class="modal-grid-scroll" id="fish-grid" style="height: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MEME MODAL -->
+        <div id="modal-meme" class="modal-overlay hidden">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h2>Театр Мемов</h2>
+                    <div class="modal-search-wrap">
+                        <span class="material-icons">search</span>
+                        <input type="text" id="meme-search" placeholder="Поиск по номеру..." autocomplete="off">
+                    </div>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body-split">
+                    <div class="modal-grid-scroll" id="meme-grid"></div>
+                    <div class="modal-sidebar wide-sidebar">
+                        <div class="video-preview-wrapper">
+                            <video id="meme-preview-player" loop playsinline></video>
+                            <div class="video-overlay-text">Выберите мем</div>
+                        </div>
+
+                        <div class="control-group mobile-hide">
+                            <label>Громкость превью:</label>
+                            <input type="range" id="meme-volume-slider" min="0" max="1" step="0.05" value="0.5"
+                                style="width: 100%;">
+                        </div>
+
+                        <div class="control-group">
+                            <label>Время проигрывания:</label>
+                            <div class="timing-selector">
+                                <div class="timing-option">
+                                    <input type="radio" id="time-b" name="meme-timing" value="b" checked>
+                                    <label class="timing-card" for="time-b">ДО СООБЩЕНИЯ</label>
+                                </div>
+                                <div class="timing-option">
+                                    <input type="radio" id="time-a" name="meme-timing" value="a">
+                                    <label class="timing-card" for="time-a">В КОНЦЕ СООБЩЕНИЯ</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="note-box meme-note">
+                            <b>Примечание:</b> Если сумма доната составляет <b>500 рублей или больше</b> (или эквивалент
+                            в другой валюте), выбранный мем будет воспроизведен <b>во весь экран</b>!
+                        </div>
+
+                        <div id="meme-override-indicator" class="override-indicator" style="display:none;"></div>
+
+                        <button id="btn-confirm-meme" class="btn-confirm" disabled>ДОБАВИТЬ МЕМ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GREEN SCREEN MODAL -->
+        <div id="modal-green" class="modal-overlay hidden">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <h2>Хромокеи</h2>
+                    <div class="modal-search-wrap">
+                        <span class="material-icons">search</span>
+                        <input type="text" id="green-search" placeholder="Поиск по номеру..." autocomplete="off">
+                    </div>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body-split">
+                    <div class="modal-grid-scroll" id="green-grid"></div>
+                    <div class="modal-sidebar wide-sidebar">
+                        <div class="video-preview-wrapper">
+                            <video id="green-preview-player" loop playsinline></video>
+                            <div class="video-overlay-text green-overlay-text">Выберите хромокей</div>
+                        </div>
+
+                        <div class="control-group mobile-hide">
+                            <label>Громкость превью:</label>
+                            <input type="range" id="green-volume-slider" min="0" max="1" step="0.05" value="0.5"
+                                style="width: 100%;">
+                        </div>
+
+                        <div class="control-group">
+                            <label>Время проигрывания:</label>
+                            <div class="timing-selector">
+                                <div class="timing-option">
+                                    <input type="radio" id="green-time-b" name="green-timing" value="b" checked>
+                                    <label class="timing-card" for="green-time-b">ДО СООБЩЕНИЯ</label>
+                                </div>
+                                <div class="timing-option">
+                                    <input type="radio" id="green-time-a" name="green-timing" value="a">
+                                    <label class="timing-card" for="green-time-a">В КОНЦЕ СООБЩЕНИЯ</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="note-box green-note">
+                            <b>Примечание:</b> Хромокеи воспроизводятся <b>во весь экран</b> с прозрачным фоном поверх
+                            стрима.
+                            Можно выбрать <b>или</b> мем, <b>или</b> хромокей — не оба одновременно.
+                        </div>
+
+                        <div id="green-override-indicator" class="override-indicator" style="display:none;"></div>
+
+                        <button id="btn-confirm-green" class="btn-confirm" disabled>ДОБАВИТЬ ХРОМОКЕЙ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INFO MODAL -->
+        <div id="modal-info" class="modal-overlay hidden">
+            <div class="modal-window" style="max-width: 500px; height: auto;">
+                <div class="modal-header">
+                    <h2>Как это работает?</h2>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body-split" style="display: block;">
+                    <div class="modal-text-content">
+                        <p style="margin-bottom:10px;"><b>Как это работает:</b></p>
+                        <ol style="margin-left:20px; color:#ccc;">
+                            <li style="margin-bottom:8px;">Настройте идеальный донат, добавив любые эффекты, мемы или
+                                текст.</li>
+                            <li style="margin-bottom:8px;">Нажмите «Копировать».</li>
+                            <li style="margin-bottom:8px;">Перейдите на страницу отправки DonationAlerts.</li>
+                            <li style="margin-bottom:8px;">Вставьте скопированный код в поле «Сообщение» и отправьте
+                                донат.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script src="config.js"></script>
+        <script src="js/asset-counts.js"></script>
+        <script src="js/utils.js"></script>
+        <!-- Show plumbing. NOTE: js/host-audio.js is deliberately NOT loaded
+             here — the builder's previews stay in the builder's own window
+             instead of coming out of the speakers OBS is capturing. The bus
+             falls back to in-page playback on its own. -->
+        <script src="js/show-context.js"></script>
+        <script src="js/audio-bus.js"></script>
+        <script src="js/media-clip.js"></script>
+        <script src="js/parser.js"></script>
+        <script src="js/fish-manager.js"></script>
+        <script src="js/style-manager.js"></script>
+        <script src="js/ui-manager.js"></script>
+        <script src="js/tts-manager.js"></script>
+        <script src="js/meme-manager.js"></script>
+        <script src="js/meme-history.js"></script>
+        <script src="js/builder-state.js"></script>
+        <script src="js/builder-modals.js"></script>
+        <script src="js/builder-preview.js"></script>
+        <script src="js/builder-codegen.js"></script>
+        <script src="js/builder.js"></script>
+</body>
+
+</html>

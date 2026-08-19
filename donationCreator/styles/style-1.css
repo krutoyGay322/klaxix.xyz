@@ -1,0 +1,36 @@
+/* styles/style-1.css - Minimalist Ghost Text */
+
+.donation-style-1 {
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	width: auto;
+	max-width: 100%;
+	font-family: 'GhostFont', sans-serif !important;
+}
+
+.donation-style-1 .alert-user {
+	font-size: 1.9cqw;
+	color: #ffffff;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	text-shadow: 0 0 20px rgba(0, 0, 0, 1), 0 0 40px rgba(0, 0, 0, 0.8);
+	margin-bottom: 0;
+}
+
+.donation-style-1 .alert-message {
+	font-size: 2.5cqw;
+	color: #00f2ff;
+	font-weight: bold;
+	text-shadow: 2px 2px 10px rgba(0, 0, 0, 1);
+}
+
+/* cqw-free twins for the live overlay — see the .vp-fit note in style.css. */
+body.vp-fit .donation-style-1 .alert-user {
+	font-size: calc(var(--vw) * 1.9);
+}
+
+body.vp-fit .donation-style-1 .alert-message {
+	font-size: calc(var(--vw) * 2.5);
+}

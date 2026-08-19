@@ -1,0 +1,491 @@
+/* style.css - Core Layout & Grid System */
+
+body {
+	margin: 0;
+	overflow: hidden;
+	/* MUST stay transparent. OBS silently injected
+	   `body { background-color: rgba(0,0,0,0) }` into every browser source,
+	   which hid the old opaque #001f3f. XSplit injects nothing, so an opaque
+	   body shows up on stream as a solid blue screen. The builder supplies its
+	   own aquarium backdrop in css/builder.css. */
+	background-color: transparent;
+	width: 100vw;
+	height: 100vh;
+	container-type: inline-size;
+}
+
+/* --- Resolution-independent sizing (standalone overlay only) ---------------
+   js/viewport-fit.js tags <body> with .vp-fit and keeps three custom
+   properties in sync with the real viewport:
+
+     --vw        1% of the viewport width — a hand-rolled `cqw`
+     --vh        1% of the viewport height
+     --ui-scale  viewport width / 1920, the design width this overlay was
+                 tuned against
+
+   Two host quirks make this necessary:
+     1. `cqw` needs Chromium 105+. XSplit's embedded browser can be older, and
+        there every `2.8cqw` silently collapses to the 16px default — the
+        "tiny text". The calc(var(--vw) * N) twins below say the same thing in
+        units every Chromium understands.
+     2. XSplit renders the page at its own internal resolution, which is not
+        necessarily 1920×1080. Fixed-px art (VTuber, fish, frames) would then
+        keep its pixel size while the frame around it grew — the "tiny
+        character". Multiplying by --ui-scale keeps it at a constant share of
+        the frame at any resolution.
+
+   The builder preview never gets .vp-fit: it keeps using cqw against its own
+   2560px preview stage, exactly as before. */
+
+* {
+	box-sizing: border-box;
+}
+
+@font-face {
+	font-family: 'PixelFish';
+	src: url('fonts/pixelFish.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'HackRegular';
+	src: url('fonts/Hack-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'GhostFont';
+	src: url('fonts/ghost.otf') format('opentype');
+}
+
+#aquarium {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
+/* --- UI Grid Positioning --- */
+
+#ui-layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 1000;
+}
+
+#vtuber-layer {
+	position: absolute;
+	bottom: -800px;
+	right: 40px;
+	width: 350px;
+	height: 350px;
+	pointer-events: none;
+	z-index: 1005;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	transition: bottom 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#vtuber-layer.show {
+	bottom: -30px;
+}
+
+/* Scaled as a whole — box, offsets and slide-in distance together, so the
+   hidden state stays fully off-frame at every scale. */
+body.vp-fit #vtuber-layer {
+	width: calc(350px * var(--ui-scale, 1));
+	height: calc(350px * var(--ui-scale, 1));
+	right: calc(40px * var(--ui-scale, 1));
+	bottom: calc(-800px * var(--ui-scale, 1));
+}
+
+body.vp-fit #vtuber-layer.show {
+	bottom: calc(-30px * var(--ui-scale, 1));
+}
+
+.vtuber-avatar {
+	/* Resting lift, shared by the base transform and the talking bounce so
+	   both scale from one number. */
+	--vt-lift: 50px;
+	width: 100%;
+	max-width: 250px;
+	height: auto;
+	object-fit: contain;
+	will-change: transform;
+	transform-origin: bottom center;
+	transform: translateY(var(--vt-lift));
+}
+
+body.vp-fit .vtuber-avatar {
+	--vt-lift: calc(50px * var(--ui-scale, 1));
+	max-width: calc(250px * var(--ui-scale, 1));
+}
+
+.vtuber-talking {
+	animation: vtuber-bounce 0.22s infinite alternate ease-in-out;
+}
+
+@keyframes vtuber-bounce {
+	0% {
+		transform: translateY(var(--vt-lift));
+	}
+
+	100% {
+		transform: translateY(calc(var(--vt-lift) * 0.84));
+	}
+}
+
+.pos-container {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	width: 60%;
+	pointer-events: none;
+}
+
+/* Centered Position */
+#pos-5 {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	align-items: center;
+}
+
+#pos-5 .donation-alert {
+	transform-origin: center center;
+}
+
+/* --- Base Alert Styles --- */
+
+.donation-alert {
+	text-align: center;
+	min-width: 240px;
+	max-width: 100%;
+	font-family: Arial, sans-serif; /* overridden per-style (style-1.css: GhostFont) */
+	animation: alert-pop-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+	will-change: transform, opacity;
+}
+
+.alert-user {
+	font-size: 2.8cqw;
+	font-weight: bold;
+	margin-bottom: 6px;
+}
+
+.alert-message {
+	font-size: 2.2cqw;
+	word-wrap: break-word;
+}
+
+body.vp-fit .alert-user {
+	font-size: calc(var(--vw) * 2.8);
+}
+
+body.vp-fit .alert-message {
+	font-size: calc(var(--vw) * 2.2);
+}
+
+.donation-alert.fade-out {
+	animation: alert-fade-out 0.8s ease-in forwards;
+}
+
+@keyframes alert-pop-in {
+	0% {
+		opacity: 0;
+		transform: scale(0.5);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes alert-fade-out {
+	0% {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	100% {
+		opacity: 0;
+		transform: scale(0.8);
+	}
+}
+
+/* --- Fish & Bubbles --- */
+
+.fish {
+	position: absolute;
+	/* Positioned via left/top from fish-manager.js — NOT the `translate`
+	   property, which old OBS CEF (Chromium 103) ignores. */
+	left: 0;
+	top: 0;
+	width: 160px;
+}
+
+/* Rotation (banking, death roll) and scaling (swim pulse, squash & stretch,
+   the mirror flip) live on the body, NOT the wrapper: the wrapper keeps the
+   spawn pop animation and the nameplate, which must stay upright. */
+.fish-body {
+	width: 100%;
+	will-change: transform;
+}
+
+.fish-spawn-animation {
+	animation: spawn-in 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes spawn-in {
+	0% {
+		opacity: 0;
+		transform: scale(0.3) translateY(-80px);
+	}
+
+	60% {
+		opacity: 1;
+		transform: scale(1.1) translateY(0);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+.spawn-bubble {
+	position: absolute;
+	border-radius: 50%;
+	background-color: rgba(255, 255, 255, 0.3);
+	border: 2px solid rgba(255, 255, 255, 0.6);
+	pointer-events: none;
+	--random-x-end: 0px;
+	--random-y-end: 0px;
+	--random-scale-end: 0.2;
+	animation: bubble-burst 1s ease-out forwards;
+}
+
+@keyframes bubble-burst {
+	0% {
+		opacity: 0.9;
+		transform: translate(-50%, -50%) scale(0.1);
+	}
+
+	100% {
+		opacity: 0;
+		transform: translate(calc(-50% + var(--random-x-end)), calc(-50% + var(--random-y-end))) scale(var(--random-scale-end));
+	}
+}
+
+.fish-sprite {
+	width: 100%;
+	height: auto;
+	image-rendering: pixelated;
+}
+
+.fish-info {
+	position: absolute;
+	bottom: 85%;
+	left: 50%;
+	transform: translateX(-50%);
+	text-align: center;
+	color: white;
+	text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+	font-family: 'PixelFish', sans-serif;
+}
+
+/* --- Debug UI --- */
+#debug-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.7);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+	font-family: sans-serif;
+}
+
+#debug-overlay.hidden {
+	display: none;
+}
+
+.debug-content {
+	background: #222;
+	color: white;
+	padding: 20px;
+	border-radius: 10px;
+	border: 2px solid #444;
+	width: 300px;
+}
+
+.debug-field {
+	margin-bottom: 15px;
+}
+
+.debug-field input,
+.debug-field textarea,
+.debug-field select {
+	width: 100%;
+	padding: 8px;
+	box-sizing: border-box;
+	background: #333;
+	border: 1px solid #555;
+	color: white;
+}
+
+.debug-actions {
+	display: flex;
+	gap: 10px;
+}
+
+.debug-actions button {
+	flex: 1;
+	padding: 10px;
+	cursor: pointer;
+	border: none;
+	font-weight: bold;
+}
+
+#debug-submit {
+	background: #28a745;
+	color: white;
+}
+
+#debug-close {
+	background: #dc3545;
+	color: white;
+}
+
+/* --- Meme Alerts --- */
+.meme-container {
+	position: absolute;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* Transparent + shrink-wrapped: the video is sized to its exact aspect
+	   ratio by meme-manager.js (≤50% of the container), so the frame hugs
+	   it with no black pillarbox bars. */
+	background: transparent;
+	border: 5px solid white;
+	border-radius: 15px;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+	overflow: hidden;
+}
+
+body.vp-fit .meme-container {
+	border-width: calc(5px * var(--ui-scale, 1));
+	border-radius: calc(15px * var(--ui-scale, 1));
+}
+
+/* Fullscreen meme — overrides ALL default constraints */
+.meme-container.fullscreen {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	border: none;
+	border-radius: 0;
+	background: #000000;
+	z-index: 99999;
+}
+
+.meme-visual {
+	/* Sized inline by meme-manager.js to the video's true aspect ratio */
+	display: block;
+	object-fit: cover;
+}
+
+/* Fullscreen video — edge to edge, no frame, no inset. The whole meme stays
+   visible (contain); the black container backs any letterbox bars. */
+.meme-container.fullscreen .meme-visual {
+	width: 100%;
+	height: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	border: none;
+	box-shadow: none;
+}
+
+/* --- Green Screen Overlay --- */
+.greenscreen-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+}
+
+.greenscreen-overlay .greenscreen-visual {
+	width: 100%;
+	height: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	border: none;
+	border-radius: 0;
+}
+
+/* --- Connection Status Overlay --- */
+.connection-status {
+	position: fixed;
+	top: 8px;
+	left: 8px;
+	padding: 6px 14px;
+	border-radius: 6px;
+	font-family: 'HackRegular', monospace;
+	font-size: 12px;
+	z-index: 100000;
+	pointer-events: none;
+	transition: opacity 0.5s ease, transform 0.3s ease;
+	opacity: 1;
+	transform: translateY(0);
+	white-space: nowrap;
+}
+
+.connection-status.hidden {
+	opacity: 0;
+	transform: translateY(-10px);
+	pointer-events: none;
+}
+
+.connection-status.success {
+	background: rgba(0, 180, 80, 0.85);
+	color: #fff;
+	box-shadow: 0 0 8px rgba(0, 180, 80, 0.4);
+}
+
+.connection-status.warning {
+	background: rgba(255, 170, 0, 0.9);
+	color: #000;
+	box-shadow: 0 0 8px rgba(255, 170, 0, 0.4);
+}
+
+.connection-status.error {
+	background: rgba(220, 40, 40, 0.9);
+	color: #fff;
+	box-shadow: 0 0 8px rgba(220, 40, 40, 0.4);
+	animation: status-pulse 2s infinite;
+}
+
+@keyframes status-pulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.7; }
+}
